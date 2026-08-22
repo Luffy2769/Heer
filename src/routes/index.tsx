@@ -264,10 +264,10 @@ function Home() {
             <div className="glass-panel grain rounded-[2.5rem] p-8 md:p-14">
               <p className="text-[11px] tracking-[0.3em] text-accent uppercase">Kind words</p>
               <blockquote className="mt-6 max-w-3xl font-display text-[clamp(1.6rem,3.4vw,2.6rem)] leading-snug text-foreground">
-                “{reviews[0].quote}”
+                “{reviews[0]?.quote}”
               </blockquote>
               <p className="mt-6 text-sm text-muted-foreground">
-                {reviews[0].name} · {reviews[0].role}
+                {reviews[0]?.name} · {reviews[0]?.role}
               </p>
               <Link to="/reviews" className="mt-8 inline-block text-sm text-accent hover:underline">
                 Read all reviews →
