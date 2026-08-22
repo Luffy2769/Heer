@@ -1,0 +1,1 @@
+var e=`/Heer/assets/look-cocktail-CMeiNiqb.jpg`,t=`/Heer/assets/look-groom-B49g_XFN.jpg`;export{e as n,t};
