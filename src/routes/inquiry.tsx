@@ -113,10 +113,7 @@ Details: ${form.notes}`;
             <TiltCard className="group" intensity={5}>
               <form
                 className="glass-panel space-y-4 rounded-[2rem] p-7 md:p-9"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  window.open(waHref, "_blank", "noopener");
-                }}
+                onSubmit={(e) => e.preventDefault()}
               >
                 <h2 className="font-display text-2xl">Booking details</h2>
 
@@ -191,12 +188,14 @@ Details: ${form.notes}`;
                 </label>
 
                 <div className="flex flex-wrap gap-3 pt-2">
-                  <button
-                    type="submit"
+                  <a
+                    href={waHref}
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-full accent-gradient px-6 py-3 font-semibold text-accent-foreground transition-transform hover:scale-[1.02]"
                   >
                     <Send className="h-4 w-4" /> Send on WhatsApp
-                  </button>
+                  </a>
                   <a
                     href={mailHref}
                     className="rounded-full border border-border px-6 py-3 text-sm transition-colors hover:border-accent hover:text-accent"
