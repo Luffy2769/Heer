@@ -474,13 +474,15 @@ class Media {
 }
 
 interface AppConfig {
-  items?: { image: string; text: string }[];
-  bend?: number;
-  textColor?: string;
-  borderRadius?: number;
-  font?: string;
-  scrollSpeed?: number;
-  scrollEase?: number;
+  items?: { image: string; text: string }[] | undefined;
+  bend?: number | undefined;
+  textColor?: string | undefined;
+  borderRadius?: number | undefined;
+  font?: string | undefined;
+  scrollSpeed?: number | undefined;
+  scrollEase?: number | undefined;
+  autoScroll?: boolean | undefined;
+  autoScrollSpeed?: number | undefined;
 }
 
 class App {
@@ -517,6 +519,9 @@ class App {
   isDown: boolean = false;
   start: number = 0;
   startY: number = 0;
+  autoScroll: boolean;
+  autoScrollSpeed: number;
+  lastInteractionTime: number = 0;
 
   constructor(
     container: HTMLElement,
@@ -528,11 +533,16 @@ class App {
       font = "bold 30px Figtree",
       scrollSpeed = 2,
       scrollEase = 0.05,
+      autoScroll = true,
+      autoScrollSpeed = 0.005,
     }: AppConfig,
   ) {
     document.documentElement.classList.remove("no-js");
     this.container = container;
     this.scrollSpeed = scrollSpeed;
+    this.autoScroll = autoScroll;
+    this.autoScrollSpeed = autoScrollSpeed;
+    this.lastInteractionTime = performance.now();
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
     this.createRenderer();
@@ -618,6 +628,7 @@ class App {
 
   onTouchDown(e: MouseEvent | TouchEvent) {
     this.hasInteracted = true;
+    this.lastInteractionTime = performance.now();
     if (this.nudgeTimeout) {
       window.clearTimeout(this.nudgeTimeout);
       this.nudgeTimeout = null;
@@ -630,6 +641,7 @@ class App {
 
   onTouchMove(e: MouseEvent | TouchEvent) {
     if (!this.isDown) return;
+    this.lastInteractionTime = performance.now();
     const x = "touches" in e ? e.touches[0].clientX : e.clientX;
     const y = "touches" in e ? e.touches[0].clientY : e.clientY;
 
@@ -649,11 +661,13 @@ class App {
 
   onTouchUp() {
     this.isDown = false;
+    this.lastInteractionTime = performance.now();
     this.onCheck();
   }
 
   onWheel(e: Event) {
     this.hasInteracted = true;
+    this.lastInteractionTime = performance.now();
     if (this.nudgeTimeout) {
       window.clearTimeout(this.nudgeTimeout);
       this.nudgeTimeout = null;
@@ -693,6 +707,13 @@ class App {
   }
 
   update() {
+    if (this.autoScroll) {
+      const now = performance.now();
+      const isIdle = !this.isDown && (now - this.lastInteractionTime > 2000);
+      if (isIdle) {
+        this.scroll.target += this.autoScrollSpeed;
+      }
+    }
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? "right" : "left";
     if (this.medias) {
@@ -726,6 +747,7 @@ class App {
 
   onKeyDown(e: KeyboardEvent) {
     this.hasInteracted = true;
+    this.lastInteractionTime = performance.now();
     if (this.nudgeTimeout) {
       window.clearTimeout(this.nudgeTimeout);
       this.nudgeTimeout = null;
@@ -791,14 +813,16 @@ class App {
 }
 
 interface CircularGalleryProps {
-  items?: { image: string; text: string }[];
-  bend?: number;
-  textColor?: string;
-  borderRadius?: number;
-  font?: string;
-  fontUrl?: string;
-  scrollSpeed?: number;
-  scrollEase?: number;
+  items?: { image: string; text: string }[] | undefined;
+  bend?: number | undefined;
+  textColor?: string | undefined;
+  borderRadius?: number | undefined;
+  font?: string | undefined;
+  fontUrl?: string | undefined;
+  scrollSpeed?: number | undefined;
+  scrollEase?: number | undefined;
+  autoScroll?: boolean | undefined;
+  autoScrollSpeed?: number | undefined;
 }
 
 export default function CircularGallery({
@@ -810,6 +834,8 @@ export default function CircularGallery({
   fontUrl,
   scrollSpeed = 2,
   scrollEase = 0.05,
+  autoScroll = true,
+  autoScrollSpeed = 0.005,
 }: CircularGalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -826,6 +852,8 @@ export default function CircularGallery({
         font: resolvedFont,
         scrollSpeed,
         scrollEase,
+        autoScroll,
+        autoScrollSpeed,
       });
 
       // Set up IntersectionObserver to trigger nudge loop when it enters viewport
@@ -848,7 +876,7 @@ export default function CircularGallery({
       isMounted = false;
       if (app) app.destroy();
     };
-  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase]);
+  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, autoScroll, autoScrollSpeed]);
   return (
     <div
       className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing"

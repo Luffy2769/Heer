@@ -21,6 +21,8 @@ type DomeGalleryProps = {
   imageBorderRadius?: string;
   openedImageBorderRadius?: string;
   grayscale?: boolean;
+  autoRotate?: boolean;
+  autoRotateSpeed?: number;
 };
 
 type ItemDef = {
@@ -165,6 +167,8 @@ export default function DomeGallery({
   imageBorderRadius = "30px",
   openedImageBorderRadius = "30px",
   grayscale = true,
+  autoRotate = true,
+  autoRotateSpeed = 0.05,
 }: DomeGalleryProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -192,6 +196,7 @@ export default function DomeGallery({
   const openingRef = useRef(false);
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
+  const lastInteractionTimeRef = useRef(0);
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
@@ -208,12 +213,47 @@ export default function DomeGallery({
 
   const items = useMemo(() => buildItems(images, segments), [images, segments]);
 
-  const applyTransform = (xDeg: number, yDeg: number) => {
+  const applyTransform = useCallback((xDeg: number, yDeg: number) => {
     const el = sphereRef.current;
     if (el) {
       el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(${yDeg}deg)`;
     }
-  };
+  }, []);
+
+  const autoRotateRAF = useRef<number | null>(null);
+
+  const autoRotateStep = useCallback(() => {
+    if (!autoRotate) return;
+    const now = performance.now();
+    const isInteracting =
+      draggingRef.current ||
+      inertiaRAF.current !== null ||
+      focusedElRef.current !== null ||
+      openingRef.current ||
+      (now - lastInteractionTimeRef.current < 2000);
+
+    if (!isInteracting) {
+      const driftY = autoRotateSpeed;
+      const nextY = (rotationRef.current.y + driftY) % 360;
+      const nextX = rotationRef.current.x;
+
+      rotationRef.current = { x: nextX, y: nextY };
+      applyTransform(nextX, nextY);
+    }
+
+    autoRotateRAF.current = requestAnimationFrame(autoRotateStep);
+  }, [autoRotate, autoRotateSpeed, applyTransform]);
+
+  useEffect(() => {
+    if (autoRotate) {
+      autoRotateRAF.current = requestAnimationFrame(autoRotateStep);
+    }
+    return () => {
+      if (autoRotateRAF.current) {
+        cancelAnimationFrame(autoRotateRAF.current);
+      }
+    };
+  }, [autoRotate, autoRotateStep]);
 
   const lockedRadiusRef = useRef<number | null>(null);
 
@@ -355,6 +395,7 @@ export default function DomeGallery({
       onDragStart: ({ event }) => {
         if (focusedElRef.current) return;
         stopInertia();
+        lastInteractionTimeRef.current = performance.now();
 
         const evt = event as PointerEvent;
         pointerTypeRef.current = (evt.pointerType as any) || "mouse";
@@ -376,6 +417,7 @@ export default function DomeGallery({
         movement,
       }) => {
         if (focusedElRef.current || !draggingRef.current || !startPosRef.current) return;
+        lastInteractionTimeRef.current = performance.now();
 
         const evt = event as PointerEvent;
         if (pointerTypeRef.current === "touch") evt.preventDefault();
@@ -455,6 +497,7 @@ export default function DomeGallery({
       if (performance.now() - openStartedAtRef.current < 250) return;
       const el = focusedElRef.current;
       if (!el) return;
+      lastInteractionTimeRef.current = performance.now();
       const parent = el.parentElement as HTMLElement;
       const overlay = viewerRef.current?.querySelector(".enlarge") as HTMLElement | null;
       if (!overlay) return;
@@ -591,6 +634,7 @@ export default function DomeGallery({
   const openItemFromElement = (el: HTMLElement) => {
     if (openingRef.current) return;
     openingRef.current = true;
+    lastInteractionTimeRef.current = performance.now();
     openStartedAtRef.current = performance.now();
     lockScroll();
     const parent = el.parentElement as HTMLElement;

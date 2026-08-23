@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import DomeGallery from "@/components/site/DomeGallery";
 import { Reveal } from "@/components/site/motion-bits";
 
@@ -53,6 +54,21 @@ const galleryImages = [
 ];
 
 function GalleryPage() {
+  const [minRadius, setMinRadius] = useState(900);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMinRadius(1050); // Slightly larger on desktop to increase image size slightly while preserving the globe shape
+      } else {
+        setMinRadius(900);  // Original size on mobile
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="overflow-x-hidden min-h-screen bg-background">
       <section className="grain relative flex flex-col items-center justify-center px-4 pt-36 pb-20 w-full">
@@ -78,7 +94,7 @@ function GalleryPage() {
             <DomeGallery
               images={galleryImages}
               fit={0.8}
-              minRadius={900}
+              minRadius={minRadius}
               maxVerticalRotationDeg={0}
               segments={34}
               dragDampening={4.2}
