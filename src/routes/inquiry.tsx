@@ -11,8 +11,8 @@ import {
 import { Reveal } from "@/components/site/motion-bits";
 
 export const Route = createFileRoute("/inquiry")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    service: (search.service as string) || undefined,
+  validateSearch: (search: Record<string, unknown>): { service?: string | undefined } => ({
+    service: typeof search.service === "string" ? search.service : undefined,
   }),
   head: () => ({
     meta: [

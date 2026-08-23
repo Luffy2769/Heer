@@ -6,6 +6,9 @@ import { site, stats, hairServices, makeupServices, reviews, process } from "@/l
 import { Reveal, TiltCard, Magnetic, Marquee, Parallax } from "@/components/site/motion-bits";
 import AccordionGallery from "@/components/site/AccordionGallery";
 import CircularGallery from "@/components/site/CircularGallery";
+import { StyleTransformationSlider } from "@/components/site/StyleTransformationSlider";
+import bridalPrepNatural from "@/assets/bridal-prep-natural.jpg";
+import bridalRoyalGlam from "@/assets/bridal-royal-glam.jpg";
 import heroBride from "@/assets/hero-bride.jpg";
 import lookSoftGlam from "@/assets/look-softglam.jpg";
 import lookCocktail from "@/assets/look-cocktail.jpg";
@@ -223,6 +226,31 @@ function Home() {
           "Dripping",
         ]}
       />
+
+      {/* BRIDAL TRANSFORMATION SLIDER */}
+      <section className="py-24 px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 justify-center">
+            <span className="text-xs uppercase font-semibold tracking-[0.3em] text-[var(--color-3)]">
+              Artistry In Motion
+            </span>
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
+            The Magic of <span className="text-gradient">Hair &amp; Makeup Perfection</span>
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Experience how Heer Dagha sculpts raw beauty into high-fashion bridal glamour. Slide left and right to inspect the transformation.
+          </p>
+        </div>
+        <div className="max-w-4xl mx-auto">
+          <StyleTransformationSlider
+            beforeImg={bridalPrepNatural}
+            afterImg={bridalRoyalGlam}
+            beforeLabel="Natural Prep Look"
+            afterLabel="Royal Bridal Hair & HD Glam"
+          />
+        </div>
+      </section>
 
       {/* SERVICES PREVIEW */}
       <section className="px-4 py-24">

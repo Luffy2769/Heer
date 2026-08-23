@@ -56,6 +56,12 @@
 :root {
   --radius: 1rem;
 
+  /* color theme numbers */
+  --color-1: #170a0c;
+  --color-2: #3d1c22;
+  --color-3: #e2b0b7;
+  --color-4: #c46977;
+
   /* palette */
   --background: oklch(0.96 0.015 350); /* #fbf0f4 - delicate rose-pink */
   --ink: oklch(0.1 0.03 350); /* #170A0C - deep burgundy-black */
