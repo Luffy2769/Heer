@@ -53,9 +53,8 @@ function Inquiry() {
     notes: "",
   });
 
-  const [submitType, setSubmitType] = useState<"whatsapp" | "email">("whatsapp");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [activeServiceTab, setActiveServiceTab] = useState("Hairstyles");
 
   useEffect(() => {
     if (service) {
@@ -63,13 +62,9 @@ function Inquiry() {
         ...prev,
         services: prev.services.includes(service) ? prev.services : [service, ...prev.services],
       }));
-      // Auto-switch to the tab containing the preselected service
-      const group = serviceGroups.find((g) => g.list.some((item) => item.title === service));
-      if (group) {
-        setActiveServiceTab(group.name);
-      }
     }
   }, [service]);
+
   const today = new Date().toISOString().split("T")[0];
   const maxDate = `${new Date().getFullYear() + 15}-12-31`;
 
@@ -80,17 +75,24 @@ function Inquiry() {
       return;
     }
     setError(null);
+    setIsSubmitting(true);
 
-    // Persist inquiry to Supabase
-    submitInquiry({
-      name: form.name.trim(),
-      event_date: form.date,
-      city: form.city.trim(),
-      services: form.services,
-      notes: form.notes.trim() || undefined,
-      submit_type: submitType,
-      status: "new",
-    });
+    try {
+      // Persist inquiry to Supabase
+      await submitInquiry({
+        name: form.name.trim(),
+        event_date: form.date,
+        city: form.city.trim(),
+        services: form.services,
+        notes: form.notes.trim() || undefined,
+        submit_type: "whatsapp",
+        status: "new",
+      });
+    } catch (err) {
+      console.error("Inquiry error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
 
     const message = `Hi Heer! I'd love to book you.
 
@@ -100,15 +102,8 @@ City: ${form.city}
 Services: ${form.services.join(", ")}
 Details: ${form.notes}`;
 
-    if (submitType === "whatsapp") {
-      const waHref = `${site.whatsapp}?text=${encodeURIComponent(message)}`;
-      window.open(waHref, "_blank", "noopener,noreferrer");
-    } else {
-      const mailHref = `mailto:${site.email}?subject=${encodeURIComponent(
-        `Booking inquiry — ${form.name || "New client"}`,
-      )}&body=${encodeURIComponent(message)}`;
-      window.location.href = mailHref;
-    }
+    const waHref = `${site.whatsapp}?text=${encodeURIComponent(message)}`;
+    window.open(waHref, "_blank", "noopener,noreferrer");
   };
 
   const field =
@@ -270,35 +265,23 @@ Details: ${form.notes}`;
                 </label>
               </div>
 
-              <div className="space-y-3.5">
-                <span className="block text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                  Services (Select multiple)
+              <div className="space-y-4">
+                <span className="block text-xs tracking-[0.2em] text-muted-foreground uppercase font-semibold">
+                  Services &amp; Packages (Select one or more)
                 </span>
 
-                {/* Tabbed category row */}
-                <div className="flex border-b border-border gap-4 pb-2 text-xs font-semibold overflow-x-auto scrollbar-none">
+                <div className="space-y-3.5">
                   {serviceGroups.map((group) => (
-                    <button
-                      key={group.name}
-                      type="button"
-                      onClick={() => setActiveServiceTab(group.name)}
-                      className={`pb-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
-                        activeServiceTab === group.name
-                          ? "border-accent text-accent"
-                          : "border-transparent text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {group.name}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Selected tab service list */}
-                <div className="py-1">
-                  {serviceGroups.map((group) => {
-                    if (group.name !== activeServiceTab) return null;
-                    return (
-                      <div key={group.name} className="flex flex-wrap gap-1.5">
+                    <div key={group.name} className="space-y-2 rounded-2xl border border-border/60 bg-card/30 p-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-wider text-accent">
+                          {group.name}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground font-mono">
+                          {group.list.filter((s) => form.services.includes(s.title)).length} selected
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 pt-1">
                         {group.list.map((s) => {
                           const isSelected = form.services.includes(s.title);
                           return (
@@ -314,32 +297,39 @@ Details: ${form.notes}`;
                                   setError(null);
                                 }
                               }}
-                              className={`rounded-full px-3.5 py-2 text-xs transition-all cursor-pointer border ${
+                              className={`rounded-full px-3 py-1.5 text-xs transition-all cursor-pointer border ${
                                 isSelected
-                                  ? "accent-gradient text-accent-foreground border-transparent shadow-sm scale-105"
-                                  : "bg-card/45 border-border text-muted-foreground hover:border-accent hover:text-foreground"
+                                  ? "accent-gradient text-accent-foreground border-transparent shadow-sm font-semibold scale-105"
+                                  : "bg-background/80 border-border text-muted-foreground hover:border-accent hover:text-foreground"
                               }`}
                             >
-                              {s.title}
+                              {isSelected ? "✓ " : "+ "}{s.title}
                             </button>
                           );
                         })}
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
 
-                {/* Display currently selected services across all tabs */}
+                {/* Display summary of all selected services */}
                 {form.services.length > 0 && (
-                  <div className="mt-3 bg-accent/[0.02] border border-border/40 rounded-2xl p-3">
-                    <span className="block text-[9px] tracking-wider text-muted-foreground uppercase font-bold">
-                      Selected ({form.services.length}):
-                    </span>
-                    <div className="mt-1.5 flex flex-wrap gap-1">
+                  <div className="bg-accent/5 border border-accent/20 rounded-2xl p-3.5 flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-accent font-bold">
+                      <span>Total Selected ({form.services.length})</span>
+                      <button
+                        type="button"
+                        onClick={() => setForm({ ...form, services: [] })}
+                        className="text-muted-foreground hover:text-destructive underline text-[9px] cursor-pointer"
+                      >
+                        Clear all
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
                       {form.services.map((item) => (
                         <span
                           key={item}
-                          className="inline-flex items-center gap-1 bg-accent/10 border border-accent/25 text-accent text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                          className="inline-flex items-center gap-1 bg-accent/15 border border-accent/30 text-accent text-[11px] font-medium px-2.5 py-0.5 rounded-full"
                         >
                           {item}
                           <button
@@ -350,7 +340,7 @@ Details: ${form.notes}`;
                                 services: prev.services.filter((s) => s !== item),
                               }));
                             }}
-                            className="text-accent/60 hover:text-accent font-bold text-[8px] ml-0.5"
+                            className="text-accent/70 hover:text-accent font-bold text-[9px] ml-0.5 cursor-pointer"
                           >
                             ✕
                           </button>
@@ -378,20 +368,14 @@ Details: ${form.notes}`;
                 <p className="text-xs text-destructive font-medium animate-pulse">{error}</p>
               )}
 
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="pt-2">
                 <button
                   type="submit"
-                  onClick={() => setSubmitType("whatsapp")}
-                  className="inline-flex items-center gap-2 rounded-full accent-gradient px-6 py-3 font-semibold text-accent-foreground transition-transform hover:scale-[1.02] cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full inline-flex items-center justify-center gap-2.5 rounded-full accent-gradient px-8 py-4 font-semibold text-accent-foreground shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50"
                 >
-                  <Send className="h-4 w-4" /> Send on WhatsApp
-                </button>
-                <button
-                  type="submit"
-                  onClick={() => setSubmitType("email")}
-                  className="rounded-full border border-border px-6 py-3 text-sm transition-colors hover:border-accent hover:text-accent cursor-pointer bg-transparent"
-                >
-                  Send as email
+                  <Send className="h-4 w-4" />
+                  <span>{isSubmitting ? "Submitting..." : "Send Booking Inquiry"}</span>
                 </button>
               </div>
             </form>
