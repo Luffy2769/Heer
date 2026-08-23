@@ -91,15 +91,22 @@
   --sidebar-ring: var(--ring);
 
   /* expressive tokens */
-  --gradient-accent: linear-gradient(135deg, oklch(0.22 0.08 350), oklch(0.38 0.13 350)); /* Deep burgundy to rich rose-wine */
-  --gradient-heading: linear-gradient(120deg, var(--heading), oklch(0.28 0.09 350) 65%, oklch(0.4 0.14 350));
-  --gradient-veil: radial-gradient(
-      70% 60% at 10% 0%,
-      oklch(0.92 0.04 350 / 30%),
-      transparent 80%
-    ),
+  --gradient-accent: linear-gradient(
+    135deg,
+    oklch(0.22 0.08 350),
+    oklch(0.38 0.13 350)
+  ); /* Deep burgundy to rich rose-wine */
+  --gradient-heading: linear-gradient(
+    120deg,
+    var(--heading),
+    oklch(0.28 0.09 350) 65%,
+    oklch(0.4 0.14 350)
+  );
+  --gradient-veil:
+    radial-gradient(70% 60% at 10% 0%, oklch(0.92 0.04 350 / 30%), transparent 80%),
     radial-gradient(60% 50% at 90% 20%, oklch(0.93 0.03 350 / 20%), transparent 70%);
-  --shadow-lift: 0 24px 64px -20px oklch(0.18 0.04 350 / 5%), 0 8px 24px -12px oklch(0.18 0.04 350 / 3%);
+  --shadow-lift:
+    0 24px 64px -20px oklch(0.18 0.04 350 / 5%), 0 8px 24px -12px oklch(0.18 0.04 350 / 3%);
   --shadow-glow: 0 0 0 1px oklch(0.24 0.08 350 / 10%), 0 12px 32px -12px oklch(0.24 0.08 350 / 15%);
   --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -145,6 +152,10 @@
   background-image: var(--gradient-heading);
   background-clip: text;
   color: transparent;
+}
+
+@utility font-brand {
+  font-family: "Cormorant Garamond", serif;
 }
 
 @utility accent-gradient {

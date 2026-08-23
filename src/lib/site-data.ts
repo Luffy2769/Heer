@@ -27,7 +27,8 @@ export const hairstylesList = [
   },
   {
     title: "Sangeet / Cocktail Hair",
-    blurb: "Glossy blowouts, deep side waves and sleek high pony drama built for choreography and long dance sets.",
+    blurb:
+      "Glossy blowouts, deep side waves and sleek high pony drama built for choreography and long dance sets.",
   },
   {
     title: "Haldi / Mehndi Hair",
@@ -39,21 +40,24 @@ export const hairstylesList = [
   },
   {
     title: "Reception Hair",
-    blurb: "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
+    blurb:
+      "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
   },
 ];
 
 export const groomStylingList = [
   {
     title: "For All Occasions",
-    blurb: "Sharp styles, clean textures and professional product placement for grooms on their big days.",
+    blurb:
+      "Sharp styles, clean textures and professional product placement for grooms on their big days.",
   },
 ];
 
 export const destinationList = [
   {
     title: "For Brides & Grooms Both",
-    blurb: "Travel styling and makeup with humidity, salt-air and altitude planning. Full team and timeline coordination for destinations.",
+    blurb:
+      "Travel styling and makeup with humidity, salt-air and altitude planning. Full team and timeline coordination for destinations.",
   },
 ];
 
@@ -64,7 +68,8 @@ export const makeupList = [
   },
   {
     title: "3D / HD Makeup",
-    blurb: "Sculpted dimension and high-definition base tested for cinematic clarity on camera and under flash.",
+    blurb:
+      "Sculpted dimension and high-definition base tested for cinematic clarity on camera and under flash.",
   },
   {
     title: "No-Makeup Look",
@@ -109,13 +114,120 @@ export const reviews = [
   {
     name: "Meher Sethi",
     role: "Mehendi · Pune",
-    quote: "Calmest person in the room on my most chaotic morning. Also, the florals were stunning.",
+    quote:
+      "Calmest person in the room on my most chaotic morning. Also, the florals were stunning.",
+  },
+  {
+    name: "Kritika Sen",
+    role: "Sangeet · Delhi",
+    quote:
+      "Heer completely understood my vision of soft Hollywood waves. They survived all the dance choreography perfectly.",
+  },
+  {
+    name: "Anjali Sharma",
+    role: "Bride · Jaipur",
+    quote:
+      "The makeup was flawless and looked completely natural. Received countless compliments on my big day.",
+  },
+  {
+    name: "Prisha Patel",
+    role: "Cocktail · Mumbai",
+    quote:
+      "Absolutely loved my high ponytail look. Sleek, modern, and stayed put the entire night.",
+  },
+  {
+    name: "Rhea Kapoor",
+    role: "Mehendi · Goa",
+    quote:
+      "Beautiful braid styling with fresh flowers. Heer was so patient and calm despite the rush.",
+  },
+  {
+    name: "Tanya Gill",
+    role: "Reception · Chandigarh",
+    quote:
+      "Stunning editorial look with deep side waves. Heer has amazing attention to detail.",
+  },
+  {
+    name: "Nisha Nair",
+    role: "Haldi · Alibaug",
+    quote:
+      "Textured plait with marigold flowers. It was light, breezy, and matched the vibe perfectly.",
+  },
+  {
+    name: "Vikram Malhotra",
+    role: "Groom · Udaipur",
+    quote:
+      "Very subtle grooming. Didn't feel heavy, and looked sharp in all wedding videos.",
+  },
+  {
+    name: "Ritu Varma",
+    role: "Bride · Pune",
+    quote:
+      "Excellent hair engineering. The bun held my heavy dupatta without any pain or pulling.",
+  },
+  {
+    name: "Sneha Reddy",
+    role: "Reception · Hyderabad",
+    quote:
+      "The HD base stood up perfectly to the high-temperature lighting. It looked like a second skin.",
+  },
+  {
+    name: "Aditi Roy",
+    role: "Sangeet · Kolkata",
+    quote:
+      "A glossy blowout that kept its bounce all night long. Highly recommend Heer!",
+  },
+  {
+    name: "Meera Shah",
+    role: "Bride · Lonavala",
+    quote:
+      "Heer is a magician. She managed to style both me and my mother in record time.",
+  },
+  {
+    name: "Kabir Das",
+    role: "Groom · Mumbai",
+    quote:
+      "Groom hair styling was exactly what I wanted. Natural volume that stayed neat all day.",
+  },
+  {
+    name: "Pooja Hegde",
+    role: "Engagement · Bangalore",
+    quote:
+      "Half-up styling with delicate braids. It was romantic, soft, and photographed beautifully.",
+  },
+  {
+    name: "Siddharth Jain",
+    role: "Groom · Jaipur",
+    quote:
+      "Clean texture, no sticky product build-up. Highly professional team.",
+  },
+  {
+    name: "Divya Rao",
+    role: "Bride · Chennai",
+    quote:
+      "She placed my traditional hair jewelry beautifully. It felt safe and snug through all the long rituals.",
   },
 ];
 
 export const process = [
-  { step: "01", title: "Inquiry", text: "Share the dates, cities and ceremonies. I check availability within 24 hours." },
-  { step: "02", title: "Trial", text: "We test silhouettes against your outfit, jewellery and face architecture." },
-  { step: "03", title: "Lock the look", text: "Timelines, kit list and travel plan finalised — no morning-of surprises." },
-  { step: "04", title: "Event day", text: "I arrive early, style calm, and stay for touch-ups where needed." },
+  {
+    step: "01",
+    title: "Inquiry",
+    text: "Share the dates, cities and ceremonies. I check availability within 24 hours.",
+  },
+  {
+    step: "02",
+    title: "Trial",
+    text: "We test silhouettes against your outfit, jewellery and face architecture.",
+  },
+  {
+    step: "03",
+    title: "Lock the look",
+    text: "Timelines, kit list and travel plan finalised — no morning-of surprises.",
+  },
+  {
+    step: "04",
+    title: "Event day",
+    text: "I arrive early, style calm, and stay for touch-ups where needed.",
+  },
 ];

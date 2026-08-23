@@ -17,7 +17,8 @@ export const Route = createFileRoute("/about")({
       { property: "og:title", content: "About Heer Dagha — Hair Stylist & Makeup Artist" },
       {
         property: "og:description",
-        content: "4+ years, 1000+ happy faces, Mumbai based and travelling for destination weddings.",
+        content:
+          "4+ years, 1000+ happy faces, Mumbai based and travelling for destination weddings.",
       },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -27,9 +28,18 @@ export const Route = createFileRoute("/about")({
 });
 
 const values = [
-  { title: "Hair-first", text: "Structure before sparkle. A style that survives the day is the whole brief." },
-  { title: "For everyone", text: "Brides, grooms, mothers, best friends. Women and men, same care." },
-  { title: "Scalp health", text: "Dripping and prep rituals so the hair looks alive, not just set." },
+  {
+    title: "Hair-first",
+    text: "Structure before sparkle. A style that survives the day is the whole brief.",
+  },
+  {
+    title: "For everyone",
+    text: "Brides, grooms, mothers, best friends. Women and men, same care.",
+  },
+  {
+    title: "Scalp health",
+    text: "Dripping and prep rituals so the hair looks alive, not just set.",
+  },
   { title: "On time, always", text: "Timelines shared in advance and honoured on the morning." },
 ];
 
@@ -47,14 +57,13 @@ function About() {
                 I'm Heer — <span className="text-gradient italic">hair is my language</span>
               </h1>
               <p className="mt-6 max-w-xl text-muted-foreground">
-                Four years ago I started pinning buns for friends before college fests. Today I've
-                styled over a thousand faces — brides mid-monsoon, grooms twenty minutes before the
-                baraat, mothers who insisted they “don't do makeup”.
+                Heer Dagha is an optimistic leading artist in today’s generation of the hairstyle
+                and makeup industry. Her creation for every hairstyle holds dedication and has the
+                ability to pass the envisioned look of every bride.
               </p>
               <p className="mt-4 max-w-xl text-muted-foreground">
-                My work sits between structural hair engineering and soft, skin-first makeup. I
-                design each look around your outfit weight, jewellery placement, face architecture
-                and — most importantly — how long you need it to survive.
+                With more than 4 years of dedicated practice, her experience speaks professionalism.
+                Heer is mainly known for her flawless and elegant finished hairstyles.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link

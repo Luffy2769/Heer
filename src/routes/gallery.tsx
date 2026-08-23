@@ -22,12 +22,14 @@ export const Route = createFileRoute("/gallery")({
       { title: "Lookbook Gallery — Heer Dagha, Mumbai" },
       {
         name: "description",
-        content: "Explore the 3D lookbook of client hairstyles, cuts, groom styling, and makeup looks curated by Heer Dagha.",
+        content:
+          "Explore the 3D lookbook of client hairstyles, cuts, groom styling, and makeup looks curated by Heer Dagha.",
       },
       { property: "og:title", content: "Lookbook Gallery — Heer Dagha" },
       {
         property: "og:description",
-        content: "Browse the interactive 3D lookbook of custom hairstyles and bridal makeup looks by Heer Dagha.",
+        content:
+          "Browse the interactive 3D lookbook of custom hairstyles and bridal makeup looks by Heer Dagha.",
       },
     ],
   }),
@@ -61,15 +63,16 @@ function GalleryPage() {
               Lookbook Gallery
             </h1>
             <p className="mt-4 mx-auto max-w-xl text-sm text-muted-foreground">
-              Drag or swipe to spin the 3D dome and tap on any photo to examine the details, braids, and finishes.
+              Drag or swipe to spin the 3D dome and tap on any photo to examine the details, braids,
+              and finishes.
             </p>
           </Reveal>
         </div>
 
         {/* 3D Gallery Frame */}
         <Reveal className="w-full mt-10" delay={0.15}>
-          <div 
-            style={{ width: "100%", height: "70vh", minHeight: "500px", position: "relative" }} 
+          <div
+            style={{ width: "100%", height: "70vh", minHeight: "500px", position: "relative" }}
             className="w-full overflow-hidden rounded-3xl border border-border bg-card/25"
           >
             <DomeGallery

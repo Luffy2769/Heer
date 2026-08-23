@@ -5,7 +5,10 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy — Heer Dagha" },
-      { name: "description", content: "Privacy Policy for Heer Dagha Hair Stylist & Makeup Artist" },
+      {
+        name: "description",
+        content: "Privacy Policy for Heer Dagha Hair Stylist & Makeup Artist",
+      },
     ],
   }),
   component: Privacy,
@@ -21,42 +24,61 @@ function Privacy() {
               Privacy Policy
             </h1>
             <p className="mt-2 text-xs text-muted-foreground">
-              Last updated: {new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}
+              Last updated:{" "}
+              {new Date().toLocaleDateString("en-IN", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
-            
+
             <div className="mt-12 space-y-8 text-muted-foreground leading-relaxed text-sm">
               <div>
-                <h2 className="font-display text-2xl text-foreground mb-4">1. Information We Collect</h2>
+                <h2 className="font-display text-2xl text-foreground mb-4">
+                  1. Information We Collect
+                </h2>
                 <p>
-                  We collect information that you directly provide to us when you make an inquiry, book an appointment, or contact us. This may include your name, email address, phone number, event details, and any other information you choose to share.
+                  We collect information that you directly provide to us when you make an inquiry,
+                  book an appointment, or contact us. This may include your name, email address,
+                  phone number, event details, and any other information you choose to share.
                 </p>
               </div>
 
               <div>
-                <h2 className="font-display text-2xl text-foreground mb-4">2. How We Use Your Information</h2>
+                <h2 className="font-display text-2xl text-foreground mb-4">
+                  2. How We Use Your Information
+                </h2>
                 <p>
-                  We use the information we collect to respond to your inquiries, schedule and manage appointments, provide our services, send updates, and communicate about our styling/makeup offerings.
+                  We use the information we collect to respond to your inquiries, schedule and
+                  manage appointments, provide our services, send updates, and communicate about our
+                  styling/makeup offerings.
                 </p>
               </div>
 
               <div>
-                <h2 className="font-display text-2xl text-foreground mb-4">3. Data Security & Storage</h2>
+                <h2 className="font-display text-2xl text-foreground mb-4">
+                  3. Data Security & Storage
+                </h2>
                 <p>
-                  We take appropriate measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. We do not sell or rent your personal data to third parties.
+                  We take appropriate measures to protect your personal information against
+                  unauthorized access, alteration, disclosure, or destruction. We do not sell or
+                  rent your personal data to third parties.
                 </p>
               </div>
 
               <div>
                 <h2 className="font-display text-2xl text-foreground mb-4">4. Cookies</h2>
                 <p>
-                  This website may use cookies and similar tracking technologies to enhance user experience, analyze site traffic, and optimize performance.
+                  This website may use cookies and similar tracking technologies to enhance user
+                  experience, analyze site traffic, and optimize performance.
                 </p>
               </div>
 
               <div>
                 <h2 className="font-display text-2xl text-foreground mb-4">5. Contact Us</h2>
                 <p>
-                  If you have any questions or concerns about this Privacy Policy, please contact us via the contact details provided in the footer of this website.
+                  If you have any questions or concerns about this Privacy Policy, please contact us
+                  via the contact details provided in the footer of this website.
                 </p>
               </div>
             </div>

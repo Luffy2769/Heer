@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, Sparkles, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { site, stats, hairServices, makeupServices, reviews, process } from "@/lib/site-data";
 import { Reveal, TiltCard, Magnetic, Marquee, Parallax } from "@/components/site/motion-bits";
@@ -53,7 +53,7 @@ function CountUp({ value }: { value: string }) {
       (entries) => {
         if (entries[0].isIntersecting) {
           observer.disconnect();
-          let start = 0;
+          const start = 0;
           const end = numericPart;
           if (start === end) {
             setCount(end);
@@ -77,7 +77,7 @@ function CountUp({ value }: { value: string }) {
           requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     if (ref.current) {
       observer.observe(ref.current);
@@ -88,10 +88,17 @@ function CountUp({ value }: { value: string }) {
     };
   }, [numericPart]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return (
+    <span ref={ref}>
+      {count}
+      {suffix}
+    </span>
+  );
 }
 
 function Home() {
+  const [activeStep, setActiveStep] = useState(0);
+
   return (
     <div className="overflow-x-hidden">
       {/* HERO */}
@@ -107,9 +114,9 @@ function Home() {
               <Sparkles className="h-3.5 w-3.5" /> {site.location}
             </motion.p>
 
-            <h1 className="mt-6 font-display text-[clamp(3rem,9vw,6.5rem)] leading-[1.05]">
-              <span className="text-gradient italic">
-                {"Heer Dagha".split("").map((c, i) => (
+            <h1 className="mt-6 font-brand text-[clamp(1.8rem,5.8vw,4.8rem)] font-light leading-[1.05] tracking-wide uppercase whitespace-nowrap">
+              <span className="text-gradient">
+                {"HEER DAGHA".split("").map((c, i) => (
                   <motion.span
                     key={`a${i}`}
                     className="inline-block"
@@ -233,17 +240,65 @@ function Home() {
           </Reveal>
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {hairServices.slice(0, 3).concat(makeupServices.slice(0, 3)).map((s, i) => (
-              <Reveal key={s.title} delay={0.06 * i}>
-                <TiltCard className="group h-full" intensity={8}>
-                  <div className="glass-panel h-full rounded-3xl p-7">
-                    <p className="font-mono text-xs text-accent">0{i + 1}</p>
-                    <h3 className="mt-4 font-display text-2xl">{s.title}</h3>
-                    <p className="mt-3 text-sm text-muted-foreground">{s.blurb}</p>
-                  </div>
-                </TiltCard>
-              </Reveal>
-            ))}
+            {(() => {
+              const services = hairServices
+                .slice(0, 3)
+                .map((s) => ({ ...s, type: "Hairstyling" }))
+                .concat(makeupServices.slice(0, 3).map((s) => ({ ...s, type: "Makeup Artistry" })));
+              return services.map((s, i) => {
+                const colSpan = i === 0 || i === 5 ? "md:col-span-2" : "md:col-span-1";
+                return (
+                  <Reveal key={s.title} className={colSpan} delay={0.06 * i}>
+                    <Link
+                      to="/inquiry"
+                      search={{ service: s.title }}
+                      className="group block h-full cursor-pointer"
+                    >
+                      <TiltCard className="h-full" intensity={6}>
+                        <div className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                          <div>
+                            <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
+                              {s.type}
+                            </p>
+                            <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                              {s.title}
+                            </h3>
+                            <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-[90%]">
+                              {s.blurb}
+                            </p>
+                          </div>
+                          <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
+                            0{i + 1}
+                          </span>
+                        </div>
+                      </TiltCard>
+                    </Link>
+                  </Reveal>
+                );
+              });
+            })()}
+            <Reveal className="md:col-span-1" delay={0.36}>
+              <Link
+                to="/inquiry"
+                className="glass-panel h-full rounded-3xl p-7 flex flex-col justify-between bg-accent/10 hover:bg-accent/15 group hover:scale-[1.02] transition-all duration-300 border border-transparent shadow-lg cursor-pointer min-h-[220px] group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]"
+              >
+                <div>
+                  <span className="font-mono text-[10px] tracking-wider uppercase text-accent font-semibold">
+                    Inquiry
+                  </span>
+                  <h3 className="mt-4 font-display text-3xl leading-snug text-foreground group-hover:text-accent transition-colors duration-300">
+                    Let's craft your look.
+                  </h3>
+                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                    Secure your wedding date, consultation, or custom package now.
+                  </p>
+                </div>
+                <div className="mt-8 flex items-center justify-between text-xs font-semibold tracking-wider uppercase border-t border-border pt-4 text-accent">
+                  <span>Check Availability</span>
+                  <span>→</span>
+                </div>
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -284,7 +339,10 @@ function Home() {
 
           {/* Mobile Circular Gallery */}
           <Reveal className="mt-10 sm:hidden">
-            <div style={{ height: "440px", position: "relative" }} className="w-full overflow-hidden rounded-3xl border border-border bg-card/25">
+            <div
+              style={{ height: "440px", position: "relative" }}
+              className="w-full overflow-hidden rounded-3xl border border-border bg-card/25"
+            >
               <CircularGallery
                 items={galleryLooks.map((g) => ({
                   image: g.src,
@@ -315,17 +373,110 @@ function Home() {
               behind it.
             </p>
           </Reveal>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {process.map((p, i) => (
-              <Reveal key={p.step} delay={0.08 * i}>
-                <div className="glass-panel h-full rounded-3xl p-6">
-                  <span className="font-display text-4xl text-accent/60">{p.step}</span>
-                  <h3 className="mt-3 text-xl">{p.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{p.text}</p>
+          <Reveal className="flex flex-col justify-center">
+            <div className="glass-panel relative flex min-h-[290px] md:min-h-[380px] flex-col justify-between rounded-[2.5rem] p-6 md:p-10">
+              {/* Progress and Steps Indicators */}
+              <div className="relative mb-4 md:mb-6 px-1">
+                {/* Background Track Line */}
+                <div className="absolute top-1/2 left-0 h-[2px] w-full -translate-y-1/2 bg-border/40" />
+
+                {/* Animated Progress Line */}
+                <motion.div
+                  className="absolute top-1/2 left-0 h-[3px] -translate-y-1/2 bg-accent"
+                  initial={{ width: "0%" }}
+                  animate={{ width: `${(activeStep / (process.length - 1)) * 100}%` }}
+                  transition={{ type: "spring", stiffness: 90, damping: 18 }}
+                />
+
+                {/* Indicator Nodes */}
+                <div className="relative flex justify-between">
+                  {process.map((p, idx) => {
+                    const isCompleted = idx <= activeStep;
+                    const isActive = idx === activeStep;
+                    return (
+                      <button
+                        key={p.step}
+                        type="button"
+                        onClick={() => setActiveStep(idx)}
+                        className={`relative z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border text-xs font-semibold font-mono transition-all duration-300 ${
+                          isActive
+                            ? "bg-primary border-transparent text-primary-foreground shadow-[0_0_15px_var(--color-accent)] scale-110"
+                            : isCompleted
+                              ? "bg-accent border-transparent text-accent-foreground"
+                              : "bg-surface border-border text-muted-foreground hover:border-accent hover:text-foreground"
+                        }`}
+                      >
+                        {p.step}
+                      </button>
+                    );
+                  })}
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              </div>
+
+              {/* Card Body - Content transition */}
+              <div className="relative flex-1 flex flex-col justify-center overflow-hidden py-2 md:py-4">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeStep}
+                    initial={{ opacity: 0, x: 25, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, x: -25, filter: "blur(4px)" }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                    className="relative"
+                  >
+                    {/* Giant Watermark Step Number */}
+                    <span className="absolute -top-10 -right-2 select-none font-display text-[7.5rem] font-bold text-accent/5 pointer-events-none md:-top-14 md:-right-6 md:text-[11rem]">
+                      {process[activeStep].step}
+                    </span>
+
+                    <span className="font-mono text-xs tracking-[0.25em] text-accent uppercase">
+                      Phase {process[activeStep].step}
+                    </span>
+
+                    <h3 className="mt-1 md:mt-2 font-display text-2xl md:text-3xl text-gradient">
+                      {process[activeStep].title}
+                    </h3>
+
+                    <p className="mt-2 md:mt-4 max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm lg:text-base">
+                      {process[activeStep].text}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Navigation Action Buttons */}
+              <div className="flex items-center justify-between border-t border-border/30 pt-4 md:pt-6">
+                <button
+                  type="button"
+                  disabled={activeStep === 0}
+                  onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
+                  className="group flex items-center gap-1.5 rounded-full border border-border px-5 py-2.5 text-xs font-semibold text-muted-foreground transition-all hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-30 cursor-pointer bg-transparent"
+                >
+                  <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+                  Prev
+                </button>
+
+                {activeStep < process.length - 1 ? (
+                  <button
+                    type="button"
+                    onClick={() => setActiveStep((prev) => Math.min(process.length - 1, prev + 1))}
+                    className="group inline-flex items-center gap-1.5 rounded-full accent-gradient px-6 py-3 text-xs font-semibold text-accent-foreground transition-transform hover:scale-[1.03] cursor-pointer"
+                  >
+                    Next
+                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 animate-pulse" />
+                  </button>
+                ) : (
+                  <Link
+                    to="/inquiry"
+                    className="group inline-flex items-center gap-1.5 rounded-full accent-gradient px-6 py-3 text-xs font-semibold text-accent-foreground transition-transform hover:scale-[1.03]"
+                  >
+                    Book a date
+                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                )}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

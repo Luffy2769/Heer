@@ -33,12 +33,14 @@ export function SiteNav() {
         }`}
       >
         <Link to="/" className="group flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full accent-gradient font-display text-lg text-accent-foreground">
+          <span className="grid h-9 w-9 place-items-center rounded-full accent-gradient font-brand text-xl font-bold text-accent-foreground">
             H
           </span>
           <span className="leading-tight">
-            <span className="block font-display text-base text-foreground">{site.name}</span>
-            <span className="block text-[10px] tracking-[0.28em] text-muted-foreground uppercase">
+            <span className="block font-brand text-[17px] font-semibold tracking-widest text-foreground uppercase">
+              {site.name}
+            </span>
+            <span className="block text-[9px] tracking-[0.28em] text-muted-foreground uppercase mt-0.5">
               {site.tagline}
             </span>
           </span>

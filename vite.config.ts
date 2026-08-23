@@ -18,7 +18,12 @@ export default defineConfig({
     },
   },
   nitro: {
-    entry: fileURLToPath(new URL("node_modules/@lovable.dev/vite-tanstack-config/runtime/fetch-entry.mjs", import.meta.url)),
+    entry: fileURLToPath(
+      new URL(
+        "node_modules/@lovable.dev/vite-tanstack-config/runtime/fetch-entry.mjs",
+        import.meta.url,
+      ),
+    ),
     serveStatic: false,
     noExternals: true,
     inlineDynamicImports: true,

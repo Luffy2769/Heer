@@ -44,7 +44,16 @@ function Services() {
         </div>
       </section>
 
-      <Marquee items={["Hairstyles", "Groom Styling", "Makeup Artistry", "Destination Weddings", "Bridal Glam", "Grooms welcome"]} />
+      <Marquee
+        items={[
+          "Hairstyles",
+          "Groom Styling",
+          "Makeup Artistry",
+          "Destination Weddings",
+          "Bridal Glam",
+          "Grooms welcome",
+        ]}
+      />
 
       {/* HAIRSTYLES */}
       <section className="px-4 py-20">
@@ -52,20 +61,43 @@ function Services() {
           <Reveal>
             <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Hairstyles</h2>
           </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {hairstylesList.map((s, i) => (
-              <Reveal key={s.title} delay={0.05 * i}>
-                <TiltCard className="group h-full" intensity={9}>
-                  <article className="glass-panel h-full rounded-3xl p-7">
-                    <p className="font-mono text-xs text-accent">
-                      {String(i + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-4 font-display text-2xl">{s.title}</h3>
-                    <p className="mt-3 text-sm text-muted-foreground">{s.blurb}</p>
-                  </article>
-                </TiltCard>
-              </Reveal>
-            ))}
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+            {hairstylesList.map((s, i) => {
+              // Symmetrical Bento Span: First 3 span 2 cols, last 2 span 3 cols on large screens.
+              // On medium screens (2 columns), the last card spans 2 columns to fill the row.
+              let colSpan = "lg:col-span-2 md:col-span-1";
+              if (i >= 3) {
+                colSpan = i === 4 ? "lg:col-span-3 md:col-span-2" : "lg:col-span-3 md:col-span-1";
+              }
+              return (
+                <Reveal key={s.title} className={colSpan} delay={0.05 * i}>
+                  <Link
+                    to="/inquiry"
+                    search={{ service: s.title }}
+                    className="block h-full cursor-pointer"
+                  >
+                    <TiltCard className="group h-full" intensity={8}>
+                      <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                        <div>
+                          <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
+                            {String(i + 1).padStart(2, "0")} · Hairstyle
+                          </p>
+                          <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                            {s.title}
+                          </h3>
+                          <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-[90%]">
+                            {s.blurb}
+                          </p>
+                        </div>
+                        <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </article>
+                    </TiltCard>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -80,13 +112,30 @@ function Services() {
             <div className="mt-10">
               {groomStylingList.map((s) => (
                 <Reveal key={s.title}>
-                  <TiltCard className="group h-full" intensity={9}>
-                    <article className="glass-panel h-full rounded-3xl p-7">
-                      <p className="font-mono text-xs text-accent">01</p>
-                      <h3 className="mt-4 font-display text-2xl">{s.title}</h3>
-                      <p className="mt-3 text-sm text-muted-foreground">{s.blurb}</p>
-                    </article>
-                  </TiltCard>
+                  <Link
+                    to="/inquiry"
+                    search={{ service: s.title }}
+                    className="block h-full cursor-pointer"
+                  >
+                    <TiltCard className="group h-full" intensity={8}>
+                      <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                        <div>
+                          <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
+                            01 · Groom Styling
+                          </p>
+                          <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                            {s.title}
+                          </h3>
+                          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                            {s.blurb}
+                          </p>
+                        </div>
+                        <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
+                          01
+                        </span>
+                      </article>
+                    </TiltCard>
+                  </Link>
                 </Reveal>
               ))}
             </div>
@@ -99,13 +148,30 @@ function Services() {
             <div className="mt-10">
               {destinationList.map((s) => (
                 <Reveal key={s.title}>
-                  <TiltCard className="group h-full" intensity={9}>
-                    <article className="glass-panel h-full rounded-3xl p-7">
-                      <p className="font-mono text-xs text-accent">01</p>
-                      <h3 className="mt-4 font-display text-2xl">{s.title}</h3>
-                      <p className="mt-3 text-sm text-muted-foreground">{s.blurb}</p>
-                    </article>
-                  </TiltCard>
+                  <Link
+                    to="/inquiry"
+                    search={{ service: s.title }}
+                    className="block h-full cursor-pointer"
+                  >
+                    <TiltCard className="group h-full" intensity={8}>
+                      <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                        <div>
+                          <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
+                            01 · Destination
+                          </p>
+                          <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                            {s.title}
+                          </h3>
+                          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                            {s.blurb}
+                          </p>
+                        </div>
+                        <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
+                          01
+                        </span>
+                      </article>
+                    </TiltCard>
+                  </Link>
                 </Reveal>
               ))}
             </div>
@@ -121,19 +187,37 @@ function Services() {
               <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Makeup artistry</h2>
             </Reveal>
             <div className="mt-10 grid gap-5 sm:grid-cols-2">
-              {makeupList.map((s, i) => (
-                <Reveal key={s.title} delay={0.05 * i}>
-                  <TiltCard className="group h-full" intensity={9}>
-                    <article className="glass-panel h-full rounded-3xl p-7">
-                      <p className="font-mono text-xs text-accent">
-                        {String(i + 1).padStart(2, "0")}
-                      </p>
-                      <h3 className="font-display text-2xl">{s.title}</h3>
-                      <p className="mt-3 text-sm text-muted-foreground">{s.blurb}</p>
-                    </article>
-                  </TiltCard>
-                </Reveal>
-              ))}
+              {makeupList.map((s, i) => {
+                const colSpan = i === 2 ? "sm:col-span-2" : "sm:col-span-1";
+                return (
+                  <Reveal key={s.title} className={colSpan} delay={0.05 * i}>
+                    <Link
+                      to="/inquiry"
+                      search={{ service: s.title }}
+                      className="block h-full cursor-pointer"
+                    >
+                      <TiltCard className="group h-full" intensity={8}>
+                        <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                          <div>
+                            <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
+                              {String(i + 1).padStart(2, "0")} · Makeup
+                            </p>
+                            <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                              {s.title}
+                            </h3>
+                            <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-[90%]">
+                              {s.blurb}
+                            </p>
+                          </div>
+                          <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
+                            0{i + 1}
+                          </span>
+                        </article>
+                      </TiltCard>
+                    </Link>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
           <Reveal delay={0.15} className="grid grid-cols-2 gap-4 lg:grid-cols-1">

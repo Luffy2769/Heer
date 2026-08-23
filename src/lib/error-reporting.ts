@@ -38,7 +38,7 @@ export function reportAppError(error: unknown, context: Record<string, unknown> 
       severity: "error",
     },
   );
-  
+
   const message =
     error instanceof Response
       ? `Response ${error.status}${error.url ? ` at ${error.url}` : ""}`
