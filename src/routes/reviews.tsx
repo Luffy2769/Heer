@@ -25,7 +25,7 @@ export const Route = createFileRoute("/reviews")({
       { property: "og:title", content: "Reviews — What Brides & Grooms Say | Heer Dagha" },
       {
         property: "og:description",
-        content: "1000+ happy faces and counting. Read the reviews from Heer Dagha's clients.",
+        content: "1500+ happy faces and counting. Read the reviews from Heer Dagha's clients.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -205,7 +205,7 @@ function Reviews() {
             <div>
               <p className="text-[11px] tracking-[0.3em] text-accent uppercase">Review</p>
               <h1 className="mt-4 font-display text-[clamp(2.6rem,7vw,5rem)] leading-[0.95]">
-                1000+ faces, <span className="text-gradient italic">one standard</span>
+                1500+ faces, <span className="text-gradient italic">one standard</span>
               </h1>
             </div>
 

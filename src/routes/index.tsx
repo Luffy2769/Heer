@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Heer Dagha is a Mumbai-based hair stylist and makeup artist crafting wedding, sangeet, cocktail and reception looks for women and men. 4+ years, 1000+ happy faces.",
+          "Heer Dagha is a Mumbai-based hair stylist and makeup artist crafting wedding, sangeet, cocktail and reception looks for women and men. 4+ years, 1500+ happy faces.",
       },
       { property: "og:title", content: "Heer Dagha — Bridal Hair Stylist & Makeup Artist, Mumbai" },
       {
@@ -207,7 +207,7 @@ function Home() {
                   ))}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Loved by 1000+ brides, grooms & guests
+                  Loved by 1500+ brides, grooms & guests
                 </p>
               </div>
             </TiltCard>
@@ -228,28 +228,15 @@ function Home() {
       />
 
       {/* BRIDAL TRANSFORMATION SLIDER */}
-      <section className="py-24 px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 justify-center">
-            <span className="text-xs uppercase font-semibold tracking-[0.3em] text-[var(--color-3)]">
-              Artistry In Motion
-            </span>
-          </div>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
-            The Magic of <span className="text-gradient">Hair &amp; Makeup Perfection</span>
-          </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Experience how Heer Dagha sculpts raw beauty into high-fashion bridal glamour. Slide left and right to inspect the transformation.
-          </p>
-        </div>
-        <div className="max-w-4xl mx-auto">
-          <StyleTransformationSlider
-            beforeImg={bridalPrepNatural}
-            afterImg={bridalRoyalGlam}
-            beforeLabel="Natural Prep Look"
-            afterLabel="Royal Bridal Hair & HD Glam"
-          />
-        </div>
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <StyleTransformationSlider
+          beforeImg={bridalPrepNatural}
+          afterImg={bridalRoyalGlam}
+          beforeLabel="BEFORE"
+          afterLabel="AFTER"
+          leftBadgeLabel="Base Canvas"
+          rightBadgeLabel="Final Look"
+        />
       </section>
 
       {/* SERVICES PREVIEW */}

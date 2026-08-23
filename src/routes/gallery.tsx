@@ -16,6 +16,22 @@ import img7094 from "@/assets/IMG_7094.JPG.jpeg";
 import img7700 from "@/assets/IMG_7700.JPG.jpeg";
 import img7701 from "@/assets/IMG_7701.JPG.jpeg";
 import img7704 from "@/assets/IMG_7704.JPG.jpeg";
+import img4220 from "@/assets/IMG_4220.jpg";
+import img4384 from "@/assets/IMG_4384.jpg";
+import img6049 from "@/assets/IMG_6049.jpg";
+import img6051 from "@/assets/IMG_6051.jpg";
+import img6059 from "@/assets/IMG_6059.jpg";
+import img6180 from "@/assets/IMG_6180.jpg";
+import img6318 from "@/assets/IMG_6318.jpg";
+import img6319 from "@/assets/IMG_6319.jpg";
+import img6324 from "@/assets/IMG_6324.jpg";
+import img7193 from "@/assets/IMG_7193.jpg";
+import img7524 from "@/assets/IMG_7524.jpg";
+import img7668 from "@/assets/IMG_7668.jpg";
+import img8024 from "@/assets/IMG_8024.jpg";
+import img8282 from "@/assets/IMG_8282.jpg";
+import img9658 from "@/assets/IMG_9658.jpg";
+import img9729 from "@/assets/IMG_9729.jpg";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -51,17 +67,33 @@ const galleryImages = [
   { src: img7700, alt: "Classic curls" },
   { src: img7701, alt: "Engagement makeup" },
   { src: img7704, alt: "Haldi styling" },
+  { src: img4220, alt: "Bridal hair detailing" },
+  { src: img4384, alt: "Royal bridal look" },
+  { src: img6049, alt: "Elegant braid" },
+  { src: img6051, alt: "High-fashion hair" },
+  { src: img6059, alt: "Textured updo" },
+  { src: img6180, alt: "Glam hairstyle" },
+  { src: img6318, alt: "Sangeet hairstyle" },
+  { src: img6319, alt: "Bridal glam detail" },
+  { src: img6324, alt: "Statement waves" },
+  { src: img7193, alt: "Soft glam finish" },
+  { src: img7524, alt: "Haldi look" },
+  { src: img7668, alt: "Cocktail glam" },
+  { src: img8024, alt: "Hair artistry" },
+  { src: img8282, alt: "Reception glow" },
+  { src: img9658, alt: "Bridal hair design" },
+  { src: img9729, alt: "Flawless HD glam" },
 ];
 
 function GalleryPage() {
-  const [minRadius, setMinRadius] = useState(900);
+  const [minRadius, setMinRadius] = useState(950);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
-        setMinRadius(1050); // Slightly larger on desktop to increase image size slightly while preserving the globe shape
+        setMinRadius(1200); // Larger dome radius on desktop to fit larger photos
       } else {
-        setMinRadius(900);  // Original size on mobile
+        setMinRadius(950);  // Larger size on mobile
       }
     };
     handleResize();
@@ -88,12 +120,12 @@ function GalleryPage() {
         {/* 3D Gallery Frame */}
         <Reveal className="w-full mt-10" delay={0.15}>
           <div
-            style={{ width: "100%", height: "70vh", minHeight: "500px", position: "relative" }}
+            style={{ width: "100%", height: "78vh", minHeight: "600px", position: "relative" }}
             className="w-full overflow-hidden rounded-3xl border border-border bg-card/25"
           >
             <DomeGallery
               images={galleryImages}
-              fit={0.8}
+              fit={1.18}
               minRadius={minRadius}
               maxVerticalRotationDeg={0}
               segments={34}
@@ -107,3 +139,4 @@ function GalleryPage() {
     </div>
   );
 }
+

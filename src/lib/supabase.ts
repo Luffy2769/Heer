@@ -32,11 +32,13 @@ export interface InquiryRow {
   id?: string | undefined;
   created_at?: string | undefined;
   name: string;
-  event_date: string;
-  city: string;
-  services: string[];
+  phone?: string | undefined;
+  email?: string | undefined;
+  event_date?: string | undefined;
+  city?: string | undefined;
+  services?: string[] | undefined;
   notes?: string | undefined;
-  submit_type?: "whatsapp" | "email" | undefined;
+  submit_type?: "whatsapp" | "email" | "website" | undefined;
   status?: string | undefined;
 }
 

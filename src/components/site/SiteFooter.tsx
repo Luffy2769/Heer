@@ -121,67 +121,70 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Quick Links */}
-        <div className="space-y-3">
-          <h4 className="font-display text-lg font-bold text-foreground uppercase tracking-wider">
-            Navigation
-          </h4>
-          <ul className="space-y-2 text-xs uppercase tracking-[0.2em]">
-            <li>
-              <Link to="/" className="text-muted-foreground hover:text-accent transition-colors">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/services" className="text-muted-foreground hover:text-accent transition-colors">
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link to="/reviews" className="text-muted-foreground hover:text-accent transition-colors">
-                Review
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className="text-muted-foreground hover:text-accent transition-colors">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link to="/inquiry" className="text-muted-foreground hover:text-accent transition-colors">
-                Inquiry
-              </Link>
-            </li>
-          </ul>
-        </div>
+        {/* Phone side-by-side wrapper: Direct Contact (Left) & Navigation (Right) */}
+        <div className="grid grid-cols-2 gap-6 md:contents">
+          {/* Direct Contact Info & Live Clock (Left on Phone, Column 4 on Desktop) */}
+          <div className="space-y-4 order-1 md:order-2">
+            <h4 className="font-display text-base sm:text-lg font-bold text-foreground uppercase tracking-wider">
+              Direct Contact
+            </h4>
+            <div className="space-y-2.5 text-xs text-muted-foreground">
+              <a
+                href="tel:+919372040434"
+                className="flex items-center gap-2 hover:text-accent transition-colors"
+              >
+                <Phone className="size-4 text-accent shrink-0" />
+                <span className="font-mono text-xs sm:text-sm">+91 93720 40434</span>
+              </a>
+              <a
+                href="mailto:daghaheer02@gmail.com"
+                className="flex items-center gap-2 hover:text-accent transition-colors break-all"
+              >
+                <Mail className="size-4 text-accent shrink-0" />
+                <span className="text-[11px] sm:text-xs">daghaheer02@gmail.com</span>
+              </a>
+            </div>
 
-        {/* Contact Info & Live Clock */}
-        <div className="space-y-4">
-          <h4 className="font-display text-lg font-bold text-foreground uppercase tracking-wider">
-            Direct Contact
-          </h4>
-          <div className="space-y-2.5 text-xs text-muted-foreground">
-            <a
-              href="tel:+919372040434"
-              className="flex items-center gap-2 hover:text-accent transition-colors"
-            >
-              <Phone className="size-4 text-accent" />
-              <span className="font-mono text-sm">+91 93720 40434</span>
-            </a>
-            <a
-              href="mailto:daghaheer02@gmail.com"
-              className="flex items-center gap-2 hover:text-accent transition-colors"
-            >
-              <Mail className="size-4 text-accent" />
-              <span>daghaheer02@gmail.com</span>
-            </a>
+            <div className="pt-2 border-t border-border">
+              <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70 mb-1">
+                Local Studio Time
+              </div>
+              <LiveClock />
+            </div>
           </div>
 
-          <div className="pt-2 border-t border-border">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70 mb-1">
-              Local Studio Time
-            </div>
-            <LiveClock />
+          {/* Quick Links / Navigation (Right on Phone, Column 3 on Desktop) */}
+          <div className="space-y-3 order-2 md:order-1">
+            <h4 className="font-display text-base sm:text-lg font-bold text-foreground uppercase tracking-wider">
+              Navigation
+            </h4>
+            <ul className="space-y-2 text-xs uppercase tracking-[0.2em]">
+              <li>
+                <Link to="/" className="text-muted-foreground hover:text-accent transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="text-muted-foreground hover:text-accent transition-colors">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/reviews" className="text-muted-foreground hover:text-accent transition-colors">
+                  Review
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-muted-foreground hover:text-accent transition-colors">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/inquiry" className="text-muted-foreground hover:text-accent transition-colors">
+                  Inquiry
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -215,9 +218,24 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-border py-6 px-6 lg:px-8 text-center text-xs text-muted-foreground flex flex-col sm:flex-row items-center justify-between gap-4 mx-auto max-w-7xl">
-        <p>© {new Date().getFullYear()} Heer Dagha Hair &amp; Beauty Artistry. All Rights Reserved.</p>
-        <p className="text-[10px] uppercase tracking-widest text-accent font-semibold">
-          4+ Years Experience • 1000+ Happy Faces
+        <p className="order-1 sm:order-none">
+          © {new Date().getFullYear()} Heer Dagha Hair &amp; Beauty Artistry. All Rights Reserved.
+        </p>
+
+        <p className="text-[10px] uppercase tracking-widest text-accent font-semibold order-2 sm:order-last">
+          4+ Years Experience • 1500+ Happy Faces
+        </p>
+
+        <p className="text-xs text-muted-foreground font-medium order-3 sm:order-none">
+          Designed &amp; Developed by{" "}
+          <a
+            href="https://rootcrypt.in"
+            target="_blank"
+            rel="noreferrer"
+            className="font-bold text-foreground hover:text-accent underline underline-offset-4 transition-colors"
+          >
+            RootCrypt
+          </a>
         </p>
       </div>
     </footer>

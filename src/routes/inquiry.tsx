@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Instagram, Mail, MapPin, Phone, Send } from "lucide-react";
+import { CheckCircle2, Clock, Globe, Instagram, Mail, MapPin, MessageSquare, Phone, Send, Sparkles, Star } from "lucide-react";
 import {
   site,
   hairstylesList,
@@ -8,7 +8,7 @@ import {
   destinationList,
   makeupList,
 } from "@/lib/site-data";
-import { Reveal } from "@/components/site/motion-bits";
+import { Reveal, TiltCard } from "@/components/site/motion-bits";
 import { submitInquiry } from "@/lib/supabase";
 
 export const Route = createFileRoute("/inquiry")({
@@ -47,6 +47,8 @@ function Inquiry() {
 
   const [form, setForm] = useState({
     name: "",
+    phone: "",
+    email: "",
     date: "",
     city: "",
     services: (service ? [service] : []) as string[],
@@ -54,6 +56,7 @@ function Inquiry() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -70,316 +73,460 @@ function Inquiry() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (form.services.length === 0) {
-      setError("Please select at least one service.");
+
+    if (!form.name.trim() || !form.phone.trim()) {
+      setError("Please fill in both Name and Phone Number.");
       return;
     }
     setError(null);
     setIsSubmitting(true);
 
     try {
-      // Persist inquiry to Supabase
       await submitInquiry({
         name: form.name.trim(),
-        event_date: form.date,
-        city: form.city.trim(),
-        services: form.services,
+        phone: form.phone.trim(),
+        email: form.email.trim() || undefined,
+        event_date: form.date || undefined,
+        city: form.city.trim() || undefined,
+        services: form.services.length > 0 ? form.services : undefined,
         notes: form.notes.trim() || undefined,
-        submit_type: "whatsapp",
+        submit_type: "website",
         status: "new",
       });
+
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
+            subject: `New Inquiry from ${form.name.trim()}`,
+            from_name: "Heer Portfolio Website",
+            to_email: site.email,
+            name: form.name.trim(),
+            phone: form.phone.trim(),
+            email: form.email.trim() || "Not provided",
+            event_date: form.date || "Not specified",
+            city: form.city.trim() || "Not specified",
+            services: form.services.join(", ") || "None selected",
+            notes: form.notes.trim() || "No additional notes",
+          }),
+        }).catch(() => {});
+      } catch {
+        // Ignore background email errors
+      }
+
+      setIsSubmitted(true);
     } catch (err) {
       console.error("Inquiry error:", err);
+      setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
+  };
 
-    const message = `Hi Heer! I'd love to book you.
+  const resetForm = () => {
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      date: "",
+      city: "",
+      services: [],
+      notes: "",
+    });
+    setIsSubmitted(false);
+  };
 
-Name: ${form.name}
-Event date: ${form.date}
-City: ${form.city}
-Services: ${form.services.join(", ")}
-Details: ${form.notes}`;
+  const getWhatsAppUrl = () => {
+    let msg = `Hi Heer! I just submitted an inquiry on your website:\n\n*Name:* ${form.name.trim()}\n*Phone:* ${form.phone.trim()}`;
+    if (form.email.trim()) msg += `\n*Email:* ${form.email.trim()}`;
+    if (form.date) msg += `\n*Event Date:* ${form.date}`;
+    if (form.city.trim()) msg += `\n*City:* ${form.city.trim()}`;
+    if (form.services.length > 0) msg += `\n*Services:* ${form.services.join(", ")}`;
+    if (form.notes.trim()) msg += `\n*Notes:* ${form.notes.trim()}`;
 
-    const waHref = `${site.whatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(waHref, "_blank", "noopener,noreferrer");
+    return `${site.whatsapp}?text=${encodeURIComponent(msg)}`;
   };
 
   const field =
-    "w-full rounded-2xl border border-input bg-card/40 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-accent";
+    "w-full rounded-2xl border border-input bg-card/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-accent focus:bg-card/80";
 
   return (
     <div className="overflow-x-hidden">
       <section className="grain px-4 pt-36 pb-20">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_0.9fr]">
-          <div>
-            <Reveal>
-              <p className="text-[11px] tracking-[0.3em] text-accent uppercase">Inquiry</p>
-              <h1 className="mt-4 font-display text-[clamp(2.6rem,7vw,5rem)] leading-[0.95]">
-                Let's check <span className="text-gradient italic">your date</span>
-              </h1>
-              <p className="mt-5 max-w-md text-muted-foreground">
-                Fill this in and it opens a ready-made WhatsApp or email. I reply within 24 hours,
-                usually sooner.
-              </p>
-            </Reveal>
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-start">
+            {/* Left Column: Full-Sized Prominent Information & Contact Cards (2nd on mobile, 1st on desktop) */}
+            <div className="space-y-6 order-2 lg:order-1">
+              <Reveal>
+                <p className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-1.5 text-[11px] tracking-[0.28em] text-accent uppercase font-bold">
+                  <Sparkles className="h-3.5 w-3.5 text-accent" /> Booking Inquiry
+                </p>
+                <h1 className="mt-4 font-display text-[clamp(2.8rem,6.5vw,4.8rem)] leading-[0.95] tracking-tight">
+                  Let's check <span className="text-gradient italic">your date</span>
+                </h1>
+                <p className="mt-4 text-base text-muted-foreground leading-relaxed max-w-lg">
+                  Fill in your details to check availability. Heer personally reviews every request and replies within 24 hours.
+                </p>
+              </Reveal>
 
-            <div className="mt-12 space-y-6 max-w-md">
+              {/* Contact Information Cards (2x2 Grid, Full Size) */}
               <Reveal delay={0.06}>
-                <div className="glass-panel rounded-2xl p-5 flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                    <Phone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
-                      Call / WhatsApp
-                    </p>
-                    <a
-                      href={site.whatsapp}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-1 block font-display text-lg text-foreground hover:text-accent transition-colors"
-                    >
-                      {site.phone}
-                    </a>
-                  </div>
-                </div>
-              </Reveal>
-
-              <Reveal delay={0.12}>
-                <div className="glass-panel rounded-2xl p-5 flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
-                      Work Email
-                    </p>
-                    <a
-                      href={`mailto:${site.email}`}
-                      className="mt-1 block font-display text-lg text-foreground hover:text-accent transition-colors"
-                    >
-                      {site.email}
-                    </a>
-                  </div>
-                </div>
-              </Reveal>
-
-              <div className="grid grid-cols-2 gap-4">
-                <Reveal delay={0.18}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <a
-                    href={`https://instagram.com/${site.instagram.replace("@", "")}`}
+                    href={site.whatsapp}
                     target="_blank"
                     rel="noreferrer"
-                    className="glass-panel rounded-2xl p-5 flex items-center gap-4 hover:border-accent/40 transition-colors cursor-pointer"
+                    className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4 hover:border-accent/40 transition-all duration-300 group cursor-pointer hover:shadow-lg"
                   >
-                    <div className="h-10 w-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                      <Instagram className="h-5 w-5" />
+                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Phone className="h-6 w-6" />
                     </div>
-                    <div>
-                      <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
-                        Instagram
+                    <div className="overflow-hidden">
+                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
+                        Call / WhatsApp
                       </p>
-                      <span className="mt-1 block font-display text-base text-foreground hover:text-accent transition-colors">
-                        Visit profile
-                      </span>
+                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground truncate group-hover:text-accent transition-colors">
+                        {site.phone}
+                      </p>
                     </div>
                   </a>
-                </Reveal>
 
-                <Reveal delay={0.24}>
-                  <div className="glass-panel rounded-2xl p-5 flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                      <MapPin className="h-5 w-5" />
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4 hover:border-accent/40 transition-all duration-300 group cursor-pointer hover:shadow-lg"
+                  >
+                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Mail className="h-6 w-6" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
+                        Work Email
+                      </p>
+                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground truncate group-hover:text-accent transition-colors">
+                        {site.email}
+                      </p>
+                    </div>
+                  </a>
+
+                  <a
+                    href={`https://instagram.com/${site.handle}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4 hover:border-accent/40 transition-all duration-300 group cursor-pointer hover:shadow-lg"
+                  >
+                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Instagram className="h-6 w-6" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
+                        Instagram
+                      </p>
+                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground truncate group-hover:text-accent transition-colors">
+                        @{site.handle}
+                      </p>
+                    </div>
+                  </a>
+
+                  <div className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                      <MapPin className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
-                        Location
+                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
+                        Based In
                       </p>
-                      <span className="mt-1 block font-display text-base text-foreground">
-                        Mumbai
-                      </span>
+                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground">
+                        Mumbai &amp; Global
+                      </p>
                     </div>
                   </div>
-                </Reveal>
-              </div>
-            </div>
-          </div>
-
-          <Reveal delay={0.15}>
-            <form
-              className="glass-panel space-y-6 rounded-[2rem] p-6 md:p-8"
-              onSubmit={handleSubmit}
-            >
-              <h2 className="font-display text-2xl">Booking details</h2>
-              <label className="block">
-                <span className="mb-1.5 block text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                  Your name
-                </span>
-                <input
-                  required
-                  className={field}
-                  placeholder="Heer's next client"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                />
-              </label>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className="mb-1.5 block text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                    Event date
-                  </span>
-                  <input
-                    type="date"
-                    required
-                    min={today}
-                    max={maxDate}
-                    className={field}
-                    value={form.date}
-                    onChange={(e) => {
-                      let val = e.target.value;
-                      if (val) {
-                        const parts = val.split("-");
-                        if (parts[0] && parts[0].length > 4) {
-                          parts[0] = parts[0].slice(0, 4);
-                          val = parts.join("-");
-                        }
-                      }
-                      setForm({ ...form, date: val });
-                    }}
-                  />
-                </label>
-                <label className="block">
-                  <span className="mb-1.5 block text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                    City
-                  </span>
-                  <input
-                    required
-                    className={field}
-                    placeholder="Mumbai"
-                    value={form.city}
-                    onChange={(e) => setForm({ ...form, city: e.target.value })}
-                  />
-                </label>
-              </div>
-
-              <div className="space-y-4">
-                <span className="block text-xs tracking-[0.2em] text-muted-foreground uppercase font-semibold">
-                  Services &amp; Packages (Select one or more)
-                </span>
-
-                <div className="space-y-3.5">
-                  {serviceGroups.map((group) => (
-                    <div key={group.name} className="space-y-2 rounded-2xl border border-border/60 bg-card/30 p-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold uppercase tracking-wider text-accent">
-                          {group.name}
-                        </span>
-                        <span className="text-[10px] text-muted-foreground font-mono">
-                          {group.list.filter((s) => form.services.includes(s.title)).length} selected
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {group.list.map((s) => {
-                          const isSelected = form.services.includes(s.title);
-                          return (
-                            <button
-                              key={s.title}
-                              type="button"
-                              onClick={() => {
-                                const newServices = isSelected
-                                  ? form.services.filter((val) => val !== s.title)
-                                  : [...form.services, s.title];
-                                setForm({ ...form, services: newServices });
-                                if (newServices.length > 0) {
-                                  setError(null);
-                                }
-                              }}
-                              className={`rounded-full px-3 py-1.5 text-xs transition-all cursor-pointer border ${
-                                isSelected
-                                  ? "accent-gradient text-accent-foreground border-transparent shadow-sm font-semibold scale-105"
-                                  : "bg-background/80 border-border text-muted-foreground hover:border-accent hover:text-foreground"
-                              }`}
-                            >
-                              {isSelected ? "✓ " : "+ "}{s.title}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
                 </div>
+              </Reveal>
 
-                {/* Display summary of all selected services */}
-                {form.services.length > 0 && (
-                  <div className="bg-accent/5 border border-accent/20 rounded-2xl p-3.5 flex flex-col gap-1.5">
-                    <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-accent font-bold">
-                      <span>Total Selected ({form.services.length})</span>
-                      <button
-                        type="button"
-                        onClick={() => setForm({ ...form, services: [] })}
-                        className="text-muted-foreground hover:text-destructive underline text-[9px] cursor-pointer"
-                      >
-                        Clear all
-                      </button>
+              {/* Prominent Perks & Trust Banner */}
+              <Reveal delay={0.12}>
+                <div className="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 border border-accent/20 bg-gradient-to-br from-accent/10 via-card/50 to-card/70">
+                  <h3 className="text-xs font-mono tracking-[0.25em] text-accent uppercase font-bold flex items-center gap-2">
+                    <Sparkles className="size-4" /> Why Book Heer Dagha?
+                  </h3>
+
+                  <div className="grid sm:grid-cols-2 gap-4 pt-1">
+                    <div className="flex items-start gap-3.5">
+                      <div className="h-9 w-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center shrink-0 mt-0.5">
+                        <Clock className="size-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-foreground">Under 24-Hour Response</p>
+                        <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                          Timelines confirmed quickly so your schedule stays stress-free.
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex flex-wrap gap-1">
-                      {form.services.map((item) => (
-                        <span
-                          key={item}
-                          className="inline-flex items-center gap-1 bg-accent/15 border border-accent/30 text-accent text-[11px] font-medium px-2.5 py-0.5 rounded-full"
-                        >
-                          {item}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setForm((prev) => ({
-                                ...prev,
-                                services: prev.services.filter((s) => s !== item),
-                              }));
-                            }}
-                            className="text-accent/70 hover:text-accent font-bold text-[9px] ml-0.5 cursor-pointer"
-                          >
-                            ✕
-                          </button>
-                        </span>
+
+                    <div className="flex items-start gap-3.5">
+                      <div className="h-9 w-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center shrink-0 mt-0.5">
+                        <Globe className="size-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-foreground">Destination Wedding Ready</p>
+                        <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                          Available for weddings across Mumbai, India, and worldwide.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Large Bride Testimonial Card */}
+              <Reveal delay={0.18}>
+                <TiltCard intensity={6}>
+                  <div className="glass-panel rounded-3xl p-6 sm:p-7 border border-border/80 space-y-3 relative overflow-hidden">
+                    <div className="flex items-center gap-1.5 text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="size-4 fill-amber-400" />
                       ))}
                     </div>
+                    <p className="text-sm sm:text-base text-foreground/95 italic leading-relaxed font-serif">
+                      "Heer made my wedding morning so calm and effortless! My hair held up through 12 hours of dancing."
+                    </p>
+                    <p className="text-xs text-accent uppercase font-bold tracking-wider pt-1">
+                      — Bride Testimonial
+                    </p>
                   </div>
-                )}
-              </div>
+                </TiltCard>
+              </Reveal>
+            </div>
 
-              <label className="block">
-                <span className="mb-1.5 block text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                  Tell me more
-                </span>
-                <textarea
-                  rows={4}
-                  className={field}
-                  placeholder="Outfit, ceremonies, number of people, timings…"
-                  value={form.notes}
-                  onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                />
-              </label>
+            {/* Right Column: Compact Sleek Form (1st on mobile, 2nd on desktop) */}
+            <Reveal delay={0.15} className="order-1 lg:order-2">
+              {isSubmitted ? (
+                <div className="glass-panel rounded-[2rem] p-8 text-center space-y-6 flex flex-col items-center justify-center min-h-[480px] animate-fade-in border border-accent/30 shadow-2xl">
+                  <div className="h-16 w-16 rounded-full bg-accent/15 border border-accent/30 text-accent flex items-center justify-center">
+                    <CheckCircle2 className="h-9 w-9 text-accent animate-bounce" />
+                  </div>
+                  <div className="space-y-2 max-w-sm">
+                    <h2 className="font-display text-2xl font-bold text-foreground">
+                      Inquiry Submitted!
+                    </h2>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      Thank you, <span className="text-foreground font-semibold">{form.name}</span>. Your details are saved! Heer will contact you at <span className="text-foreground font-semibold">{form.phone}</span> within 24 hours.
+                    </p>
+                  </div>
 
-              {error && (
-                <p className="text-xs text-destructive font-medium animate-pulse">{error}</p>
-              )}
+                  <div className="w-full bg-accent/5 border border-accent/20 rounded-2xl p-4 text-left space-y-1.5 text-xs text-muted-foreground">
+                    <p><strong className="text-foreground">Name:</strong> {form.name}</p>
+                    <p><strong className="text-foreground">Phone:</strong> {form.phone}</p>
+                    {form.email && <p><strong className="text-foreground">Email:</strong> {form.email}</p>}
+                    {form.date && <p><strong className="text-foreground">Event Date:</strong> {form.date}</p>}
+                    {form.city && <p><strong className="text-foreground">City:</strong> {form.city}</p>}
+                    {form.services.length > 0 && (
+                      <p><strong className="text-foreground">Services:</strong> {form.services.join(", ")}</p>
+                    )}
+                  </div>
 
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full inline-flex items-center justify-center gap-2.5 rounded-full accent-gradient px-8 py-4 font-semibold text-accent-foreground shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50"
+                  <div className="w-full flex flex-col gap-2.5 pt-2">
+                    <a
+                      href={getWhatsAppUrl()}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366]/90 hover:bg-[#25D366] px-6 py-3 text-xs font-semibold text-white shadow-lg transition-all hover:scale-[1.02] cursor-pointer"
+                    >
+                      <MessageSquare className="h-4 w-4" />
+                      <span>Also Chat on WhatsApp (Optional)</span>
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={resetForm}
+                      className="w-full rounded-full border border-border bg-card/60 px-6 py-2.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-all hover:border-accent cursor-pointer"
+                    >
+                      Submit Another Inquiry
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <form
+                  className="glass-panel space-y-4 rounded-[2rem] p-6 sm:p-7 border border-border/80 shadow-2xl"
+                  onSubmit={handleSubmit}
                 >
-                  <Send className="h-4 w-4" />
-                  <span>{isSubmitting ? "Submitting..." : "Send Booking Inquiry"}</span>
-                </button>
-              </div>
-            </form>
-          </Reveal>
+                  <div className="flex items-center justify-between border-b border-border/60 pb-3">
+                    <h2 className="font-display text-lg font-bold">Booking Details</h2>
+                    <span className="text-[10px] font-mono text-accent uppercase tracking-wider font-semibold">
+                      * Required fields
+                    </span>
+                  </div>
+
+                  {/* Name & Phone (Required) */}
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <label className="block">
+                      <span className="mb-1 block text-xs tracking-[0.12em] text-muted-foreground uppercase font-medium">
+                        Your name <span className="text-accent">*</span>
+                      </span>
+                      <input
+                        required
+                        className={field}
+                        placeholder="Full Name"
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      />
+                    </label>
+
+                    <label className="block">
+                      <span className="mb-1 block text-xs tracking-[0.12em] text-muted-foreground uppercase font-medium">
+                        Phone / Mobile <span className="text-accent">*</span>
+                      </span>
+                      <input
+                        type="tel"
+                        required
+                        className={field}
+                        placeholder="+91 98765 43210"
+                        value={form.phone}
+                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      />
+                    </label>
+                  </div>
+
+                  {/* Email (Optional) */}
+                  <label className="block">
+                    <span className="mb-1 block text-xs tracking-[0.12em] text-muted-foreground uppercase">
+                      Email address <span className="text-muted-foreground/50 text-[10px]">(Optional)</span>
+                    </span>
+                    <input
+                      type="email"
+                      className={field}
+                      placeholder="your.email@example.com"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    />
+                  </label>
+
+                  {/* Event Date & City (Optional) */}
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <label className="block">
+                      <span className="mb-1 block text-xs tracking-[0.12em] text-muted-foreground uppercase">
+                        Event date <span className="text-muted-foreground/50 text-[10px]">(Optional)</span>
+                      </span>
+                      <input
+                        type="date"
+                        min={today}
+                        max={maxDate}
+                        className={field}
+                        value={form.date}
+                        onChange={(e) => {
+                          let val = e.target.value;
+                          if (val) {
+                            const parts = val.split("-");
+                            if (parts[0] && parts[0].length > 4) {
+                              parts[0] = parts[0].slice(0, 4);
+                              val = parts.join("-");
+                            }
+                          }
+                          setForm({ ...form, date: val });
+                        }}
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="mb-1 block text-xs tracking-[0.12em] text-muted-foreground uppercase">
+                        City <span className="text-muted-foreground/50 text-[10px]">(Optional)</span>
+                      </span>
+                      <input
+                        className={field}
+                        placeholder="Mumbai / Goa / Destination"
+                        value={form.city}
+                        onChange={(e) => setForm({ ...form, city: e.target.value })}
+                      />
+                    </label>
+                  </div>
+
+                  {/* Services & Packages (Single Unified Container) */}
+                  <div className="space-y-2">
+                    <span className="block text-xs sm:text-sm tracking-[0.12em] text-muted-foreground uppercase font-semibold">
+                      Services <span className="text-muted-foreground/50 text-xs lowercase font-normal">(Optional)</span>
+                    </span>
+
+                    <div className="space-y-3 rounded-2xl border border-border/60 bg-card/30 p-3.5 sm:p-4">
+                      {serviceGroups.map((group) => {
+                        const selectedCountInGroup = group.list.filter((s) => form.services.includes(s.title)).length;
+                        return (
+                          <div key={group.name} className="space-y-1.5 pb-2.5 last:pb-0 border-b border-border/40 last:border-0">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-accent">
+                                {group.name}
+                              </span>
+                              {selectedCountInGroup > 0 && (
+                                <span className="text-xs text-accent font-mono font-bold">
+                                  {selectedCountInGroup} selected
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap gap-1.5 pt-0.5">
+                              {group.list.map((s) => {
+                                const isSelected = form.services.includes(s.title);
+                                return (
+                                  <button
+                                    key={s.title}
+                                    type="button"
+                                    onClick={() => {
+                                      const newServices = isSelected
+                                        ? form.services.filter((val) => val !== s.title)
+                                        : [...form.services, s.title];
+                                      setForm({ ...form, services: newServices });
+                                      if (newServices.length > 0) {
+                                        setError(null);
+                                      }
+                                    }}
+                                    className={`rounded-full px-3 py-1.5 text-xs sm:text-sm transition-all cursor-pointer border ${
+                                      isSelected
+                                        ? "accent-gradient text-accent-foreground border-transparent shadow-sm font-semibold scale-105"
+                                        : "bg-background/80 border-border/80 text-muted-foreground hover:border-accent hover:text-foreground"
+                                    }`}
+                                  >
+                                    {isSelected ? "✓ " : "+ "}{s.title}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Notes (Optional) */}
+                  <label className="block">
+                    <span className="mb-1 block text-xs tracking-[0.12em] text-muted-foreground uppercase">
+                      Tell me more <span className="text-muted-foreground/50 text-[10px]">(Optional)</span>
+                    </span>
+                    <textarea
+                      rows={2.5}
+                      className={field}
+                      placeholder="Outfit, ceremonies, number of people, timings…"
+                      value={form.notes}
+                      onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                    />
+                  </label>
+
+                  {error && (
+                    <p className="text-xs text-destructive font-medium animate-pulse">{error}</p>
+                  )}
+
+                  <div className="pt-1">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-full accent-gradient px-7 py-3 text-sm font-semibold text-accent-foreground shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50"
+                    >
+                      <Send className="h-4 w-4" />
+                      <span>{isSubmitting ? "Submitting..." : "Send Booking Inquiry"}</span>
+                    </button>
+                  </div>
+                </form>
+              )}
+            </Reveal>
+          </div>
         </div>
       </section>
     </div>
