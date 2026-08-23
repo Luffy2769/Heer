@@ -226,13 +226,13 @@ export function Footer() {
           4+ Years Experience • 1500+ Happy Faces
         </p>
 
-        <p className="text-xs text-muted-foreground font-medium order-3 sm:order-none">
+        <p className="text-[11px] text-muted-foreground/50 font-normal order-3 sm:order-none">
           Designed &amp; Developed by{" "}
           <a
             href="https://rootcrypt.in"
             target="_blank"
             rel="noreferrer"
-            className="font-bold text-foreground hover:text-accent underline underline-offset-4 transition-colors"
+            className="font-medium text-muted-foreground/75 hover:text-accent transition-colors"
           >
             RootCrypt
           </a>

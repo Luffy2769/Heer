@@ -85,7 +85,8 @@ const getDataNumber = (el: HTMLElement, name: string, fallback: number) => {
 };
 
 function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
-  const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
+  const startCol = -seg - (seg % 2 === 0 ? 3 : 2);
+  const xCols = Array.from({ length: seg }, (_, i) => startCol + i * 2);
   const evenYs = [-4, -2, 0, 2, 4];
   const oddYs = [-3, -1, 1, 3, 5];
 
@@ -623,11 +624,21 @@ export default function DomeGallery({
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
+    const onGlobalClick = (e: MouseEvent) => {
+      const el = focusedElRef.current;
+      if (!el) return;
+      const overlay = viewerRef.current?.querySelector(".enlarge") as HTMLElement | null;
+      if (overlay && !overlay.contains(e.target as Node)) {
+        close();
+      }
+    };
     window.addEventListener("keydown", onKey);
+    window.addEventListener("click", onGlobalClick);
 
     return () => {
       scrim.removeEventListener("click", close);
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("click", onGlobalClick);
     };
   }, [enlargeTransitionMs, openedImageBorderRadius, grayscale]);
 
@@ -818,25 +829,25 @@ export default function DomeGallery({
        touch-action: none !important;
        overscroll-behavior: contain !important;
      } */
-    .item__image {
-      position: absolute;
-      inset: 10px;
-      border-radius: var(--tile-radius, 12px);
-      overflow: hidden;
-      cursor: pointer;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      transition: transform 300ms;
-      pointer-events: auto;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-    }
-    .item__image--reference {
-      position: absolute;
-      inset: 10px;
-      pointer-events: none;
-    }
-  `;
+     .item__image {
+       position: absolute;
+       inset: 4px;
+       border-radius: var(--tile-radius, 12px);
+       overflow: hidden;
+       cursor: pointer;
+       backface-visibility: hidden;
+       -webkit-backface-visibility: hidden;
+       transition: transform 300ms;
+       pointer-events: auto;
+       -webkit-transform: translateZ(0);
+       transform: translateZ(0);
+     }
+     .item__image--reference {
+       position: absolute;
+       inset: 4px;
+       pointer-events: none;
+     }
+   `;
 
   return (
     <>
@@ -909,7 +920,7 @@ export default function DomeGallery({
                       openItemFromElement(e.currentTarget as HTMLElement);
                     }}
                     style={{
-                      inset: "10px",
+                      inset: "4px",
                       borderRadius: `var(--tile-radius, ${imageBorderRadius})`,
                       backfaceVisibility: "hidden",
                     }}
@@ -931,14 +942,14 @@ export default function DomeGallery({
           </div>
 
           <div
-            className="absolute inset-0 m-auto z-[3] pointer-events-none"
+            className="hidden lg:block absolute inset-0 m-auto z-[3] pointer-events-none"
             style={{
               backgroundImage: `radial-gradient(rgba(235, 235, 235, 0) 65%, var(--overlay-blur-color, ${overlayBlurColor}) 100%)`,
             }}
           />
 
           <div
-            className="absolute inset-0 m-auto z-[3] pointer-events-none"
+            className="hidden lg:block absolute inset-0 m-auto z-[3] pointer-events-none"
             style={{
               WebkitMaskImage: `radial-gradient(rgba(235, 235, 235, 0) 70%, var(--overlay-blur-color, ${overlayBlurColor}) 90%)`,
               maskImage: `radial-gradient(rgba(235, 235, 235, 0) 70%, var(--overlay-blur-color, ${overlayBlurColor}) 90%)`,
@@ -947,13 +958,13 @@ export default function DomeGallery({
           />
 
           <div
-            className="absolute left-0 right-0 top-0 h-[120px] z-[5] pointer-events-none rotate-180"
+            className="hidden lg:block absolute left-0 right-0 top-0 h-[120px] z-[5] pointer-events-none rotate-180"
             style={{
               background: `linear-gradient(to bottom, transparent, var(--overlay-blur-color, ${overlayBlurColor}))`,
             }}
           />
           <div
-            className="absolute left-0 right-0 bottom-0 h-[120px] z-[5] pointer-events-none"
+            className="hidden lg:block absolute left-0 right-0 bottom-0 h-[120px] z-[5] pointer-events-none"
             style={{
               background: `linear-gradient(to bottom, transparent, var(--overlay-blur-color, ${overlayBlurColor}))`,
             }}
@@ -962,7 +973,12 @@ export default function DomeGallery({
           <div
             ref={viewerRef}
             className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"
-            style={{ padding: "var(--viewer-pad)" }}
+            style={{
+              padding:
+                openedImageWidth === "100%" && openedImageHeight === "100%"
+                  ? "0px"
+                  : "var(--viewer-pad)",
+            }}
           >
             <div
               ref={scrimRef}
@@ -974,7 +990,11 @@ export default function DomeGallery({
             />
             <div
               ref={frameRef}
-              className="viewer-frame h-full aspect-square flex"
+              className={
+                openedImageWidth === "100%" && openedImageHeight === "100%"
+                  ? "viewer-frame w-full h-full flex"
+                  : "viewer-frame h-full aspect-square flex"
+              }
               style={{
                 borderRadius: `var(--enlarge-radius, ${openedImageBorderRadius})`,
               }}

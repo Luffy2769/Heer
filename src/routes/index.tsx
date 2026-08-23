@@ -99,6 +99,41 @@ function CountUp({ value }: { value: string }) {
   );
 }
 
+const HeroImage = () => (
+  <div className="relative">
+    <motion.div
+      aria-hidden
+      className="absolute -inset-8 rounded-[3rem] accent-gradient opacity-25 blur-3xl"
+      animate={{ scale: [1, 1.06, 1], opacity: [0.2, 0.32, 0.2] }}
+      transition={{ duration: 7, repeat: Infinity }}
+    />
+    <TiltCard className="group relative" intensity={9}>
+      <div className="overflow-hidden rounded-[2.5rem] border border-border">
+        <img
+          src={heroBride}
+          alt="Bridal updo with gold hair jewellery styled by Heer Dagha"
+          width={1104}
+          height={1408}
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        className="glass-panel absolute -bottom-6 -left-4 rounded-2xl px-5 py-4"
+        style={{ transform: "translateZ(60px)" }}
+      >
+        <p className="flex items-center gap-1 text-accent">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} className="h-3.5 w-3.5 fill-current" />
+          ))}
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Loved by 1500+ brides, grooms & guests
+        </p>
+      </div>
+    </TiltCard>
+  </div>
+);
+
 function Home() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -107,17 +142,17 @@ function Home() {
       {/* HERO */}
       <section className="grain relative flex min-h-screen items-center px-4 pt-32 pb-20">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left w-full">
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-[11px] tracking-[0.28em] text-accent uppercase"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-[11px] tracking-[0.28em] text-accent uppercase order-1 lg:order-none"
             >
               <Sparkles className="h-3.5 w-3.5" /> {site.location}
             </motion.p>
 
-            <h1 className="mt-6 font-brand text-[clamp(1.8rem,5.8vw,4.8rem)] font-light leading-[1.05] tracking-wide uppercase whitespace-nowrap">
+            <h1 className="mt-6 font-brand text-[clamp(2.5rem,8.5vw,4.8rem)] font-light leading-[1.05] tracking-wide uppercase whitespace-nowrap order-2 lg:order-none">
               <span className="text-gradient">
                 {"HEER DAGHA".split("").map((c, i) => (
                   <motion.span
@@ -137,17 +172,35 @@ function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="mt-6 max-w-md text-base text-muted-foreground"
+              className="mt-6 max-w-md text-base text-muted-foreground order-3 lg:order-none"
             >
               Bridal and editorial hair artistry, dripping rituals and makeup — engineered to hold
               through every ceremony, for women and men alike.
             </motion.p>
 
+            {/* Mobile-only Hero Image */}
+            <div className="order-4 lg:hidden relative w-full max-w-[340px] mt-8 mb-4">
+              <HeroImage />
+            </div>
+
+            <div className="mt-10 lg:mt-14 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-4 w-full justify-items-center lg:justify-items-start order-5 lg:order-none">
+              {stats.map((s, i) => (
+                <Reveal key={s.label} delay={0.1 * i} className="text-center lg:text-left">
+                  <p className="font-display text-3xl text-accent">
+                    <CountUp value={s.value} />
+                  </p>
+                  <p className="mt-1 text-[11px] tracking-wider text-muted-foreground uppercase">
+                    {s.label}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.95, duration: 0.7 }}
-              className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4"
+              className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4 order-6 lg:order-none"
             >
               <Magnetic>
                 <Link
@@ -165,52 +218,10 @@ function Home() {
                 Explore services
               </Link>
             </motion.div>
-
-            <div className="mt-14 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-4 w-full justify-items-center lg:justify-items-start">
-              {stats.map((s, i) => (
-                <Reveal key={s.label} delay={0.1 * i} className="text-center lg:text-left">
-                  <p className="font-display text-3xl text-accent">
-                    <CountUp value={s.value} />
-                  </p>
-                  <p className="mt-1 text-[11px] tracking-wider text-muted-foreground uppercase">
-                    {s.label}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
           </div>
 
-          <div className="relative">
-            <motion.div
-              aria-hidden
-              className="absolute -inset-8 rounded-[3rem] accent-gradient opacity-25 blur-3xl"
-              animate={{ scale: [1, 1.06, 1], opacity: [0.2, 0.32, 0.2] }}
-              transition={{ duration: 7, repeat: Infinity }}
-            />
-            <TiltCard className="group relative" intensity={9}>
-              <div className="overflow-hidden rounded-[2.5rem] border border-border">
-                <img
-                  src={heroBride}
-                  alt="Bridal updo with gold hair jewellery styled by Heer Dagha"
-                  width={1104}
-                  height={1408}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div
-                className="glass-panel absolute -bottom-6 -left-4 rounded-2xl px-5 py-4"
-                style={{ transform: "translateZ(60px)" }}
-              >
-                <p className="flex items-center gap-1 text-accent">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                  ))}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Loved by 1500+ brides, grooms & guests
-                </p>
-              </div>
-            </TiltCard>
+          <div className="hidden lg:block relative">
+            <HeroImage />
           </div>
         </div>
       </section>

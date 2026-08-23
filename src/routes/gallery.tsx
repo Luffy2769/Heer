@@ -87,13 +87,31 @@ const galleryImages = [
 
 function GalleryPage() {
   const [minRadius, setMinRadius] = useState(950);
+  const [segments, setSegments] = useState(34);
+  const [height, setHeight] = useState("58vh");
+  const [minHeight, setMinHeight] = useState("420px");
+  const [openedWidth, setOpenedWidth] = useState("100%");
+  const [openedHeight, setOpenedHeight] = useState("100%");
+  const [openedRadius, setOpenedRadius] = useState("1.5rem");
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
-        setMinRadius(1200); // Larger dome radius on desktop to fit larger photos
+        setMinRadius(1050); // Keep radius moderate to preserve curvature
+        setSegments(26);    // Reduce segments to widen columns and make image boxes larger on PC
+        setHeight("78vh");  // Tall height on PC is fine (users scroll with mouse wheel/scrollbars)
+        setMinHeight("600px");
+        setOpenedWidth("400px"); // Keep original square size on PC
+        setOpenedHeight("400px");
+        setOpenedRadius("30px");
       } else {
-        setMinRadius(950);  // Larger size on mobile
+        setMinRadius(900);  // Mobile radius
+        setSegments(34);    // Mobile segments density
+        setHeight("58vh");  // Slightly taller mobile height, but still scrollable around it
+        setMinHeight("420px");
+        setOpenedWidth("100%"); // Take whole component container size on mobile
+        setOpenedHeight("100%");
+        setOpenedRadius("1.5rem");
       }
     };
     handleResize();
@@ -120,7 +138,7 @@ function GalleryPage() {
         {/* 3D Gallery Frame */}
         <Reveal className="w-full mt-10" delay={0.15}>
           <div
-            style={{ width: "100%", height: "78vh", minHeight: "600px", position: "relative" }}
+            style={{ width: "100%", height: height, minHeight: minHeight, position: "relative" }}
             className="w-full overflow-hidden rounded-3xl border border-border bg-card/25"
           >
             <DomeGallery
@@ -128,10 +146,13 @@ function GalleryPage() {
               fit={1.18}
               minRadius={minRadius}
               maxVerticalRotationDeg={0}
-              segments={34}
+              segments={segments}
               dragDampening={4.2}
               grayscale={false}
               overlayBlurColor="var(--background)"
+              openedImageWidth={openedWidth}
+              openedImageHeight={openedHeight}
+              openedImageBorderRadius={openedRadius}
             />
           </div>
         </Reveal>
