@@ -1,0 +1,1 @@
+var e=`/Heer/assets/look-haldi-9h2fryTT.jpg`;export{e as t};
