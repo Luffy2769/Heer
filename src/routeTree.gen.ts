@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as InquiryRouteImport } from './routes/inquiry'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ServicesRouteImport } from './routes/services'
 
@@ -25,9 +27,19 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InquiryRoute = InquiryRouteImport.update({
   id: '/inquiry',
   path: '/inquiry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -44,14 +56,18 @@ const ServicesRoute = ServicesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/gallery': typeof GalleryRoute
   '/inquiry': typeof InquiryRoute
+  '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/gallery': typeof GalleryRoute
   '/inquiry': typeof InquiryRoute
+  '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
 }
@@ -59,22 +75,48 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/gallery': typeof GalleryRoute
   '/inquiry': typeof InquiryRoute
+  '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/inquiry' | '/reviews' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/gallery'
+    | '/inquiry'
+    | '/privacy'
+    | '/reviews'
+    | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/inquiry' | '/reviews' | '/services'
-  id: '__root__' | '/' | '/about' | '/inquiry' | '/reviews' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/gallery'
+    | '/inquiry'
+    | '/privacy'
+    | '/reviews'
+    | '/services'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/gallery'
+    | '/inquiry'
+    | '/privacy'
+    | '/reviews'
+    | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  GalleryRoute: typeof GalleryRoute
   InquiryRoute: typeof InquiryRoute
+  PrivacyRoute: typeof PrivacyRoute
   ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
 }
@@ -95,11 +137,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/inquiry': {
       id: '/inquiry'
       path: '/inquiry'
       fullPath: '/inquiry'
       preLoaderRoute: typeof InquiryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -122,7 +178,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  GalleryRoute: GalleryRoute,
   InquiryRoute: InquiryRoute,
+  PrivacyRoute: PrivacyRoute,
   ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,
 }

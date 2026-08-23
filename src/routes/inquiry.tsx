@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Instagram, Mail, MapPin, Phone, Send } from "lucide-react";
-import { site, hairServices, makeupServices } from "@/lib/site-data";
+import { site, hairstylesList, groomStylingList, destinationList, makeupList } from "@/lib/site-data";
 import { Reveal, TiltCard } from "@/components/site/motion-bits";
 
 export const Route = createFileRoute("/inquiry")({
@@ -25,7 +25,12 @@ export const Route = createFileRoute("/inquiry")({
   component: Inquiry,
 });
 
-const allServices = [...hairServices.map((s) => s.title), ...makeupServices.map((s) => s.title)];
+const allServices = [
+  ...hairstylesList.map((s) => s.title),
+  ...groomStylingList.map((s) => s.title),
+  ...destinationList.map((s) => s.title),
+  ...makeupList.map((s) => s.title),
+];
 
 function Inquiry() {
   const [form, setForm] = useState({

@@ -13,50 +13,68 @@ export const site = {
 };
 
 export const stats = [
-  { value: "4+", label: "Years of artistry" },
-  { value: "1000+", label: "Happy faces styled" },
-  { value: "250+", label: "Weddings & events" },
-  { value: "12+", label: "Destination cities" },
+  { value: "4+", label: "Years experience" },
+  { value: "1500+", label: "Happy faces" },
+  { value: "250+", label: "Weddings & event stylist" },
+  { value: "20+", label: "Destination states & cities" },
 ];
 
-export const hairServices = [
+export const hairstylesList = [
   {
     title: "Wedding Hair",
     blurb:
       "Sculpted bridal buns, heirloom-ready volume and jewellery placement engineered to survive a full pheras-to-vidaai day.",
   },
   {
-    title: "Cocktail Hair",
-    blurb: "Glossy blowouts, deep side waves and sleek high pony drama for the after-party frame.",
+    title: "Sangeet / Cocktail Hair",
+    blurb: "Glossy blowouts, deep side waves and sleek high pony drama built for choreography and long dance sets.",
   },
   {
-    title: "Sangeet Hair",
-    blurb: "Movement-proof braids and secured half-ups built for choreography and long dance sets.",
-  },
-  {
-    title: "Haldi / Mehendi Hair",
+    title: "Haldi / Mehndi Hair",
     blurb: "Fresh florals, textured plaits and breezy daytime styling for the intimate ceremonies.",
   },
   {
-    title: "Reception Look",
+    title: "Engagement Hair",
+    blurb: "Elegant half-ups, classic waves and sophisticated styling for your ring ceremony look.",
+  },
+  {
+    title: "Reception Hair",
     blurb: "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
-  },
-  {
-    title: "Destination Wedding",
-    blurb: "Travel styling with humidity, salt-air and altitude planned for. Kit, team and timeline included.",
-  },
-  {
-    title: "Hair Dripping",
-    blurb: "Nourishing dripping rituals that restore shine and scalp health before the big week.",
   },
 ];
 
-export const makeupServices = [
-  { title: "Soft Glam", blurb: "Diffused shadow, lifted cheeks, a lip you can wear for twelve hours." },
-  { title: "No-Makeup Look", blurb: "Skin-first prep, sheer correction, freckles and features left intact." },
-  { title: "3D Looks", blurb: "Sculpt, light and shadow mapped for cinematic dimension on camera." },
-  { title: "HD Makeup", blurb: "Flash-tested, high-definition finish that holds under every lens." },
+export const groomStylingList = [
+  {
+    title: "For All Occasions",
+    blurb: "Sharp styles, clean textures and professional product placement for grooms on their big days.",
+  },
 ];
+
+export const destinationList = [
+  {
+    title: "For Brides & Grooms Both",
+    blurb: "Travel styling and makeup with humidity, salt-air and altitude planning. Full team and timeline coordination for destinations.",
+  },
+];
+
+export const makeupList = [
+  {
+    title: "Soft Glam",
+    blurb: "Diffused shadow, lifted cheeks, a lip you can wear for twelve hours.",
+  },
+  {
+    title: "3D / HD Makeup",
+    blurb: "Sculpted dimension and high-definition base tested for cinematic clarity on camera and under flash.",
+  },
+  {
+    title: "No-Makeup Look",
+    blurb: "Skin-first prep, sheer correction, freckles and features left intact.",
+  },
+];
+
+// Keep legacy mappings to prevent breaking any files before they are updated
+export const hairServices = hairstylesList;
+export const makeupServices = makeupList;
 
 export const reviews = [
   {

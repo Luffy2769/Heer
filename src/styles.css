@@ -57,50 +57,50 @@
   --radius: 1rem;
 
   /* palette */
-  --background: oklch(0.28 0.185 302); /* #4C0081 */
-  --ink: oklch(0 0 0); /* #000000 */
-  --heading: oklch(0.7 0.185 296); /* #AA73FF */
-  --accent: oklch(0.79 0.13 44); /* #FF9E7A */
-  --accent-glow: oklch(0.88 0.11 82); /* #FFD27A */
-  --surface: oklch(0.97 0.002 286); /* #F4F4F6 */
+  --background: oklch(0.96 0.015 350); /* #fbf0f4 - delicate rose-pink */
+  --ink: oklch(0.1 0.03 350); /* #170A0C - deep burgundy-black */
+  --heading: oklch(0.16 0.05 350); /* #241114 - deep velvety burgundy */
+  --accent: oklch(0.48 0.14 350); /* #A24E5B - rich muted rose/crimson accent */
+  --accent-glow: oklch(0.92 0.02 350); /* #F6EAEB - soft rose-mist */
+  --surface: oklch(0.985 0.008 350); /* #FDFBFB - pearlescent light pink-white */
 
-  --foreground: oklch(0.95 0.02 300);
-  --muted-foreground: oklch(0.78 0.06 300);
-  --card: oklch(0.33 0.16 302);
-  --card-foreground: oklch(0.95 0.02 300);
-  --popover: oklch(0.25 0.16 302);
-  --popover-foreground: oklch(0.95 0.02 300);
-  --primary: var(--accent);
-  --primary-foreground: oklch(0.2 0.13 302);
-  --secondary: oklch(0.36 0.15 302);
-  --secondary-foreground: oklch(0.96 0.02 300);
-  --muted: oklch(0.34 0.13 302);
-  --accent-foreground: oklch(0.2 0.13 302);
+  --foreground: oklch(0.2 0.04 350); /* #2E1E21 - deep charcoal-rose */
+  --muted-foreground: oklch(0.46 0.03 350); /* #7D696C - rose-slate */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.04 350);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.04 350);
+  --primary: oklch(0.24 0.08 350); /* #491C23 - deep wine/burgundy button */
+  --primary-foreground: oklch(0.99 0.005 350);
+  --secondary: oklch(0.94 0.012 350); /* #FAF0F3 - light rose-pink */
+  --secondary-foreground: oklch(0.24 0.08 350);
+  --muted: oklch(0.94 0.012 350);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.6 0.22 20);
   --destructive-foreground: oklch(0.98 0.01 300);
-  --border: oklch(0.7 0.185 296 / 22%);
-  --input: oklch(0.7 0.185 296 / 30%);
-  --ring: var(--accent);
+  --border: oklch(0.91 0.02 350); /* #EFE0E4 - soft rose-border */
+  --input: oklch(0.91 0.02 350 / 60%);
+  --ring: var(--primary);
   --sidebar: var(--card);
   --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--accent);
-  --sidebar-primary-foreground: var(--accent-foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: var(--secondary);
   --sidebar-accent-foreground: var(--secondary-foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
   /* expressive tokens */
-  --gradient-accent: linear-gradient(100deg, var(--accent-glow), var(--accent) 55%, oklch(0.72 0.2 350));
-  --gradient-heading: linear-gradient(120deg, var(--surface), var(--heading) 55%, var(--accent-glow));
+  --gradient-accent: linear-gradient(135deg, oklch(0.22 0.08 350), oklch(0.38 0.13 350)); /* Deep burgundy to rich rose-wine */
+  --gradient-heading: linear-gradient(120deg, var(--heading), oklch(0.28 0.09 350) 65%, oklch(0.4 0.14 350));
   --gradient-veil: radial-gradient(
-      60% 50% at 15% 0%,
-      oklch(0.7 0.185 296 / 28%),
-      transparent 70%
+      70% 60% at 10% 0%,
+      oklch(0.92 0.04 350 / 30%),
+      transparent 80%
     ),
-    radial-gradient(50% 45% at 92% 18%, oklch(0.79 0.13 44 / 20%), transparent 70%);
-  --shadow-lift: 0 32px 80px -32px oklch(0 0 0 / 65%);
-  --shadow-glow: 0 0 0 1px oklch(0.79 0.13 44 / 35%), 0 18px 50px -18px oklch(0.79 0.13 44 / 55%);
+    radial-gradient(60% 50% at 90% 20%, oklch(0.93 0.03 350 / 20%), transparent 70%);
+  --shadow-lift: 0 24px 64px -20px oklch(0.18 0.04 350 / 5%), 0 8px 24px -12px oklch(0.18 0.04 350 / 3%);
+  --shadow-glow: 0 0 0 1px oklch(0.24 0.08 350 / 10%), 0 12px 32px -12px oklch(0.24 0.08 350 / 15%);
   --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -152,9 +152,9 @@
 }
 
 @utility glass-panel {
-  background: color-mix(in oklab, var(--color-surface) 7%, transparent);
+  background: color-mix(in oklab, var(--color-surface) 65%, transparent);
   border: 1px solid var(--color-border);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
   box-shadow: var(--shadow-lift);
 }
 

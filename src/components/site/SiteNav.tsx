@@ -8,6 +8,7 @@ import { Magnetic } from "./motion-bits";
 const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
+  { to: "/gallery", label: "Gallery" },
   { to: "/reviews", label: "Review" },
   { to: "/about", label: "About" },
   { to: "/inquiry", label: "Inquiry" },

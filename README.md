@@ -1,65 +1,60 @@
-# Heer's Glam Studio
+# Heer Dagha — Hair Stylist & Makeup Artist Portfolio
 
-Reference: https://kajolrpaswwan.in/
-Reference: https://www.vaishakhiharia.com/
+A premium, interactive digital portfolio for Heer Dagha, a professional hair stylist and makeup artist based in Mumbai, India.
 
+## Services Offered
 
-We have this project, its a portfolio of an artist. Her name is: Heer Dagha and who offers services like: Wedding hair styles, cocktails hair style, sangeet hair styles, Haldi/Mehendi hair styles, Reception look hair styles, Destination wedding hair styles + Dripping services + Make up services like: Soft Glam, No makeup look, 3d Looks, HD Makeup. These services are for both women and men.
+- **Hair Styling**: Wedding hair styles, cocktail hair styles, sangeet hair styles, Haldi/Mehendi hair styles, Reception look hair styles, Destination wedding hair styles.
+- **Draping Services**: Professional saree/dupatta draping for all occasions.
+- **Makeup Artistry**: Soft Glam, No-makeup look, 3D Looks, HD Makeup.
+- **Audience**: Custom services catered for both women and men.
 
-Her number: +91 9372040434 
-Work email: daghaheer02@gmail.com
-Insta/Threads: hairbyheerdagha
-Pinterest: hairbyheerdagha
+## Features
 
-Also add local time on footer.
+- **Responsive & Modern Design**: Crafted with custom HSL/OKLCH color system, smooth gradients, and premium typography (Fraunces & Manrope).
+- **Interactive UI**: Featuring smooth micro-animations, tilt cards, and parallax scroll components powered by Framer Motion.
+- **Prerendered Pages**: Static Site Generation (SSG) for ultra-fast page load times and optimal SEO.
+- **Live Local Time**: Keeps track of Mumbai Local Time (IST) on the footer.
+- **Direct Inquiry**: Direct booking/inquiry path via WhatsApp integration.
 
-Navbar should have- Home, Services, Review, About, Inquiry.
+---
 
-Her location as well Mumbai India.
+## Local Development
 
-Add things like 4+ years experience, 1000+ happy faces or something related to that work of hers.
+To run this project locally, ensure you have [Node.js](https://nodejs.org/) installed:
 
-There is a color palette file in here, the color 2 is for background and color 3 for headings and main texts. leftovers button colors you can decide yourself whichever is matching the vibe and change color 4 to that particular color. You can do gradient work too but yeah do choose a color for color 4 and the website should be made in next.js for frontend and backend in django.
+1. Install dependencies:
+   ```sh
+   npm install
+   ```
 
-You can fetch crazy ideas and designs and implement here, we need to make this the most insane portfolio ever made. Fucking 3d aniomatiopns u can even get components from react bits and put here and get the work crazily done.
+2. Start the local development server:
+   ```sh
+   npm run dev
+   ```
 
+3. Build the project for production:
+   ```sh
+   npm run build
+   ```
 
-Here is the content of color palette file:
+4. Preview the production build:
+   ```sh
+   npm run preview
+   ```
 
-:root {
---color-1: #000000;
-/*Secondary Text*/
---color-2: #4C0081;
-/*Background*/
---color-3: #AA73FF;
-/*Heading text*/
---color-4: #FFB700;
-/*Button / Accent Color*/
---color-5: #F4F4F6;
-/*Container Background*/
-}
+---
 
-/* Designed with Rootcrypt Palette Generator */
+## Deployment to GitHub Pages
 
-This project was built with [Lovable](https://lovable.dev).
+This project is configured to build as a static site and deploy directly to GitHub Pages.
 
-**Live app**: https://dagha-divine-styles.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/2cc4b7cd-8e14-4771-b6f4-256810f29dbb).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
+To build and deploy in a single command, run:
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+npm run deploy
 ```
+
+The script will automatically:
+1. Build and prerender all pages.
+2. Copy `index.html` to `404.html` for client-side routing fallback.
+3. Push the static build output to the `gh-pages` branch.

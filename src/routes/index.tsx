@@ -1,8 +1,11 @@
+import { useEffect, useState, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { ArrowUpRight, Sparkles, Star } from "lucide-react";
+import { ArrowUpRight, Sparkles, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { site, stats, hairServices, makeupServices, reviews, process } from "@/lib/site-data";
 import { Reveal, TiltCard, Magnetic, Marquee, Parallax } from "@/components/site/motion-bits";
+import AccordionGallery from "@/components/site/AccordionGallery";
+import CircularGallery from "@/components/site/CircularGallery";
 import heroBride from "@/assets/hero-bride.jpg";
 import lookSoftGlam from "@/assets/look-softglam.jpg";
 import lookCocktail from "@/assets/look-cocktail.jpg";
@@ -38,13 +41,63 @@ const galleryLooks = [
   { src: lookGroom, label: "Groom styling" },
 ];
 
+function CountUp({ value }: { value: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const numericPart = parseInt(value.replace(/[^0-9]/g, ""), 10) || 0;
+  const suffix = value.replace(/[0-9]/g, "");
+
+  useEffect(() => {
+    let active = true;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          observer.disconnect();
+          let start = 0;
+          const end = numericPart;
+          if (start === end) {
+            setCount(end);
+            return;
+          }
+          const duration = 2000;
+          const startTime = performance.now();
+          const animate = (currentTime: number) => {
+            if (!active) return;
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+            const currentCount = Math.floor(easeOutCubic * end);
+            setCount(currentCount);
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              setCount(end);
+            }
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    return () => {
+      active = false;
+      observer.disconnect();
+    };
+  }, [numericPart]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
 function Home() {
   return (
     <div className="overflow-x-hidden">
       {/* HERO */}
       <section className="grain relative flex min-h-screen items-center px-4 pt-32 pb-20">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -54,27 +107,20 @@ function Home() {
               <Sparkles className="h-3.5 w-3.5" /> {site.location}
             </motion.p>
 
-            <h1 className="mt-6 font-display text-[clamp(3rem,9vw,6.5rem)] leading-[0.92]">
-              {"Hair by".split("").map((c, i) => (
-                <motion.span
-                  key={`a${i}`}
-                  className="inline-block"
-                  initial={{ opacity: 0, y: 40, rotateX: -70 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{ delay: 0.05 * i, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {c === " " ? "\u00A0" : c}
-                </motion.span>
-              ))}
-              <br />
-              <motion.span
-                className="text-gradient italic"
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Heer Dagha
-              </motion.span>
+            <h1 className="mt-6 font-display text-[clamp(3rem,9vw,6.5rem)] leading-[1.05]">
+              <span className="text-gradient italic">
+                {"Heer Dagha".split("").map((c, i) => (
+                  <motion.span
+                    key={`a${i}`}
+                    className="inline-block"
+                    initial={{ opacity: 0, y: 40, rotateX: -70 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ delay: 0.04 * i, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {c === " " ? "\u00A0" : c}
+                  </motion.span>
+                ))}
+              </span>
             </h1>
 
             <motion.p
@@ -91,7 +137,7 @@ function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.95, duration: 0.7 }}
-              className="mt-9 flex flex-wrap items-center gap-4"
+              className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4"
             >
               <Magnetic>
                 <Link
@@ -110,10 +156,12 @@ function Home() {
               </Link>
             </motion.div>
 
-            <div className="mt-14 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-4">
+            <div className="mt-14 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-4 w-full justify-items-center lg:justify-items-start">
               {stats.map((s, i) => (
-                <Reveal key={s.label} delay={0.1 * i}>
-                  <p className="font-display text-3xl text-accent">{s.value}</p>
+                <Reveal key={s.label} delay={0.1 * i} className="text-center lg:text-left">
+                  <p className="font-display text-3xl text-accent">
+                    <CountUp value={s.value} />
+                  </p>
                   <p className="mt-1 text-[11px] tracking-wider text-muted-foreground uppercase">
                     {s.label}
                   </p>
@@ -206,27 +254,51 @@ function Home() {
           <Reveal>
             <h2 className="font-display text-[clamp(2rem,4.5vw,3.2rem)]">Recent looks</h2>
           </Reveal>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {galleryLooks.map((g, i) => (
-              <Parallax key={g.label} distance={i % 2 ? 28 : 52}>
-                <TiltCard className="group" intensity={10}>
-                  <figure className="overflow-hidden rounded-3xl border border-border">
-                    <img
-                      src={g.src}
-                      alt={`${g.label} styled by Heer Dagha`}
-                      loading="lazy"
-                      width={900}
-                      height={1100}
-                      className="h-[22rem] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <figcaption className="bg-card/60 px-4 py-3 text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                      {g.label}
-                    </figcaption>
-                  </figure>
-                </TiltCard>
-              </Parallax>
-            ))}
-          </div>
+          {/* Desktop/Tablet Accordion Gallery */}
+          <Reveal className="mt-10 hidden sm:block">
+            <AccordionGallery
+              items={galleryLooks.map((g) => ({
+                image: g.src,
+                label: g.label,
+                link: "/services",
+              }))}
+              defaultIndex={1}
+              expandRatio={0.45}
+              trigger="hover"
+              accentColor="var(--color-primary)"
+              overlayColor="#241114"
+              textColor="#ffffff"
+              grayscale={false}
+              showLabels
+              duration={0.6}
+              ease="power3.out"
+              parallax={0.4}
+              tilt={6}
+              stagger={0.06}
+              height={480}
+              gap={12}
+              radius={24}
+              orientation="horizontal"
+            />
+          </Reveal>
+
+          {/* Mobile Circular Gallery */}
+          <Reveal className="mt-10 sm:hidden">
+            <div style={{ height: "440px", position: "relative" }} className="w-full overflow-hidden rounded-3xl border border-border bg-card/25">
+              <CircularGallery
+                items={galleryLooks.map((g) => ({
+                  image: g.src,
+                  text: g.label,
+                }))}
+                bend={1.0}
+                textColor="var(--color-heading)"
+                borderRadius={0.05}
+                scrollEase={0.12}
+                font="bold 20px Manrope"
+                scrollSpeed={3.5}
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
