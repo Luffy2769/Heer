@@ -134,11 +134,11 @@ function Reviews() {
   };
 
   const handleDeleteReview = async (review: {
-    id?: string;
+    id?: string | undefined;
     name: string;
     role: string;
     quote: string;
-    rating?: number;
+    rating?: number | undefined;
   }) => {
     if (isSupabaseConfigured && review.id) {
       try {
@@ -161,9 +161,12 @@ function Reviews() {
 
   const mergedReviews = isSupabaseConfigured
     ? dbReviews.length > 0
-      ? dbReviews
-      : reviews
-    : [...localReviews, ...reviews];
+      ? dbReviews.map((r) => ({ id: r.id, rating: 5, ...r }))
+      : reviews.map((r) => ({ id: undefined, rating: 5, ...r }))
+    : [
+        ...localReviews.map((r) => ({ id: undefined, rating: 5, ...r })),
+        ...reviews.map((r) => ({ id: undefined, rating: 5, ...r })),
+      ];
 
   const [currentPage, setCurrentPage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);

@@ -9,6 +9,7 @@ import {
   makeupList,
 } from "@/lib/site-data";
 import { Reveal } from "@/components/site/motion-bits";
+import { submitInquiry } from "@/lib/supabase";
 
 export const Route = createFileRoute("/inquiry")({
   validateSearch: (search: Record<string, unknown>): { service?: string | undefined } => ({
@@ -72,13 +73,24 @@ function Inquiry() {
   const today = new Date().toISOString().split("T")[0];
   const maxDate = `${new Date().getFullYear() + 15}-12-31`;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (form.services.length === 0) {
       setError("Please select at least one service.");
       return;
     }
     setError(null);
+
+    // Persist inquiry to Supabase
+    submitInquiry({
+      name: form.name.trim(),
+      event_date: form.date,
+      city: form.city.trim(),
+      services: form.services,
+      notes: form.notes.trim() || undefined,
+      submit_type: submitType,
+      status: "new",
+    });
 
     const message = `Hi Heer! I'd love to book you.
 
