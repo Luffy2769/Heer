@@ -87,7 +87,7 @@ export function StyleTransformationSlider({
           setIsDragging(true);
           if (e.touches[0]) handleMove(e.touches[0].clientX);
         }}
-        className="relative h-[480px] w-full select-none overflow-hidden rounded-2xl border border-[var(--color-2)]/25 shadow-xl cursor-ew-resize touch-none"
+        className="relative h-[340px] sm:h-[480px] w-full select-none overflow-hidden rounded-2xl border border-border/80 shadow-xl cursor-ew-resize touch-none"
       >
         {/* AFTER Image (Full Width Background) */}
         <img
@@ -95,7 +95,7 @@ export function StyleTransformationSlider({
           alt={afterLabel}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute top-4 right-4 rounded-full bg-black/50 backdrop-blur-md px-3.5 py-1 text-[11px] uppercase tracking-wider font-semibold text-white border border-white/20">
+        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 rounded-full bg-black/60 backdrop-blur-md px-2.5 sm:px-3.5 py-1 text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-white border border-white/20 shadow-md">
           ✨ {afterLabel}
         </div>
 
@@ -109,7 +109,7 @@ export function StyleTransformationSlider({
             alt={beforeLabel}
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute top-4 left-4 rounded-full bg-black/60 backdrop-blur-md px-3.5 py-1 text-[11px] uppercase tracking-wider font-semibold text-white/90 border border-white/20 whitespace-nowrap">
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 rounded-full bg-black/70 backdrop-blur-md px-2.5 sm:px-3.5 py-1 text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-white/95 border border-white/20 whitespace-nowrap shadow-md">
             🌿 {beforeLabel}
           </div>
         </div>
