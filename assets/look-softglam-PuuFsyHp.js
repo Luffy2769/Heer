@@ -1,0 +1,1 @@
+var e=`/Heer/assets/look-softglam-ZlDqT1iF.jpg`;export{e as t};
