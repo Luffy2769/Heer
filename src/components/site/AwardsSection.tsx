@@ -49,7 +49,7 @@ export function AwardsSection() {
     if (!isAutoPlaying) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 4000);
+    }, 1200);
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 

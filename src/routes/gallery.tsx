@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import DomeGallery from "@/components/site/DomeGallery";
 import { Reveal } from "@/components/site/motion-bits";
 
-import lookSoftGlam from "@/assets/look-softglam.jpg";
-import lookCocktail from "@/assets/look-cocktail.jpg";
+import lookSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
+import lookCocktail from "@/assets/Cocktail1.jpeg";
 import lookHaldi from "@/assets/look-haldi.jpg";
 import lookGroom from "@/assets/look-groom.jpg";
 import img6002 from "@/assets/IMG_6002.JPG.jpeg";
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/gallery")({
 
 const galleryImages = [
   { src: lookCocktail, alt: "Cocktail waves" },
-  { src: lookSoftGlam, alt: "Soft glam" },
+  { src: lookSoftGlam, alt: "Soft glam", objectPosition: "50% 15%" },
   { src: lookHaldi, alt: "Haldi florals" },
   { src: lookGroom, alt: "Groom styling" },
   { src: img6002, alt: "Bridal waves" },

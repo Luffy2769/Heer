@@ -250,6 +250,7 @@ interface MediaProps {
   textColor: string;
   borderRadius?: number;
   font?: string;
+  objectPosition?: [number, number];
 }
 
 class Media {
@@ -280,6 +281,8 @@ class Media {
   isBefore: boolean = false;
   isAfter: boolean = false;
 
+  objectPosition?: [number, number];
+
   constructor({
     geometry,
     gl,
@@ -295,6 +298,7 @@ class Media {
     textColor,
     borderRadius = 0,
     font,
+    objectPosition,
   }: MediaProps) {
     this.geometry = geometry;
     this.gl = gl;
@@ -310,6 +314,7 @@ class Media {
     this.textColor = textColor;
     this.borderRadius = borderRadius;
     this.font = font;
+    this.objectPosition = objectPosition;
     this.createShader();
     this.createMesh();
     this.createTitle();
@@ -345,6 +350,7 @@ class Media {
         uniform vec2 uPlaneSizes;
         uniform sampler2D tMap;
         uniform float uBorderRadius;
+        uniform vec2 uObjectPosition;
         varying vec2 vUv;
         
         float roundedBoxSDF(vec2 p, vec2 b, float r) {
@@ -358,8 +364,8 @@ class Media {
             min((uPlaneSizes.y / uPlaneSizes.x) / (uImageSizes.y / uImageSizes.x), 1.0)
           );
           vec2 uv = vec2(
-            vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
-            vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
+            vUv.x * ratio.x + (1.0 - ratio.x) * uObjectPosition.x,
+            vUv.y * ratio.y + (1.0 - ratio.y) * uObjectPosition.y
           );
           vec4 color = texture2D(tMap, uv);
           
@@ -378,6 +384,7 @@ class Media {
         uSpeed: { value: 0 },
         uTime: { value: 100 * Math.random() },
         uBorderRadius: { value: this.borderRadius },
+        uObjectPosition: { value: this.objectPosition || [0.5, 0.5] },
       },
       transparent: true,
     });
@@ -622,6 +629,7 @@ class App {
         textColor,
         borderRadius,
         font,
+        objectPosition: (data as any).objectPosition,
       });
     });
   }

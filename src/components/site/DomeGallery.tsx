@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useCallback } from "react";
 import { useGesture } from "@use-gesture/react";
 
-type ImageItem = string | { src: string; alt?: string };
+type ImageItem = string | { src: string; alt?: string; objectPosition?: string };
 
 type DomeGalleryProps = {
   images?: ImageItem[];
@@ -32,6 +32,7 @@ type ItemDef = {
   y: number;
   sizeX: number;
   sizeY: number;
+  objectPosition?: string;
 };
 
 const DEFAULT_IMAGES: ImageItem[] = [
@@ -107,9 +108,9 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
 
   const normalizedImages = pool.map((image) => {
     if (typeof image === "string") {
-      return { src: image, alt: "" };
+      return { src: image, alt: "", objectPosition: undefined };
     }
-    return { src: image.src || "", alt: image.alt || "" };
+    return { src: image.src || "", alt: image.alt || "", objectPosition: image.objectPosition };
   });
 
   const usedImages = Array.from(
@@ -134,6 +135,7 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
     ...c,
     src: usedImages[i].src,
     alt: usedImages[i].alt,
+    objectPosition: usedImages[i].objectPosition,
   }));
 }
 
@@ -558,7 +560,7 @@ export default function DomeGallery({
       const originalImg = overlay.querySelector("img");
       if (originalImg) {
         const img = originalImg.cloneNode() as HTMLImageElement;
-        img.style.cssText = "width: 100%; height: 100%; object-fit: cover;";
+        img.style.cssText = `width: 100%; height: 100%; object-fit: cover; object-position: ${originalImg.style.objectPosition || "center"};`;
         animatingOverlay.appendChild(img);
       }
 
@@ -695,10 +697,11 @@ export default function DomeGallery({
     overlay.style.cssText = `position:absolute; left:${frameR.left - mainR.left}px; top:${frameR.top - mainR.top}px; width:${frameR.width}px; height:${frameR.height}px; opacity:0; z-index:30; will-change:transform,opacity; transform-origin:top left; transition:transform ${enlargeTransitionMs}ms ease, opacity ${enlargeTransitionMs}ms ease; border-radius:${openedImageBorderRadius}; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.35);`;
     const rawSrc = parent.dataset.src || (el.querySelector("img") as HTMLImageElement)?.src || "";
     const rawAlt = parent.dataset.alt || (el.querySelector("img") as HTMLImageElement)?.alt || "";
+    const rawPos = parent.dataset.objectPosition || (el.querySelector("img") as HTMLImageElement)?.style.objectPosition || "";
     const img = document.createElement("img");
     img.src = rawSrc;
     img.alt = rawAlt;
-    img.style.cssText = `width:100%; height:100%; object-fit:cover; filter:${grayscale ? "grayscale(1)" : "none"};`;
+    img.style.cssText = `width:100%; height:100%; object-fit:cover; filter:${grayscale ? "grayscale(1)" : "none"}; object-position:${rawPos};`;
     overlay.appendChild(img);
     viewerRef.current!.appendChild(overlay);
     const tx0 = tileR.left - frameR.left;
@@ -882,6 +885,7 @@ export default function DomeGallery({
                   className="sphere-item absolute m-auto"
                   data-src={it.src}
                   data-alt={it.alt}
+                  data-object-position={it.objectPosition}
                   data-offset-x={it.x}
                   data-offset-y={it.y}
                   data-size-x={it.sizeX}
@@ -933,6 +937,7 @@ export default function DomeGallery({
                       style={{
                         backfaceVisibility: "hidden",
                         filter: `var(--image-filter, ${grayscale ? "grayscale(1)" : "none"})`,
+                        objectPosition: it.objectPosition,
                       }}
                     />
                   </div>

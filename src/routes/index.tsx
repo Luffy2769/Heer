@@ -10,8 +10,8 @@ import { AwardsSection } from "@/components/site/AwardsSection";
 import bridalPrepNatural from "@/assets/bridal-prep-natural.jpg";
 import bridalRoyalGlam from "@/assets/bridal-royal-glam.jpg";
 import heroBride from "@/assets/hero-bride.jpg";
-import lookSoftGlam from "@/assets/look-softglam.jpg";
-import lookCocktail from "@/assets/look-cocktail.jpg";
+import lookSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
+import lookCocktail from "@/assets/Cocktail1.jpeg";
 import lookHaldi from "@/assets/look-haldi.jpg";
 import lookGroom from "@/assets/look-groom.jpg";
 
@@ -39,7 +39,12 @@ export const Route = createFileRoute("/")({
 
 const galleryLooks = [
   { src: lookCocktail, label: "Cocktail waves" },
-  { src: lookSoftGlam, label: "Soft glam" },
+  {
+    src: lookSoftGlam,
+    label: "Soft glam",
+    objectPosition: "50% 15%",
+    objectPositionWebGL: [0.5, 0.85] as [number, number],
+  },
   { src: lookHaldi, label: "Haldi florals" },
   { src: lookGroom, label: "Groom styling" },
 ];
@@ -333,6 +338,7 @@ function Home() {
                 image: g.src,
                 label: g.label,
                 link: "/services",
+                objectPosition: g.objectPosition,
               }))}
               defaultIndex={1}
               expandRatio={0.45}
@@ -364,6 +370,7 @@ function Home() {
                 items={galleryLooks.map((g) => ({
                   image: g.src,
                   text: g.label,
+                  objectPosition: g.objectPositionWebGL,
                 }))}
                 bend={1.0}
                 textColor="var(--color-heading)"
