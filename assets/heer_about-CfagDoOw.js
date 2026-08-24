@@ -1,0 +1,1 @@
+var e=`/Heer/assets/heer_about-DowfQrym.jpeg`;export{e as t};
