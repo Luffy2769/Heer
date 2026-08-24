@@ -50,7 +50,7 @@ function About() {
   return (
     <div className="overflow-x-hidden bg-background text-foreground">
       {/* HERO SECTION */}
-      <section className="grain relative px-4 pt-36 pb-16">
+      <section className="grain relative px-4 pt-36 pb-8 sm:pb-16">
         <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_0.85fr]">
           <div>
             <Reveal>
@@ -58,8 +58,27 @@ function About() {
                 <MapPin className="h-3.5 w-3.5 text-accent" /> {site.location}
               </p>
               <h1 className="mt-6 font-display text-[clamp(2.6rem,7vw,5rem)] leading-[0.95] tracking-tight">
-                I'm Heer — <span className="text-gradient italic">hair is my language</span>
+                Heer Dagha — <span className="text-gradient italic">hair is my language</span>
               </h1>
+
+              {/* Mobile Image (only visible on mobile/tablet) */}
+              <div className="block lg:hidden my-6">
+                <Parallax distance={20}>
+                  <TiltCard className="group" intensity={8}>
+                    <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-card p-2 shadow-2xl transition-all duration-500 group-hover:border-accent/40 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.15)]">
+                      <img
+                        src={portrait}
+                        alt="Portrait of hair stylist Heer Dagha"
+                        loading="lazy"
+                        width={1008}
+                        height={1264}
+                        className="w-full h-[380px] sm:h-[460px] rounded-[2rem] object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                  </TiltCard>
+                </Parallax>
+              </div>
+
               <p className="mt-6 max-w-xl text-muted-foreground leading-relaxed">
                 Heer Dagha is an optimistic leading artist in today’s generation of the hairstyle
                 and makeup industry. Her creation for every hairstyle holds dedication and has the
@@ -90,38 +109,41 @@ function About() {
             </Reveal>
           </div>
 
-          <Parallax distance={30}>
-            <TiltCard className="group" intensity={8}>
-              <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-card p-2 shadow-2xl transition-all duration-500 group-hover:border-accent/40 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.15)]">
-                <img
-                  src={portrait}
-                  alt="Portrait of hair stylist Heer Dagha"
-                  loading="lazy"
-                  width={1008}
-                  height={1264}
-                  className="w-full h-[460px] sm:h-[520px] rounded-[2rem] object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-            </TiltCard>
-          </Parallax>
+          {/* Desktop Image (only visible on desktop) */}
+          <div className="hidden lg:block">
+            <Parallax distance={30}>
+              <TiltCard className="group" intensity={8}>
+                <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-card p-2 shadow-2xl transition-all duration-500 group-hover:border-accent/40 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.15)]">
+                  <img
+                    src={portrait}
+                    alt="Portrait of hair stylist Heer Dagha"
+                    loading="lazy"
+                    width={1008}
+                    height={1264}
+                    className="w-full h-[460px] sm:h-[520px] rounded-[2rem] object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </TiltCard>
+            </Parallax>
+          </div>
         </div>
       </section>
 
       {/* STATS SECTION — Interactive Glass Cards */}
-      <section className="px-4 py-16">
-        <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="px-4 pt-0 pb-10 sm:py-16">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={0.06 * i}>
               <TiltCard intensity={8} className="h-full">
-                <div className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between group hover:border-accent/40 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(235,165,182,0.12)]">
-                  <span className="absolute -right-2 -bottom-2 font-display text-7xl font-bold opacity-[0.04] text-accent group-hover:scale-110 group-hover:opacity-[0.08] transition-all duration-500">
+                <div className="glass-panel h-full rounded-2xl sm:rounded-3xl p-5 sm:p-7 relative overflow-hidden flex flex-col justify-between group hover:border-accent/40 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(235,165,182,0.12)]">
+                  <span className="absolute -right-2 -bottom-2 font-display text-5xl sm:text-7xl font-bold opacity-[0.04] text-accent group-hover:scale-110 group-hover:opacity-[0.08] transition-all duration-500">
                     0{i + 1}
                   </span>
                   <div>
-                    <p className="font-display text-4xl sm:text-5xl font-bold text-accent group-hover:scale-105 transition-transform origin-left">
+                    <p className="font-display text-3xl sm:text-5xl font-bold text-accent group-hover:scale-105 transition-transform origin-left">
                       {s.value}
                     </p>
-                    <p className="mt-3 text-xs tracking-wider text-muted-foreground uppercase font-semibold">
+                    <p className="mt-1.5 sm:mt-3 text-[10px] sm:text-xs tracking-wider text-muted-foreground uppercase font-semibold leading-tight">
                       {s.label}
                     </p>
                   </div>
@@ -151,18 +173,18 @@ function About() {
             </TiltCard>
           </Parallax>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-4 sm:gap-5 sm:grid-cols-2">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={0.06 * i}>
                 <TiltCard intensity={6} className="h-full">
-                  <div className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden group hover:border-accent/40 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(235,165,182,0.12)]">
+                  <div className="glass-panel h-full rounded-2xl sm:rounded-3xl p-5 sm:p-7 relative overflow-hidden group hover:border-accent/40 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(235,165,182,0.12)]">
                     <span className="text-[10px] font-mono tracking-widest text-accent uppercase font-bold opacity-60">
                       0{i + 1} // PHILOSOPHY
                     </span>
-                    <h2 className="mt-2 font-display text-2xl font-bold text-foreground group-hover:text-accent transition-colors">
+                    <h2 className="mt-2 font-display text-xl sm:text-2xl font-bold text-foreground group-hover:text-accent transition-colors">
                       {v.title}
                     </h2>
-                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {v.text}
                     </p>
                   </div>

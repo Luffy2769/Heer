@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { CheckCircle2, Clock, Globe, Instagram, Mail, MapPin, MessageSquare, Phone, Send, Sparkles, Star } from "lucide-react";
 import {
@@ -282,21 +282,26 @@ function Inquiry() {
 
               {/* Large Bride Testimonial Card */}
               <Reveal delay={0.18}>
-                <TiltCard intensity={6}>
-                  <div className="glass-panel rounded-3xl p-6 sm:p-7 border border-border/80 space-y-3 relative overflow-hidden">
-                    <div className="flex items-center gap-1.5 text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="size-4 fill-amber-400" />
-                      ))}
+                <Link to="/reviews" className="block group">
+                  <TiltCard intensity={6}>
+                    <div className="glass-panel rounded-3xl p-6 sm:p-7 border border-border/80 space-y-3 relative overflow-hidden group-hover:border-accent/40 transition-colors cursor-pointer">
+                      <div className="flex items-center gap-1.5 text-amber-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="size-4 fill-amber-400" />
+                        ))}
+                      </div>
+                      <p className="text-sm sm:text-base text-foreground/95 italic leading-relaxed font-serif">
+                        "Sea humidity, an outdoor mandap, and my hair still had that glossy finish at midnight. Worth every rupee."
+                      </p>
+                      <p className="text-xs text-accent uppercase font-bold tracking-wider pt-1 flex items-center justify-between">
+                        <span>— Devika Nair, Alibaug</span>
+                        <span className="text-[10px] text-muted-foreground font-sans font-normal tracking-normal normal-case group-hover:text-accent transition-colors">
+                          Read all reviews &rarr;
+                        </span>
+                      </p>
                     </div>
-                    <p className="text-sm sm:text-base text-foreground/95 italic leading-relaxed font-serif">
-                      "Heer made my wedding morning so calm and effortless! My hair held up through 12 hours of dancing."
-                    </p>
-                    <p className="text-xs text-accent uppercase font-bold tracking-wider pt-1">
-                      — Bride Testimonial
-                    </p>
-                  </div>
-                </TiltCard>
+                  </TiltCard>
+                </Link>
               </Reveal>
             </div>
 
