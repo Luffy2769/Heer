@@ -7,7 +7,7 @@ import { Reveal, TiltCard, Marquee, Parallax } from "@/components/site/motion-bi
 import AccordionGallery from "@/components/site/AccordionGallery";
 import CircularGallery from "@/components/site/CircularGallery";
 import { AwardsSection } from "@/components/site/AwardsSection";
-import heroBride from "@/assets/Bridal_wedding_hair.jpeg";
+import heroBride from "@/assets/heer_home.jpeg";
 import lookSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
 import lookCocktail from "@/assets/Cocktail1.jpeg";
 import lookHaldi from "@/assets/Haldi_mehendi.jpeg";

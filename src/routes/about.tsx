@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MapPin, ArrowUpRight } from "lucide-react";
 import { site, stats } from "@/lib/site-data";
 import { Reveal, TiltCard, Parallax } from "@/components/site/motion-bits";
-import portrait from "@/assets/heer-portrait.jpg";
+import portrait from "@/assets/heer_about.jpeg";
 import lookHaldi from "@/assets/Haldi_mehendi.jpeg";
 
 export const Route = createFileRoute("/about")({

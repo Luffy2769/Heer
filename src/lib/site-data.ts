@@ -12,7 +12,7 @@ const heroBride = bridalWeddingHair;
 
 export const site = {
   name: "Heer Dagha",
-  tagline: "Hair Artistry & Makeup",
+  tagline: "Hair & Makeup Artistry",
   phone: "+91 9372040434",
   phoneHref: "tel:+919372040434",
   whatsapp: "https://wa.me/919372040434",
