@@ -1,4 +1,5 @@
 import bridalWeddingHair from "@/assets/Bridal_wedding_hair.jpeg";
+import bridalHair from "@/assets/Bridal_hair.jpeg";
 import sangeetLook from "@/assets/Sangeet_look.jpeg";
 import haldiMehendi from "@/assets/Haldi_mehendi.jpeg";
 import cocktail from "@/assets/Cocktail.jpeg";
@@ -6,8 +7,8 @@ import cocktail1 from "@/assets/Cocktail1.jpeg";
 import cocktail2 from "@/assets/Cocktail2.jpeg";
 import matureLook from "@/assets/Mature_look.jpeg";
 import noMakeupSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
-import lookGroom from "@/assets/look-groom.jpg";
-import heroBride from "@/assets/hero-bride.jpg";
+const lookGroom = matureLook;
+const heroBride = bridalWeddingHair;
 
 export const site = {
   name: "Heer Dagha",
@@ -51,7 +52,8 @@ export const hairstylesList = [
   {
     title: "Engagement Hair",
     blurb: "Elegant half-ups, classic waves and sophisticated styling for your ring ceremony look.",
-    image: cocktail,
+    image: bridalHair,
+    objectPosition: "50% 25%",
   },
   {
     title: "Reception Hair",
@@ -67,6 +69,7 @@ export const groomStylingList = [
     blurb:
       "Sharp styles, clean textures and professional product placement for grooms on their big days.",
     image: lookGroom,
+    objectPosition: "50% 10%",
   },
 ];
 
@@ -84,17 +87,20 @@ export const makeupList = [
     title: "Soft Glam",
     blurb: "Minimal glow with dewy plump cheeks and lips chosen fresh for a full 13-hour stay.",
     image: noMakeupSoftGlam,
+    objectPosition: "50% 15%",
   },
   {
     title: "3D / HD Makeup",
     blurb:
       "Highly defined cheekbones crafted for camera flash clarity, boosting the vibe for your cocktail night with a signature smokey effect.",
-    image: cocktail2,
+    image: cocktail,
+    objectPosition: "50% 10%",
   },
   {
     title: "No-Makeup Look",
     blurb: "Skin-first prep, sheer correction, freckles and features left intact.",
     image: matureLook,
+    objectPosition: "50% 10%",
   },
 ];
 

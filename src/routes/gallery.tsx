@@ -5,8 +5,8 @@ import { Reveal } from "@/components/site/motion-bits";
 
 import lookSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
 import lookCocktail from "@/assets/Cocktail1.jpeg";
-import lookHaldi from "@/assets/look-haldi.jpg";
-import lookGroom from "@/assets/look-groom.jpg";
+import lookHaldi from "@/assets/Haldi_mehendi.jpeg";
+import lookMature from "@/assets/Mature_look.jpeg";
 import img6002 from "@/assets/IMG_6002.JPG.jpeg";
 import img6898 from "@/assets/IMG_6898.JPG.jpeg";
 import img6901 from "@/assets/IMG_6901.JPG.jpeg";
@@ -57,7 +57,7 @@ const galleryImages = [
   { src: lookCocktail, alt: "Cocktail waves" },
   { src: lookSoftGlam, alt: "Soft glam", objectPosition: "50% 15%" },
   { src: lookHaldi, alt: "Haldi florals" },
-  { src: lookGroom, alt: "Groom styling" },
+  { src: lookMature, alt: "No makeup look", objectPosition: "50% 10%" },
   { src: img6002, alt: "Bridal waves" },
   { src: img6898, alt: "Sangeet curls" },
   { src: img6901, alt: "Soft glam makeup" },

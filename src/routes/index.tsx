@@ -3,17 +3,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, Sparkles, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { site, stats, hairServices, makeupServices, reviews, process } from "@/lib/site-data";
-import { Reveal, TiltCard, Magnetic, Marquee, Parallax } from "@/components/site/motion-bits";
+import { Reveal, TiltCard, Marquee, Parallax } from "@/components/site/motion-bits";
 import AccordionGallery from "@/components/site/AccordionGallery";
 import CircularGallery from "@/components/site/CircularGallery";
 import { AwardsSection } from "@/components/site/AwardsSection";
-import bridalPrepNatural from "@/assets/bridal-prep-natural.jpg";
-import bridalRoyalGlam from "@/assets/bridal-royal-glam.jpg";
-import heroBride from "@/assets/hero-bride.jpg";
+import heroBride from "@/assets/Bridal_wedding_hair.jpeg";
 import lookSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
 import lookCocktail from "@/assets/Cocktail1.jpeg";
-import lookHaldi from "@/assets/look-haldi.jpg";
-import lookGroom from "@/assets/look-groom.jpg";
+import lookHaldi from "@/assets/Haldi_mehendi.jpeg";
+import lookMature from "@/assets/Mature_look.jpeg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,7 +44,12 @@ const galleryLooks = [
     objectPositionWebGL: [0.5, 0.85] as [number, number],
   },
   { src: lookHaldi, label: "Haldi florals" },
-  { src: lookGroom, label: "Groom styling" },
+  {
+    src: lookMature,
+    label: "No makeup look",
+    objectPosition: "50% 10%",
+    objectPositionWebGL: [0.5, 0.9] as [number, number],
+  },
 ];
 
 function CountUp({ value }: { value: string }) {
@@ -207,15 +210,13 @@ function Home() {
               transition={{ delay: 0.95, duration: 0.7 }}
               className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4 order-6 lg:order-none"
             >
-              <Magnetic>
-                <Link
-                  to="/inquiry"
-                  className="group inline-flex items-center gap-2 rounded-full accent-gradient px-7 py-3.5 font-semibold text-accent-foreground"
-                >
-                  Book your look
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </Magnetic>
+              <Link
+                to="/inquiry"
+                className="group inline-flex items-center gap-2 rounded-full accent-gradient px-7 py-3.5 font-semibold text-accent-foreground shadow-lg transition-transform hover:scale-[1.03]"
+              >
+                Book your look
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
               <Link
                 to="/services"
                 className="rounded-full border border-border px-7 py-3.5 text-sm text-foreground transition-colors hover:border-accent hover:text-accent"

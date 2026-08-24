@@ -81,32 +81,6 @@ export function TiltCard({
   );
 }
 
-/** Button-sized magnetic wrapper. */
-export function Magnetic({ children, className }: { children: ReactNode; className?: string }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 16 });
-  const sy = useSpring(y, { stiffness: 220, damping: 16 });
-
-  return (
-    <motion.div
-      className={cn("inline-block", className)}
-      style={{ x: sx, y: sy }}
-      onPointerMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        x.set((e.clientX - (r.left + r.width / 2)) * 0.28);
-        y.set((e.clientY - (r.top + r.height / 2)) * 0.28);
-      }}
-      onPointerLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export function Marquee({ items }: { items: string[] }) {
   const row = [...items, ...items];
   return (

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { CheckCircle2, Clock, Globe, Instagram, Mail, MapPin, MessageSquare, Phone, Send, Sparkles, Star } from "lucide-react";
+import { CheckCircle2, Mail, MessageSquare, Phone, Send, Sparkles } from "lucide-react";
 import {
   site,
   hairstylesList,
@@ -10,6 +10,7 @@ import {
 } from "@/lib/site-data";
 import { Reveal, TiltCard } from "@/components/site/motion-bits";
 import { submitInquiry } from "@/lib/supabase";
+import heroBride from "@/assets/Bridal_wedding_hair.jpeg";
 
 export const Route = createFileRoute("/inquiry")({
   validateSearch: (search: Record<string, unknown>): { service?: string | undefined } => ({
@@ -42,6 +43,13 @@ const serviceGroups = [
   { name: "Destination", list: destinationList },
 ];
 
+const allServices = [
+  ...hairstylesList,
+  ...makeupList,
+  ...groomStylingList,
+  ...destinationList,
+];
+
 function Inquiry() {
   const { service } = Route.useSearch();
 
@@ -67,6 +75,22 @@ function Inquiry() {
       }));
     }
   }, [service]);
+
+  // Determine active service photo to display beside the form
+  const activeServiceTitle =
+    form.services.length > 0
+      ? form.services[form.services.length - 1]
+      : service;
+
+  const activeServiceObj = allServices.find(
+    (s) => s.title.toLowerCase() === activeServiceTitle?.toLowerCase()
+  );
+
+  const displayPhoto = activeServiceObj?.image || heroBride;
+  const displayTitle = activeServiceObj?.title || "Bespoke Bridal Artistry";
+  const displayBlurb =
+    activeServiceObj?.blurb ||
+    "Crafting signature hair and makeup looks for weddings, sangeet, cocktail & reception ceremonies.";
 
   const today = new Date().toISOString().split("T")[0];
   const maxDate = `${new Date().getFullYear() + 15}-12-31`;
@@ -156,152 +180,94 @@ function Inquiry() {
     <div className="overflow-x-hidden">
       <section className="grain px-4 pt-36 pb-20">
         <div className="mx-auto max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-start">
-            {/* Left Column: Full-Sized Prominent Information & Contact Cards (2nd on mobile, 1st on desktop) */}
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-start">
+            {/* Left Column: Prominent Service Photo Display (2nd on mobile, 1st on desktop) */}
             <div className="space-y-6 order-2 lg:order-1">
               <Reveal>
                 <p className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-1.5 text-[11px] tracking-[0.28em] text-accent uppercase font-bold">
                   <Sparkles className="h-3.5 w-3.5 text-accent" /> Booking Inquiry
                 </p>
-                <h1 className="mt-4 font-display text-[clamp(2.8rem,6.5vw,4.8rem)] leading-[0.95] tracking-tight">
+                <h1 className="mt-4 font-display text-[clamp(1.6rem,3.8vw,2.8rem)] leading-tight tracking-tight whitespace-nowrap">
                   Let's check <span className="text-gradient italic">your date</span>
                 </h1>
-                <p className="mt-4 text-base text-muted-foreground leading-relaxed max-w-lg">
+                <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-lg">
                   Fill in your details to check availability. Heer personally reviews every request and replies within 24 hours.
                 </p>
               </Reveal>
 
-              {/* Contact Information Cards (2x2 Grid, Full Size) */}
-              <Reveal delay={0.06}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a
-                    href={site.whatsapp}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4 hover:border-accent/40 transition-all duration-300 group cursor-pointer hover:shadow-lg"
-                  >
-                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Phone className="h-6 w-6" />
-                    </div>
-                    <div className="overflow-hidden">
-                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
-                        Call / WhatsApp
-                      </p>
-                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground truncate group-hover:text-accent transition-colors">
-                        {site.phone}
-                      </p>
-                    </div>
-                  </a>
+              {/* Dynamic Service / Featured Photo Card */}
+              <Reveal delay={0.1}>
+                <TiltCard intensity={5} className="w-full">
+                  <div className="glass-panel relative overflow-hidden rounded-[2.5rem] border border-border/80 p-3 sm:p-4 shadow-2xl group">
+                    <div className="relative aspect-[4/3] sm:aspect-[4/3] w-full overflow-hidden rounded-[2rem] bg-muted">
+                      <img
+                        key={displayPhoto}
+                        src={displayPhoto}
+                        alt={displayTitle}
+                        className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
+                        style={{ objectPosition: (activeServiceObj as any)?.objectPosition || "center" }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent pointer-events-none" />
 
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4 hover:border-accent/40 transition-all duration-300 group cursor-pointer hover:shadow-lg"
-                  >
-                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Mail className="h-6 w-6" />
-                    </div>
-                    <div className="overflow-hidden">
-                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
-                        Work Email
-                      </p>
-                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground truncate group-hover:text-accent transition-colors">
-                        {site.email}
-                      </p>
-                    </div>
-                  </a>
+                      <div className="absolute top-4 left-4">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-md border border-accent/30 px-3.5 py-1.5 text-xs font-semibold text-accent shadow-md">
+                          <Sparkles className="h-3.5 w-3.5" />
+                          {activeServiceObj ? "Selected Service" : "Featured Look"}
+                        </span>
+                      </div>
 
-                  <a
-                    href={`https://instagram.com/${site.handle}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4 hover:border-accent/40 transition-all duration-300 group cursor-pointer hover:shadow-lg"
-                  >
-                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Instagram className="h-6 w-6" />
+                      <div className="absolute bottom-4 left-4 right-4 text-foreground">
+                        <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight">
+                          {displayTitle}
+                        </h3>
+                        <p className="mt-1 text-xs sm:text-sm text-muted-foreground/90 leading-relaxed line-clamp-2">
+                          {displayBlurb}
+                        </p>
+                      </div>
                     </div>
-                    <div className="overflow-hidden">
-                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
-                        Instagram
-                      </p>
-                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground truncate group-hover:text-accent transition-colors">
-                        @{site.handle}
-                      </p>
-                    </div>
-                  </a>
+                  </div>
+                </TiltCard>
+              </Reveal>
 
-                  <div className="glass-panel rounded-3xl p-5 sm:p-6 flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                      <MapPin className="h-6 w-6" />
+              {/* Direct Quick Contact Bar */}
+              <Reveal delay={0.15}>
+                <div className="glass-panel rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4 border border-accent/20 bg-accent/5">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-2xl bg-accent/15 text-accent flex items-center justify-center shrink-0">
+                      <Phone className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-xs tracking-wider text-muted-foreground uppercase font-semibold">
-                        Based In
+                      <p className="text-[10px] tracking-wider text-muted-foreground uppercase font-semibold">
+                        Call / WhatsApp
                       </p>
-                      <p className="mt-1 font-display text-base sm:text-lg font-bold text-foreground">
-                        Mumbai &amp; Global
+                      <a
+                        href={site.whatsapp}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs sm:text-sm font-bold text-foreground hover:text-accent transition-colors"
+                      >
+                        {site.phone}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-2xl bg-accent/15 text-accent flex items-center justify-center shrink-0">
+                      <Mail className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] tracking-wider text-muted-foreground uppercase font-semibold">
+                        Work Email
                       </p>
+                      <a
+                        href={`mailto:${site.email}`}
+                        className="text-xs sm:text-sm font-bold text-foreground hover:text-accent transition-colors"
+                      >
+                        {site.email}
+                      </a>
                     </div>
                   </div>
                 </div>
-              </Reveal>
-
-              {/* Prominent Perks & Trust Banner */}
-              <Reveal delay={0.12}>
-                <div className="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 border border-accent/20 bg-gradient-to-br from-accent/10 via-card/50 to-card/70">
-                  <h3 className="text-xs font-mono tracking-[0.25em] text-accent uppercase font-bold flex items-center gap-2">
-                    <Sparkles className="size-4" /> Why Book Heer Dagha?
-                  </h3>
-
-                  <div className="grid sm:grid-cols-2 gap-4 pt-1">
-                    <div className="flex items-start gap-3.5">
-                      <div className="h-9 w-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center shrink-0 mt-0.5">
-                        <Clock className="size-5" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-foreground">Under 24-Hour Response</p>
-                        <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                          Timelines confirmed quickly so your schedule stays stress-free.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3.5">
-                      <div className="h-9 w-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center shrink-0 mt-0.5">
-                        <Globe className="size-5" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-foreground">Destination Wedding Ready</p>
-                        <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                          Available for weddings across Mumbai, India, and worldwide.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-
-              {/* Large Bride Testimonial Card */}
-              <Reveal delay={0.18}>
-                <Link to="/reviews" className="block group">
-                  <TiltCard intensity={6}>
-                    <div className="glass-panel rounded-3xl p-6 sm:p-7 border border-border/80 space-y-3 relative overflow-hidden group-hover:border-accent/40 transition-colors cursor-pointer">
-                      <div className="flex items-center gap-1.5 text-amber-400">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="size-4 fill-amber-400" />
-                        ))}
-                      </div>
-                      <p className="text-sm sm:text-base text-foreground/95 italic leading-relaxed font-serif">
-                        "Sea humidity, an outdoor mandap, and my hair still had that glossy finish at midnight. Worth every rupee."
-                      </p>
-                      <p className="text-xs text-accent uppercase font-bold tracking-wider pt-1 flex items-center justify-between">
-                        <span>— Devika Nair, Alibaug</span>
-                        <span className="text-[10px] text-muted-foreground font-sans font-normal tracking-normal normal-case group-hover:text-accent transition-colors">
-                          Read all reviews &rarr;
-                        </span>
-                      </p>
-                    </div>
-                  </TiltCard>
-                </Link>
               </Reveal>
             </div>
 

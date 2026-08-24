@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { site } from "@/lib/site-data";
-import { Magnetic } from "./motion-bits";
 
 const links = [
   { to: "/", label: "Home" },
@@ -61,16 +60,14 @@ export function SiteNav() {
         </ul>
 
         <div className="hidden md:block">
-          <Magnetic>
-            <a
-              href={site.whatsapp}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex rounded-full accent-gradient px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-transform hover:scale-[1.03]"
-            >
-              Book a date
-            </a>
-          </Magnetic>
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex rounded-full accent-gradient px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-transform hover:scale-[1.03]"
+          >
+            Book a date
+          </a>
         </div>
 
         <button

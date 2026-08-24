@@ -80,7 +80,8 @@ function Services() {
                               <img
                                 src={s.image}
                                 alt={s.title}
-                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                style={{ objectPosition: (s as any).objectPosition || "center" }}
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
                             </div>
@@ -128,7 +129,8 @@ function Services() {
                               <img
                                 src={s.image}
                                 alt={s.title}
-                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                style={{ objectPosition: (s as any).objectPosition || "center" }}
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
                             </div>
@@ -171,7 +173,8 @@ function Services() {
                               <img
                                 src={s.image}
                                 alt={s.title}
-                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                style={{ objectPosition: (s as any).objectPosition || "center" }}
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
                             </div>
@@ -218,7 +221,8 @@ function Services() {
                             <img
                               src={s.image}
                               alt={s.title}
-                              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              style={{ objectPosition: (s as any).objectPosition || "center" }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
                           </div>

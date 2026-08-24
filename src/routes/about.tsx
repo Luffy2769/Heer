@@ -3,7 +3,7 @@ import { MapPin, ArrowUpRight } from "lucide-react";
 import { site, stats } from "@/lib/site-data";
 import { Reveal, TiltCard, Parallax } from "@/components/site/motion-bits";
 import portrait from "@/assets/heer-portrait.jpg";
-import lookHaldi from "@/assets/look-haldi.jpg";
+import lookHaldi from "@/assets/Haldi_mehendi.jpeg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
