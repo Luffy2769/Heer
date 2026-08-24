@@ -43,10 +43,15 @@ const galleryLooks = [
     objectPosition: "50% 15%",
     objectPositionWebGL: [0.5, 0.85] as [number, number],
   },
-  { src: lookHaldi, label: "Haldi florals" },
+  {
+    src: lookHaldi,
+    label: "Haldi florals",
+    objectPosition: "60% 20%",
+    objectPositionWebGL: [0.5, 0.9] as [number, number],
+  },
   {
     src: lookMature,
-    label: "No makeup look",
+    label: "Mature look",
     objectPosition: "50% 10%",
     objectPositionWebGL: [0.5, 0.9] as [number, number],
   },
@@ -345,7 +350,7 @@ function Home() {
               expandRatio={0.45}
               trigger="hover"
               accentColor="var(--color-primary)"
-              overlayColor="#241114"
+              overlayColor="transparent"
               textColor="#ffffff"
               grayscale={false}
               showLabels
@@ -423,13 +428,12 @@ function Home() {
                         key={p.step}
                         type="button"
                         onClick={() => setActiveStep(idx)}
-                        className={`relative z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border text-xs font-semibold font-mono transition-all duration-300 ${
-                          isActive
-                            ? "bg-primary border-transparent text-primary-foreground shadow-[0_0_15px_var(--color-accent)] scale-110"
-                            : isCompleted
-                              ? "bg-accent border-transparent text-accent-foreground"
-                              : "bg-surface border-border text-muted-foreground hover:border-accent hover:text-foreground"
-                        }`}
+                        className={`relative z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border text-xs font-semibold font-mono transition-all duration-300 ${isActive
+                          ? "bg-primary border-transparent text-primary-foreground shadow-[0_0_15px_var(--color-accent)] scale-110"
+                          : isCompleted
+                            ? "bg-accent border-transparent text-accent-foreground"
+                            : "bg-surface border-border text-muted-foreground hover:border-accent hover:text-foreground"
+                          }`}
                       >
                         {p.step}
                       </button>

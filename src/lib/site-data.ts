@@ -37,17 +37,20 @@ export const hairstylesList = [
     blurb:
       "Sculpted bridal buns embraced with fresh flowers, textured and voluminous hair for the D-day. Crafted to survive from pheras to vidaai, suitable for any weather.",
     image: bridalWeddingHair,
+    objectPosition: "50% 30%",
   },
   {
     title: "Sangeet / Cocktail Hair",
     blurb:
       "Glossy blowouts, deep side waves and sleek high pony drama built for choreography and long dance sets.",
     image: sangeetLook,
+    objectPosition: "50% 25%",
   },
   {
     title: "Haldi / Mehndi Hair",
     blurb: "Fresh florals, textured plaits and breezy daytime styling for the intimate ceremonies.",
     image: haldiMehendi,
+    objectPosition: "50% 25%",
   },
   {
     title: "Engagement Hair",
@@ -60,6 +63,7 @@ export const hairstylesList = [
     blurb:
       "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
     image: cocktail1,
+    objectPosition: "50% 35%",
   },
 ];
 
@@ -69,7 +73,7 @@ export const groomStylingList = [
     blurb:
       "Sharp styles, clean textures and professional product placement for grooms on their big days.",
     image: lookGroom,
-    objectPosition: "50% 10%",
+    objectPosition: "50% 5%",
   },
 ];
 
@@ -79,6 +83,7 @@ export const destinationList = [
     blurb:
       "Travel styling and makeup with humidity, salt-air and altitude planning. Full team and timeline coordination for destinations.",
     image: heroBride,
+    objectPosition: "50% 25%",
   },
 ];
 
@@ -97,7 +102,7 @@ export const makeupList = [
     objectPosition: "50% 10%",
   },
   {
-    title: "No-Makeup Look",
+    title: "Mature Look",
     blurb: "Skin-first prep, sheer correction, freckles and features left intact.",
     image: matureLook,
     objectPosition: "50% 10%",
