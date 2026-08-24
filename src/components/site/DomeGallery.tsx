@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useCallback } from "react";
 import { useGesture } from "@use-gesture/react";
 
-type ImageItem = string | { src: string; alt?: string; objectPosition?: string };
+type ImageItem = string | { src: string; alt?: string | undefined; objectPosition?: string | undefined };
 
 type DomeGalleryProps = {
   images?: ImageItem[];
@@ -32,7 +32,7 @@ type ItemDef = {
   y: number;
   sizeX: number;
   sizeY: number;
-  objectPosition?: string;
+  objectPosition?: string | undefined;
 };
 
 const DEFAULT_IMAGES: ImageItem[] = [
@@ -115,28 +115,33 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
 
   const usedImages = Array.from(
     { length: totalSlots },
-    (_, i) => normalizedImages[i % normalizedImages.length],
+    (_, i) => normalizedImages[i % normalizedImages.length]!,
   );
 
   for (let i = 1; i < usedImages.length; i++) {
-    if (usedImages[i].src === usedImages[i - 1].src) {
+    const cur = usedImages[i];
+    const prev = usedImages[i - 1];
+    if (cur && prev && cur.src === prev.src) {
       for (let j = i + 1; j < usedImages.length; j++) {
-        if (usedImages[j].src !== usedImages[i].src) {
-          const tmp = usedImages[i];
-          usedImages[i] = usedImages[j];
-          usedImages[j] = tmp;
+        const candidate = usedImages[j];
+        if (candidate && candidate.src !== cur.src) {
+          usedImages[i] = candidate;
+          usedImages[j] = cur;
           break;
         }
       }
     }
   }
 
-  return coords.map((c, i) => ({
-    ...c,
-    src: usedImages[i].src,
-    alt: usedImages[i].alt,
-    objectPosition: usedImages[i].objectPosition,
-  }));
+  return coords.map((c, i) => {
+    const img = usedImages[i] ?? { src: "", alt: "" };
+    return {
+      ...c,
+      src: img.src,
+      alt: img.alt,
+      objectPosition: img.objectPosition,
+    };
+  });
 }
 
 function computeItemBaseRotation(
@@ -264,8 +269,9 @@ export default function DomeGallery({
     const root = rootRef.current;
     if (!root) return;
     const ro = new ResizeObserver((entries) => {
-      if (entries.length === 0) return;
-      const cr = entries[0].contentRect;
+      const entry = entries[0];
+      if (!entry) return;
+      const cr = entry.contentRect;
       const w = Math.max(1, cr.width),
         h = Math.max(1, cr.height);
       const minDim = Math.min(w, h),
@@ -695,9 +701,9 @@ export default function DomeGallery({
     const overlay = document.createElement("div");
     overlay.className = "enlarge";
     overlay.style.cssText = `position:absolute; left:${frameR.left - mainR.left}px; top:${frameR.top - mainR.top}px; width:${frameR.width}px; height:${frameR.height}px; opacity:0; z-index:30; will-change:transform,opacity; transform-origin:top left; transition:transform ${enlargeTransitionMs}ms ease, opacity ${enlargeTransitionMs}ms ease; border-radius:${openedImageBorderRadius}; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.35);`;
-    const rawSrc = parent.dataset.src || (el.querySelector("img") as HTMLImageElement)?.src || "";
-    const rawAlt = parent.dataset.alt || (el.querySelector("img") as HTMLImageElement)?.alt || "";
-    const rawPos = parent.dataset.objectPosition || (el.querySelector("img") as HTMLImageElement)?.style.objectPosition || "";
+    const rawSrc = parent.dataset["src"] || (el.querySelector("img") as HTMLImageElement)?.src || "";
+    const rawAlt = parent.dataset["alt"] || (el.querySelector("img") as HTMLImageElement)?.alt || "";
+    const rawPos = parent.dataset["objectPosition"] || (el.querySelector("img") as HTMLImageElement)?.style.objectPosition || "";
     const img = document.createElement("img");
     img.src = rawSrc;
     img.alt = rawAlt;

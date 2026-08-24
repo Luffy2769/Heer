@@ -11,10 +11,10 @@ import { gsap } from "gsap";
 
 export interface AccordionGalleryItem {
   image: string;
-  label?: string;
-  link?: string;
-  alt?: string;
-  objectPosition?: string;
+  label?: string | undefined;
+  link?: string | undefined;
+  alt?: string | undefined;
+  objectPosition?: string | undefined;
 }
 
 export interface AccordionGalleryProps {

@@ -4,7 +4,6 @@ import sangeetLook from "@/assets/Sangeet_look.jpeg";
 import haldiMehendi from "@/assets/Haldi_mehendi.jpeg";
 import cocktail from "@/assets/Cocktail.jpeg";
 import cocktail1 from "@/assets/Cocktail1.jpeg";
-import cocktail2 from "@/assets/Cocktail2.jpeg";
 import matureLook from "@/assets/Mature_look.jpeg";
 import noMakeupSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
 const lookGroom = matureLook;
