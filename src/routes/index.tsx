@@ -6,7 +6,7 @@ import { site, stats, hairServices, makeupServices, reviews, process } from "@/l
 import { Reveal, TiltCard, Magnetic, Marquee, Parallax } from "@/components/site/motion-bits";
 import AccordionGallery from "@/components/site/AccordionGallery";
 import CircularGallery from "@/components/site/CircularGallery";
-import { StyleTransformationSlider } from "@/components/site/StyleTransformationSlider";
+import { AwardsSection } from "@/components/site/AwardsSection";
 import bridalPrepNatural from "@/assets/bridal-prep-natural.jpg";
 import bridalRoyalGlam from "@/assets/bridal-royal-glam.jpg";
 import heroBride from "@/assets/hero-bride.jpg";
@@ -54,7 +54,7 @@ function CountUp({ value }: { value: string }) {
     let active = true;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0]?.isIntersecting) {
           observer.disconnect();
           const start = 0;
           const end = numericPart;
@@ -172,10 +172,10 @@ function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="mt-6 max-w-md text-base text-muted-foreground order-3 lg:order-none"
+              className="mt-6 max-w-lg text-base text-muted-foreground order-3 lg:order-none"
             >
-              Bridal and editorial hair artistry, dripping rituals and makeup — engineered to hold
-              through every ceremony, for women and men alike.
+              Bespoke Bridal and Editorial Artistry, Makeup and Draping Professional — Made to carry
+              your Vision into reality with a Touch of Art for all the Occasions and Ceremonies
             </motion.p>
 
             {/* Mobile-only Hero Image */}
@@ -234,21 +234,12 @@ function Home() {
           "HD Makeup",
           "Destination",
           "3D Looks",
-          "Dripping",
+          "Draping",
         ]}
       />
 
-      {/* BRIDAL TRANSFORMATION SLIDER */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <StyleTransformationSlider
-          beforeImg={bridalPrepNatural}
-          afterImg={bridalRoyalGlam}
-          beforeLabel="BEFORE"
-          afterLabel="AFTER"
-          leftBadgeLabel="Base Canvas"
-          rightBadgeLabel="Final Look"
-        />
-      </section>
+      {/* AWARDS & RECOGNITION SECTION */}
+      <AwardsSection />
 
       {/* SERVICES PREVIEW */}
       <section className="px-4 py-24">
@@ -442,31 +433,36 @@ function Home() {
               {/* Card Body - Content transition */}
               <div className="relative flex-1 flex flex-col justify-center overflow-hidden py-2 md:py-4">
                 <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeStep}
-                    initial={{ opacity: 0, x: 25, filter: "blur(4px)" }}
-                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, x: -25, filter: "blur(4px)" }}
-                    transition={{ duration: 0.35, ease: "easeInOut" }}
-                    className="relative"
-                  >
-                    {/* Giant Watermark Step Number */}
-                    <span className="absolute -top-10 -right-2 select-none font-display text-[7.5rem] font-bold text-accent/5 pointer-events-none md:-top-14 md:-right-6 md:text-[11rem]">
-                      {process[activeStep].step}
-                    </span>
+                  {(() => {
+                    const stepItem = process[activeStep] || process[0] || { step: "01", title: "", text: "" };
+                    return (
+                      <motion.div
+                        key={activeStep}
+                        initial={{ opacity: 0, x: 25, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, x: -25, filter: "blur(4px)" }}
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="relative"
+                      >
+                        {/* Giant Watermark Step Number */}
+                        <span className="absolute -top-10 -right-2 select-none font-display text-[7.5rem] font-bold text-accent/5 pointer-events-none md:-top-14 md:-right-6 md:text-[11rem]">
+                          {stepItem.step}
+                        </span>
 
-                    <span className="font-mono text-xs tracking-[0.25em] text-accent uppercase">
-                      Phase {process[activeStep].step}
-                    </span>
+                        <span className="font-mono text-xs tracking-[0.25em] text-accent uppercase">
+                          Phase {stepItem.step}
+                        </span>
 
-                    <h3 className="mt-1 md:mt-2 font-display text-2xl md:text-3xl text-gradient">
-                      {process[activeStep].title}
-                    </h3>
+                        <h3 className="mt-1 md:mt-2 font-display text-2xl md:text-3xl text-gradient">
+                          {stepItem.title}
+                        </h3>
 
-                    <p className="mt-2 md:mt-4 max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm lg:text-base">
-                      {process[activeStep].text}
-                    </p>
-                  </motion.div>
+                        <p className="mt-2 md:mt-4 max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm lg:text-base">
+                          {stepItem.text}
+                        </p>
+                      </motion.div>
+                    );
+                  })()}
                 </AnimatePresence>
               </div>
 

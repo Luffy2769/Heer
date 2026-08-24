@@ -1,3 +1,14 @@
+import bridalWeddingHair from "@/assets/Bridal_wedding_hair.jpeg";
+import sangeetLook from "@/assets/Sangeet_look.jpeg";
+import haldiMehendi from "@/assets/Haldi_mehendi.jpeg";
+import cocktail from "@/assets/Cocktail.jpeg";
+import cocktail1 from "@/assets/Cocktail1.jpeg";
+import cocktail2 from "@/assets/Cocktail2.jpeg";
+import matureLook from "@/assets/Mature_look.jpeg";
+import noMakeupSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
+import lookGroom from "@/assets/look-groom.jpg";
+import heroBride from "@/assets/hero-bride.jpg";
+
 export const site = {
   name: "Heer Dagha",
   tagline: "Hair Artistry & Makeup",
@@ -23,25 +34,30 @@ export const hairstylesList = [
   {
     title: "Wedding Hair",
     blurb:
-      "Sculpted bridal buns, heirloom-ready volume and jewellery placement engineered to survive a full pheras-to-vidaai day.",
+      "Sculpted bridal buns embraced with fresh flowers, textured and voluminous hair for the D-day. Crafted to survive from pheras to vidaai, suitable for any weather.",
+    image: bridalWeddingHair,
   },
   {
     title: "Sangeet / Cocktail Hair",
     blurb:
       "Glossy blowouts, deep side waves and sleek high pony drama built for choreography and long dance sets.",
+    image: sangeetLook,
   },
   {
     title: "Haldi / Mehndi Hair",
     blurb: "Fresh florals, textured plaits and breezy daytime styling for the intimate ceremonies.",
+    image: haldiMehendi,
   },
   {
     title: "Engagement Hair",
     blurb: "Elegant half-ups, classic waves and sophisticated styling for your ring ceremony look.",
+    image: cocktail,
   },
   {
     title: "Reception Hair",
     blurb:
       "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
+    image: cocktail1,
   },
 ];
 
@@ -50,6 +66,7 @@ export const groomStylingList = [
     title: "For All Occasions",
     blurb:
       "Sharp styles, clean textures and professional product placement for grooms on their big days.",
+    image: lookGroom,
   },
 ];
 
@@ -58,22 +75,26 @@ export const destinationList = [
     title: "For Brides & Grooms Both",
     blurb:
       "Travel styling and makeup with humidity, salt-air and altitude planning. Full team and timeline coordination for destinations.",
+    image: heroBride,
   },
 ];
 
 export const makeupList = [
   {
     title: "Soft Glam",
-    blurb: "Diffused shadow, lifted cheeks, a lip you can wear for twelve hours.",
+    blurb: "Minimal glow with dewy plump cheeks and lips chosen fresh for a full 13-hour stay.",
+    image: noMakeupSoftGlam,
   },
   {
     title: "3D / HD Makeup",
     blurb:
-      "Sculpted dimension and high-definition base tested for cinematic clarity on camera and under flash.",
+      "Highly defined cheekbones crafted for camera flash clarity, boosting the vibe for your cocktail night with a signature smokey effect.",
+    image: cocktail2,
   },
   {
     title: "No-Makeup Look",
     blurb: "Skin-first prep, sheer correction, freckles and features left intact.",
+    image: matureLook,
   },
 ];
 

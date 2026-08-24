@@ -83,14 +83,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Bridal and editorial hair styling, dripping and makeup by Heer Dagha in Mumbai, India.",
+          "Bridal and editorial hair styling, draping and makeup by Heer Dagha in Mumbai, India.",
       },
       { name: "author", content: "Heer Dagha" },
       { property: "og:title", content: "Heer Dagha — Hair Stylist & Makeup Artist, Mumbai" },
       {
         property: "og:description",
         content:
-          "Bridal and editorial hair styling, dripping and makeup by Heer Dagha in Mumbai, India.",
+          "Bridal and editorial hair styling, draping and makeup by Heer Dagha in Mumbai, India.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

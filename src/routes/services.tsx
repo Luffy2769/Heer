@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { hairstylesList, groomStylingList, destinationList, makeupList } from "@/lib/site-data";
 import { Reveal, TiltCard, Marquee } from "@/components/site/motion-bits";
-import lookCocktail from "@/assets/look-cocktail.jpg";
-import lookGroom from "@/assets/look-groom.jpg";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -63,8 +61,6 @@ function Services() {
           </Reveal>
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
             {hairstylesList.map((s, i) => {
-              // Symmetrical Bento Span: First 3 span 2 cols, last 2 span 3 cols on large screens.
-              // On medium screens (2 columns), the last card spans 2 columns to fill the row.
               let colSpan = "lg:col-span-2 md:col-span-1";
               if (i >= 3) {
                 colSpan = i === 4 ? "lg:col-span-3 md:col-span-2" : "lg:col-span-3 md:col-span-1";
@@ -76,22 +72,29 @@ function Services() {
                     search={{ service: s.title }}
                     className="block h-full cursor-pointer"
                   >
-                    <TiltCard className="group h-full" intensity={8}>
-                      <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                    <TiltCard className="group h-full" intensity={6}>
+                      <article className="glass-panel h-full rounded-3xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between min-h-[320px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.12)]">
                         <div>
+                          {s.image && (
+                            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-4 bg-muted">
+                              <img
+                                src={s.image}
+                                alt={s.title}
+                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
+                            </div>
+                          )}
                           <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
                             {String(i + 1).padStart(2, "0")} · Hairstyle
                           </p>
-                          <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                          <h3 className="mt-2 font-display text-xl sm:text-2xl group-hover:text-accent transition-colors duration-300">
                             {s.title}
                           </h3>
-                          <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-[90%]">
+                          <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                             {s.blurb}
                           </p>
                         </div>
-                        <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
                       </article>
                     </TiltCard>
                   </Link>
@@ -117,22 +120,29 @@ function Services() {
                     search={{ service: s.title }}
                     className="block h-full cursor-pointer"
                   >
-                    <TiltCard className="group h-full" intensity={8}>
-                      <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                    <TiltCard className="group h-full" intensity={6}>
+                      <article className="glass-panel h-full rounded-3xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between min-h-[320px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.12)]">
                         <div>
+                          {s.image && (
+                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl mb-4 bg-muted">
+                              <img
+                                src={s.image}
+                                alt={s.title}
+                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
+                            </div>
+                          )}
                           <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
                             01 · Groom Styling
                           </p>
-                          <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                          <h3 className="mt-2 font-display text-xl sm:text-2xl group-hover:text-accent transition-colors duration-300">
                             {s.title}
                           </h3>
-                          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                          <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                             {s.blurb}
                           </p>
                         </div>
-                        <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
-                          01
-                        </span>
                       </article>
                     </TiltCard>
                   </Link>
@@ -153,22 +163,29 @@ function Services() {
                     search={{ service: s.title }}
                     className="block h-full cursor-pointer"
                   >
-                    <TiltCard className="group h-full" intensity={8}>
-                      <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
+                    <TiltCard className="group h-full" intensity={6}>
+                      <article className="glass-panel h-full rounded-3xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between min-h-[320px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.12)]">
                         <div>
+                          {s.image && (
+                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl mb-4 bg-muted">
+                              <img
+                                src={s.image}
+                                alt={s.title}
+                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
+                            </div>
+                          )}
                           <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
                             01 · Destination
                           </p>
-                          <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
+                          <h3 className="mt-2 font-display text-xl sm:text-2xl group-hover:text-accent transition-colors duration-300">
                             {s.title}
                           </h3>
-                          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                          <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                             {s.blurb}
                           </p>
                         </div>
-                        <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
-                          01
-                        </span>
                       </article>
                     </TiltCard>
                   </Link>
@@ -181,63 +198,47 @@ function Services() {
 
       {/* MAKEUP ARTISTRY */}
       <section className="px-4 pb-20">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <Reveal>
-              <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Makeup artistry</h2>
-            </Reveal>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
-              {makeupList.map((s, i) => {
-                const colSpan = i === 2 ? "sm:col-span-2" : "sm:col-span-1";
-                return (
-                  <Reveal key={s.title} className={colSpan} delay={0.05 * i}>
-                    <Link
-                      to="/inquiry"
-                      search={{ service: s.title }}
-                      className="block h-full cursor-pointer"
-                    >
-                      <TiltCard className="group h-full" intensity={8}>
-                        <article className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.1)]">
-                          <div>
-                            <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
-                              {String(i + 1).padStart(2, "0")} · Makeup
-                            </p>
-                            <h3 className="mt-4 font-display text-2xl group-hover:text-accent transition-colors duration-300">
-                              {s.title}
-                            </h3>
-                            <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-[90%]">
-                              {s.blurb}
-                            </p>
-                          </div>
-                          <span className="absolute right-6 top-4 font-display text-8xl font-bold opacity-[0.03] text-accent pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]">
-                            0{i + 1}
-                          </span>
-                        </article>
-                      </TiltCard>
-                    </Link>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-          <Reveal delay={0.15} className="grid grid-cols-2 gap-4 lg:grid-cols-1">
-            <img
-              src={lookCocktail}
-              alt="Cocktail hairstyle styled by Heer Dagha"
-              loading="lazy"
-              width={900}
-              height={1100}
-              className="h-56 w-full rounded-3xl border border-border object-cover lg:h-64"
-            />
-            <img
-              src={lookGroom}
-              alt="Groom hair styling and HD base"
-              loading="lazy"
-              width={900}
-              height={1100}
-              className="h-56 w-full rounded-3xl border border-border object-cover lg:h-64"
-            />
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Makeup artistry</h2>
           </Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+            {makeupList.map((s, i) => (
+              <Reveal key={s.title} delay={0.05 * i}>
+                <Link
+                  to="/inquiry"
+                  search={{ service: s.title }}
+                  className="block h-full cursor-pointer"
+                >
+                  <TiltCard className="group h-full" intensity={6}>
+                    <article className="glass-panel h-full rounded-3xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between min-h-[320px] transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(235,165,182,0.12)]">
+                      <div>
+                        {s.image && (
+                          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-4 bg-muted">
+                            <img
+                              src={s.image}
+                              alt={s.title}
+                              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
+                          </div>
+                        )}
+                        <p className="font-mono text-[10px] tracking-wider text-accent uppercase">
+                          {String(i + 1).padStart(2, "0")} · Makeup
+                        </p>
+                        <h3 className="mt-2 font-display text-xl sm:text-2xl group-hover:text-accent transition-colors duration-300">
+                          {s.title}
+                        </h3>
+                        <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                          {s.blurb}
+                        </p>
+                      </div>
+                    </article>
+                  </TiltCard>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

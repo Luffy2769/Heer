@@ -38,7 +38,7 @@ const values = [
   },
   {
     title: "Scalp health",
-    text: "Dripping and prep rituals so the hair looks alive, not just set.",
+    text: "Draping and prep rituals so the hair looks alive, not just set.",
   },
   {
     title: "On time, always",
