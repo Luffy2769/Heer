@@ -249,7 +249,7 @@ function Services() {
       <section className="px-4 pb-24">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <div className="glass-panel flex flex-wrap items-center justify-between gap-6 rounded-[2rem] p-8 md:p-12">
+            <div className="reviews-cta glass-panel flex flex-wrap items-center justify-between gap-6 rounded-[2rem] p-8 md:p-12">
               <div>
                 <h2 className="font-display text-3xl">Not sure what your day needs?</h2>
                 <p className="mt-2 text-sm text-muted-foreground">

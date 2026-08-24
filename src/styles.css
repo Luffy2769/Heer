@@ -221,3 +221,133 @@
     transform: rotate(360deg);
   }
 }
+
+/* Mobile-only styles */
+@media (max-width: 640px) {
+  /* Force hero buttons side-by-side on mobile */
+  .hero-buttons {
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .hero-buttons a {
+    padding: 0.625rem 1rem !important;
+    font-size: 0.75rem !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 1 0% !important;
+    max-width: 150px !important;
+    text-align: center !important;
+  }
+
+  .hero-buttons a svg {
+    width: 0.85rem !important;
+    height: 0.85rem !important;
+  }
+
+  /* Make marquee text smaller to fit more items on screen */
+  .marquee-track {
+    gap: 1.25rem !important;
+  }
+
+  .marquee-track > span {
+    gap: 1.25rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* Reduce empty space between Awards and Services sections on mobile */
+  .awards-section {
+    padding-bottom: 2rem !important;
+    padding-top: 3.5rem !important;
+  }
+
+  .services-preview {
+    padding-top: 2rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Reviews page mobile styling overrides */
+  .reviews-parent {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .reviews-header {
+    display: contents !important;
+  }
+
+  .reviews-header > div:first-child {
+    grid-row: 1 !important;
+  }
+
+  .reviews-stats-grid {
+    grid-row: 2 !important;
+    margin-top: 2rem !important;
+  }
+
+  .reviews-header button {
+    grid-row: 3 !important;
+    justify-self: center !important;
+    margin-top: 2rem !important;
+    padding: 0.625rem 1.25rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .reviews-title {
+    font-size: 1.6rem !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+  }
+
+  .reviews-stats-grid p.font-display {
+    font-size: 1.35rem !important;
+  }
+
+  .reviews-cta {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  .reviews-cta h2 {
+    font-size: 1.35rem !important;
+  }
+
+  .reviews-cta a {
+    padding: 0.625rem 1.25rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Compact review cards on mobile */
+  .reviews-grid-card {
+    padding: 1.25rem !important;
+    min-height: 180px !important;
+  }
+
+  /* Global section gap reductions on mobile */
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  section.grain {
+    padding-top: 6.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* Specific component adjustments */
+  .awards-section {
+    padding-bottom: 1.5rem !important;
+    padding-top: 2rem !important;
+  }
+
+  .services-preview {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+}

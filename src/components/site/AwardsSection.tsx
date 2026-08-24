@@ -49,7 +49,7 @@ export function AwardsSection() {
     if (!isAutoPlaying) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 1200);
+    }, 2000);
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
@@ -64,7 +64,7 @@ export function AwardsSection() {
   const activeSlide = slides[currentIndex] || slides[0]!;
 
   return (
-    <section className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section className="awards-section relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Ambient Glows */}
       <div className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-accent/8 blur-[140px] rounded-full pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 w-[450px] h-[300px] bg-amber-500/5 blur-[130px] rounded-full pointer-events-none" />

@@ -208,7 +208,7 @@ function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.95, duration: 0.7 }}
-              className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4 order-6 lg:order-none"
+              className="hero-buttons mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4 order-6 lg:order-none"
             >
               <Link
                 to="/inquiry"
@@ -248,7 +248,7 @@ function Home() {
       <AwardsSection />
 
       {/* SERVICES PREVIEW */}
-      <section className="px-4 py-24">
+      <section className="services-preview px-4 py-24">
         <div className="mx-auto max-w-6xl">
           <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <div>

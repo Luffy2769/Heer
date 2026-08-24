@@ -37,19 +37,7 @@ export const Route = createFileRoute("/reviews")({
 function Reviews() {
   const [localReviews, setLocalReviews] = useState<
     Array<{ name: string; role: string; quote: string; rating?: number }>
-  >(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("heer_reviews");
-      if (saved) {
-        try {
-          return JSON.parse(saved);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    }
-    return [];
-  });
+  >([]);
 
   const [dbReviews, setDbReviews] = useState<
     Array<{ id?: string; name: string; role: string; quote: string; rating?: number }>
@@ -62,6 +50,15 @@ function Reviews() {
       const params = new URLSearchParams(window.location.search);
       if (params.get("admin") === "true") {
         setIsAdmin(true);
+      }
+
+      const saved = localStorage.getItem("heer_reviews");
+      if (saved) {
+        try {
+          setLocalReviews(JSON.parse(saved));
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
 
@@ -200,11 +197,11 @@ function Reviews() {
   return (
     <div className="overflow-x-hidden">
       <section className="grain px-4 pt-36 pb-10">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6">
+        <div className="reviews-parent mx-auto max-w-6xl">
+          <Reveal className="reviews-header flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="text-[11px] tracking-[0.3em] text-accent uppercase">Review</p>
-              <h1 className="mt-4 font-display text-[clamp(2.6rem,7vw,5rem)] leading-[0.95]">
+              <h1 className="reviews-title mt-4 font-display text-[clamp(2.6rem,7vw,5rem)] leading-[0.95]">
                 1500+ faces, <span className="text-gradient italic">one standard</span>
               </h1>
             </div>
@@ -314,7 +311,7 @@ function Reviews() {
             </Dialog>
           </Reveal>
 
-          <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
+          <div className="reviews-stats-grid mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={0.06 * i}>
                 <p className="font-display text-4xl text-accent">{s.value}</p>
@@ -336,7 +333,7 @@ function Reviews() {
               return (
                 <Reveal key={`${r.name}-${i}`} delay={0.05 * (i % 6)}>
                   <TiltCard className="group h-full" intensity={8}>
-                    <article className="glass-panel h-full rounded-3xl p-7 flex flex-col justify-between min-h-[220px]">
+                    <article className="reviews-grid-card glass-panel h-full rounded-3xl p-7 flex flex-col justify-between min-h-[220px]">
                       <div>
                         <div className="flex justify-between items-start">
                           <Quote className="h-6 w-6 text-accent/70" />
@@ -429,7 +426,7 @@ function Reviews() {
 
       <section className="px-4 pb-24">
         <Reveal className="mx-auto max-w-6xl">
-          <div className="glass-panel flex flex-wrap items-center justify-between gap-6 rounded-[2rem] p-8 md:p-12">
+          <div className="reviews-cta glass-panel flex flex-wrap items-center justify-between gap-6 rounded-[2rem] p-8 md:p-12">
             <h2 className="font-display text-3xl">Ready to be the next one?</h2>
             <Link
               to="/inquiry"

@@ -129,8 +129,7 @@ function GalleryPage() {
               Lookbook Gallery
             </h1>
             <p className="mt-4 mx-auto max-w-xl text-sm text-muted-foreground">
-              Drag or swipe to spin the 3D dome and tap on any photo to examine the details, braids,
-              and finishes.
+              Tap to open any image
             </p>
           </Reveal>
         </div>
