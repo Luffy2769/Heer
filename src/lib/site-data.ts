@@ -9,6 +9,7 @@ import noMakeupSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
 import receptionHair from "@/assets/reception_hair.JPG";
 import engagementHair from "@/assets/engagement_hair.PNG";
 import allOccasions from "@/assets/all_occasions.JPG";
+import hdMakeup from "@/assets/HD_MAKEUP.jpg";
 
 const lookGroom = allOccasions;
 const heroBride = bridalWeddingHair;
@@ -47,7 +48,7 @@ export const hairstylesList = [
     blurb:
       "Glossy blowouts, deep side waves and sleek high pony drama built for choreography and long dance sets.",
     image: cocktail1,
-    objectPosition: "50% 25%",
+    objectPosition: "50% 35%",
   },
   {
     title: "Haldi / Mehndi Hair",
@@ -59,14 +60,14 @@ export const hairstylesList = [
     title: "Engagement Hair",
     blurb: "Elegant half-ups, classic waves and sophisticated styling for your ring ceremony look.",
     image: engagementHair,
-    objectPosition: "50% 25%",
+    objectPosition: "50% 15%",
   },
   {
     title: "Reception Hair",
     blurb:
       "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
     image: receptionHair,
-    objectPosition: "50% 35%",
+    objectPosition: "50% 25%",
   },
 ];
 
@@ -76,7 +77,7 @@ export const groomStylingList = [
     blurb:
       "Sharp styles, clean textures and professional product placement for grooms on their big days.",
     image: allOccasions,
-    objectPosition: "50% 5%",
+    objectPosition: "50% 25%",
   },
 ];
 
@@ -101,7 +102,7 @@ export const makeupList = [
     title: "3D / HD Makeup",
     blurb:
       "Highly defined cheekbones crafted for camera flash clarity, boosting the vibe for your cocktail night with a signature smokey effect.",
-    image: cocktail,
+    image: hdMakeup,
     objectPosition: "50% 10%",
   },
   {

@@ -8,9 +8,6 @@ import bridalWeddingHair from "@/assets/Bridal_wedding_hair.jpeg";
 import cocktail from "@/assets/Cocktail.jpeg";
 import cocktail1 from "@/assets/Cocktail1.jpeg";
 import cocktail2 from "@/assets/Cocktail2.jpeg";
-import eventJpg from "@/assets/Event.jpg";
-import event1 from "@/assets/Event1.jpeg";
-import event2 from "@/assets/Event2.jpeg";
 import haldiMehendi from "@/assets/Haldi_mehendi.jpeg";
 import img4384 from "@/assets/IMG_4384.JPG";
 import img6049 from "@/assets/IMG_6049.JPG";
@@ -23,6 +20,7 @@ import img6901 from "@/assets/IMG_6901.JPG.jpeg";
 import img6925 from "@/assets/IMG_6925.JPG.jpeg";
 import img6926 from "@/assets/IMG_6926.JPG.jpeg";
 import img7197 from "@/assets/IMG_7197.JPG";
+import img7376 from "@/assets/IMG_7376.JPG.jpeg";
 import img7524 from "@/assets/IMG_7524.JPG";
 import img7668 from "@/assets/IMG_7668.JPG";
 import img7672 from "@/assets/IMG_7672.JPG";
@@ -43,6 +41,7 @@ import weddingHair from "@/assets/Wedding_hair.jpeg";
 import receptionHair from "@/assets/reception_hair.JPG";
 import engagementHair from "@/assets/engagement_hair.PNG";
 import allOccasions from "@/assets/all_occasions.JPG";
+import hdMakeup from "@/assets/HD_MAKEUP.jpg";
 import img0757 from "@/assets/IMG_0757.JPG.jpeg";
 import img2618 from "@/assets/IMG_2618.jpg";
 import img2907 from "@/assets/IMG_2907.jpg";
@@ -70,6 +69,8 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const galleryImages = [
+  { src: hdMakeup, alt: "3D / HD Makeup look", objectPosition: "50% 15%" },
+  { src: img7376, alt: "Client hair & makeup glam", objectPosition: "50% 15%" },
   { src: receptionHair, alt: "Reception statement hair", objectPosition: "50% 35%" },
   { src: engagementHair, alt: "Engagement half-up hair", objectPosition: "50% 25%" },
   { src: allOccasions, alt: "Special occasion styling", objectPosition: "50% 10%" },
@@ -84,9 +85,6 @@ const galleryImages = [
   { src: noMakeupSoftGlam, alt: "Soft glam finish", objectPosition: "50% 15%" },
   { src: matureLook, alt: "Mature look elegance", objectPosition: "50% 10%" },
   { src: weddingHair, alt: "Classic bridal updo", objectPosition: "50% 15%" },
-  { src: event1, alt: "Grand wedding styling", objectPosition: "50% 20%" },
-  { src: event2, alt: "Reception couture look", objectPosition: "50% 20%" },
-  { src: eventJpg, alt: "Celebration hair glam", objectPosition: "50% 15%" },
   { src: img0757, alt: "Bridal hair detailing", objectPosition: "50% 15%" },
   { src: img2618, alt: "Client hair glam", objectPosition: "50% 15%" },
   { src: img2907, alt: "Signature hair waves", objectPosition: "50% 15%" },
