@@ -157,13 +157,8 @@ function Reviews() {
   };
 
   const mergedReviews = isSupabaseConfigured
-    ? dbReviews.length > 0
-      ? dbReviews.map((r) => ({ id: r.id, rating: 5, ...r }))
-      : reviews.map((r) => ({ id: undefined, rating: 5, ...r }))
-    : [
-        ...localReviews.map((r) => ({ id: undefined, rating: 5, ...r })),
-        ...reviews.map((r) => ({ id: undefined, rating: 5, ...r })),
-      ];
+    ? dbReviews.map((r) => ({ id: r.id, rating: 5, ...r }))
+    : localReviews.map((r) => ({ id: undefined, rating: 5, ...r }));
 
   const [currentPage, setCurrentPage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -326,52 +321,63 @@ function Reviews() {
 
       <section id="reviews-grid-section" className="px-4 py-16 scroll-mt-24">
         <div className="mx-auto max-w-6xl">
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {visibleReviews.map((r, i) => {
-              const isLocal = localReviews.some((lr) => lr.name === r.name && lr.quote === r.quote);
-              const isDeletable = isLocal || (isAdmin && Boolean(r.id));
-              return (
-                <Reveal key={`${r.name}-${i}`} delay={0.05 * (i % 6)}>
-                  <TiltCard className="group h-full" intensity={8}>
-                    <article className="reviews-grid-card glass-panel h-full rounded-3xl p-7 flex flex-col justify-between min-h-[220px]">
-                      <div>
-                        <div className="flex justify-between items-start">
-                          <Quote className="h-6 w-6 text-accent/70" />
-                          {isDeletable && (
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteReview(r)}
-                              className="text-muted-foreground/40 hover:text-destructive cursor-pointer transition-colors p-1"
-                              title="Delete this review"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
-                          )}
-                        </div>
-                        <p className="mt-4 text-sm leading-relaxed text-foreground/90">
-                          “{r.quote}”
-                        </p>
-                      </div>
-                      <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+          {visibleReviews.length === 0 ? (
+            <Reveal>
+              <div className="glass-panel text-center py-16 px-6 rounded-3xl border border-border">
+                <p className="text-xl font-display text-muted-foreground">No client reviews submitted yet</p>
+                <p className="text-xs text-muted-foreground/70 mt-2">
+                  Be the first to share your experience by clicking "Add a review" above.
+                </p>
+              </div>
+            </Reveal>
+          ) : (
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {visibleReviews.map((r, i) => {
+                const isLocal = localReviews.some((lr) => lr.name === r.name && lr.quote === r.quote);
+                const isDeletable = isLocal || (isAdmin && Boolean(r.id));
+                return (
+                  <Reveal key={`${r.name}-${i}`} delay={0.05 * (i % 6)}>
+                    <TiltCard className="group h-full" intensity={8}>
+                      <article className="reviews-grid-card glass-panel h-full rounded-3xl p-7 flex flex-col justify-between min-h-[220px]">
                         <div>
-                          <p className="font-display text-lg">{r.name}</p>
-                          <p className="text-xs text-muted-foreground">{r.role}</p>
+                          <div className="flex justify-between items-start">
+                            <Quote className="h-6 w-6 text-accent/70" />
+                            {isDeletable && (
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteReview(r)}
+                                className="text-muted-foreground/40 hover:text-destructive cursor-pointer transition-colors p-1"
+                                title="Delete this review"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            )}
+                          </div>
+                          <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+                            “{r.quote}”
+                          </p>
                         </div>
-                        <span className="flex gap-0.5 text-accent">
-                          {Array.from({ length: 5 }).map((_, j) => (
-                            <Star
-                              key={j}
-                              className={`h-3 w-3 ${j < (r.rating ?? 5) ? "fill-current" : "text-muted-foreground/30"}`}
-                            />
-                          ))}
-                        </span>
-                      </div>
-                    </article>
-                  </TiltCard>
-                </Reveal>
-              );
-            })}
-          </div>
+                        <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+                          <div>
+                            <p className="font-display text-lg">{r.name}</p>
+                            <p className="text-xs text-muted-foreground">{r.role}</p>
+                          </div>
+                          <span className="flex gap-0.5 text-accent">
+                            {Array.from({ length: 5 }).map((_, j) => (
+                              <Star
+                                key={j}
+                                className={`h-3 w-3 ${j < (r.rating ?? 5) ? "fill-current" : "text-muted-foreground/30"}`}
+                              />
+                            ))}
+                          </span>
+                        </div>
+                      </article>
+                    </TiltCard>
+                  </Reveal>
+                );
+              })}
+            </div>
+          )}
 
           {showReadMore && (
             <div className="mt-10 flex justify-center">

@@ -80,6 +80,8 @@ function Services() {
                               <img
                                 src={s.image}
                                 alt={s.title}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 style={{ objectPosition: (s as any).objectPosition || "center" }}
                               />
@@ -129,6 +131,8 @@ function Services() {
                               <img
                                 src={s.image}
                                 alt={s.title}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 style={{ objectPosition: (s as any).objectPosition || "center" }}
                               />
@@ -173,6 +177,8 @@ function Services() {
                               <img
                                 src={s.image}
                                 alt={s.title}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 style={{ objectPosition: (s as any).objectPosition || "center" }}
                               />
@@ -221,6 +227,8 @@ function Services() {
                             <img
                               src={s.image}
                               alt={s.title}
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                               style={{ objectPosition: (s as any).objectPosition || "center" }}
                             />

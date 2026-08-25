@@ -10,7 +10,7 @@ import {
 } from "@/lib/site-data";
 import { Reveal, TiltCard } from "@/components/site/motion-bits";
 import { submitInquiry } from "@/lib/supabase";
-import heroBride from "@/assets/Bridal_wedding_hair.jpeg";
+import heroBride from "@/assets/Bridal_wedding_hair.webp";
 
 export const Route = createFileRoute("/inquiry")({
   validateSearch: (search: Record<string, unknown>): { service?: string | undefined } => ({

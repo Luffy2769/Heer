@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { MapPin, Phone, Mail, Clock, ArrowUpRight } from "lucide-react";
+import logoImg from "@/assets/Logo.png";
 
 /* ── Inline SVG brand icons ───────────────────────────── */
 function IconInstagram() {
@@ -109,7 +110,7 @@ export function Footer() {
             className="-ml-1 flex items-center gap-2.5 sm:gap-3.5 hover:opacity-90 transition-opacity"
           >
             <img
-              src="/Logo.png"
+              src={logoImg}
               alt="Heer Dagha"
               className="h-12 sm:h-16 w-auto object-contain"
             />

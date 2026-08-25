@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { site } from "@/lib/site-data";
+import logoImg from "@/assets/Logo.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -31,12 +32,15 @@ export function SiteNav() {
           scrolled ? "glass-panel" : "border border-transparent"
         }`}
       >
-        <Link to="/" className="group flex items-center gap-3">
+        <Link to="/" className="group flex items-center gap-2.5 sm:gap-3">
           <img
-            src="/Logo.png"
+            src={logoImg}
             alt={site.name}
             className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
           />
+          <span className="font-display text-lg sm:text-xl font-bold uppercase tracking-[0.18em] text-foreground transition-colors group-hover:text-accent">
+            {site.name}
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">

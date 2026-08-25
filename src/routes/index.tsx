@@ -7,11 +7,11 @@ import { Reveal, TiltCard, Marquee, Parallax } from "@/components/site/motion-bi
 import AccordionGallery from "@/components/site/AccordionGallery";
 import CircularGallery from "@/components/site/CircularGallery";
 import { AwardsSection } from "@/components/site/AwardsSection";
-import heroBride from "@/assets/heer_home.jpeg";
-import lookSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
-import lookCocktail from "@/assets/Cocktail1.jpeg";
-import lookHaldi from "@/assets/Haldi_mehendi.jpeg";
-import lookMature from "@/assets/Mature_look.jpeg";
+import heroBride from "@/assets/heer_home.webp";
+import lookSoftGlam from "@/assets/No_makeup_soft_glam.webp";
+import lookCocktail from "@/assets/Cocktail1.webp";
+import lookHaldi from "@/assets/Haldi_mehendi.webp";
+import lookMature from "@/assets/Mature_look.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -184,7 +184,7 @@ function Home() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
+              transition={{ delay: 0.5, duration: 0.7 }}
               className="mt-6 max-w-lg text-base text-muted-foreground order-3 lg:order-none"
             >
               Bespoke Bridal and Editorial Artistry, Makeup and Draping Professional — Made to carry
@@ -198,7 +198,7 @@ function Home() {
 
             <div className="mt-10 lg:mt-14 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-4 w-full justify-items-center lg:justify-items-start order-5 lg:order-none">
               {stats.map((s, i) => (
-                <Reveal key={s.label} delay={0.1 * i} className="text-center lg:text-left">
+                <Reveal key={s.label} delay={0.05 * i} className="text-center lg:text-left">
                   <p className="font-display text-3xl text-accent">
                     <CountUp value={s.value} />
                   </p>
@@ -210,9 +210,9 @@ function Home() {
             </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.95, duration: 0.7 }}
+              transition={{ delay: 0.15, duration: 0.3 }}
               className="hero-buttons mt-6 sm:mt-9 flex flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-4 order-6 lg:order-none"
             >
               <Link

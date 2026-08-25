@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Award, Star, MapPin, Calendar, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/site/motion-bits";
 
-import event from "@/assets/Event.jpg";
-import event1 from "@/assets/Event1.jpeg";
-import event2 from "@/assets/Event2.jpeg";
+import event from "@/assets/Event.webp";
+import event1 from "@/assets/Event1.webp";
+import event2 from "@/assets/Event2.webp";
 
 const slides = [
   {
