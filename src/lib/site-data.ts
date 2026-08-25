@@ -60,14 +60,14 @@ export const hairstylesList = [
     title: "Engagement Hair",
     blurb: "Elegant half-ups, classic waves and sophisticated styling for your ring ceremony look.",
     image: engagementHair,
-    objectPosition: "50% 15%",
+    objectPosition: "50% 0%",
   },
   {
     title: "Reception Hair",
     blurb:
       "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
     image: receptionHair,
-    objectPosition: "50% 25%",
+    objectPosition: "50% 0%",
   },
 ];
 

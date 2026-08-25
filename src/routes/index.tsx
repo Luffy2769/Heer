@@ -213,18 +213,18 @@ function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.95, duration: 0.7 }}
-              className="hero-buttons mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4 order-6 lg:order-none"
+              className="hero-buttons mt-6 sm:mt-9 flex flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-4 order-6 lg:order-none"
             >
               <Link
                 to="/inquiry"
-                className="group inline-flex items-center gap-2 rounded-full accent-gradient px-7 py-3.5 font-semibold text-accent-foreground shadow-lg transition-transform hover:scale-[1.03]"
+                className="group inline-flex items-center gap-1.5 sm:gap-2 rounded-full accent-gradient px-4 py-2.5 sm:px-7 sm:py-3.5 text-xs sm:text-sm font-semibold text-accent-foreground shadow-lg transition-transform hover:scale-[1.03] whitespace-nowrap"
               >
                 Book your look
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <Link
                 to="/services"
-                className="rounded-full border border-border px-7 py-3.5 text-sm text-foreground transition-colors hover:border-accent hover:text-accent"
+                className="rounded-full border border-border px-4 py-2.5 sm:px-7 sm:py-3.5 text-xs sm:text-sm text-foreground transition-colors hover:border-accent hover:text-accent whitespace-nowrap"
               >
                 Explore services
               </Link>
@@ -332,7 +332,7 @@ function Home() {
       </section>
 
       {/* GALLERY */}
-      <section className="px-4 py-16">
+      <section className="px-4 pt-10 sm:pt-16 pb-4 sm:pb-16">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <h2 className="font-display text-[clamp(2rem,4.5vw,3.2rem)]">Recent looks</h2>
@@ -367,9 +367,9 @@ function Home() {
           </Reveal>
 
           {/* Mobile Circular 3D Gallery */}
-          <Reveal className="mt-10 sm:hidden">
+          <Reveal className="mt-6 sm:mt-10 sm:hidden">
             <div
-              style={{ height: "440px", position: "relative" }}
+              style={{ height: "400px", position: "relative" }}
               className="w-full overflow-hidden rounded-3xl border border-border bg-card/25"
             >
               <CircularGallery
@@ -383,8 +383,7 @@ function Home() {
                 borderRadius={0.05}
                 scrollEase={0.15}
                 scrollSpeed={4.5}
-                autoScroll
-                autoScrollSpeed={0.035}
+                autoScroll={false}
               />
             </div>
           </Reveal>
@@ -392,8 +391,8 @@ function Home() {
       </section>
 
       {/* PROCESS */}
-      <section className="px-4 py-24">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <section className="px-4 pt-4 sm:pt-24 pb-12 sm:pb-24">
+        <div className="mx-auto grid max-w-6xl gap-5 sm:gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <Reveal>
             <p className="text-[11px] tracking-[0.3em] text-accent uppercase">The process</p>
             <h2 className="mt-3 font-display text-[clamp(2rem,4.5vw,3.2rem)] leading-tight">

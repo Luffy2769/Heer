@@ -49,8 +49,8 @@ const values = [
 function About() {
   return (
     <div className="overflow-x-hidden bg-background text-foreground">
-      {/* HERO SECTION */}
-      <section className="grain relative px-4 pt-36 pb-8 sm:pb-16">
+      {/* HERO & STATS SECTION */}
+      <section className="grain relative px-4 pt-28 sm:pt-36 pb-3 sm:pb-16">
         <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_0.85fr]">
           <div>
             <Reveal>
@@ -88,23 +88,46 @@ function About() {
                 With more than 4 years of dedicated practice, her experience speaks professionalism.
                 Heer is mainly known for her flawless and elegant finished hairstyles.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
+
+              {/* CTA Buttons */}
+              <div className="mt-6 sm:mt-8 flex flex-row items-center gap-2.5 sm:gap-4">
                 <Link
                   to="/inquiry"
-                  className="rounded-full accent-gradient px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-lg hover:shadow-accent/25 hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                  className="rounded-full accent-gradient px-4 py-2.5 sm:px-7 sm:py-3.5 text-xs sm:text-sm font-semibold text-accent-foreground shadow-lg hover:shadow-accent/25 hover:scale-105 transition-all duration-300 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
                 >
                   <span>Work with me</span>
-                  <ArrowUpRight className="size-4" />
+                  <ArrowUpRight className="size-3.5 sm:size-4" />
                 </Link>
                 <a
                   href={site.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-border bg-card/40 px-7 py-3.5 text-sm transition-all duration-300 hover:border-accent hover:text-accent hover:bg-accent/5 flex items-center gap-2"
+                  className="rounded-full border border-border bg-card/40 px-3.5 py-2.5 sm:px-7 sm:py-3.5 text-xs sm:text-sm transition-all duration-300 hover:border-accent hover:text-accent hover:bg-accent/5 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
                 >
                   <span>@{site.handle}</span>
-                  <ArrowUpRight className="size-3.5 opacity-60" />
+                  <ArrowUpRight className="size-3 sm:size-3.5 opacity-60" />
                 </a>
+              </div>
+
+              {/* Mobile-Only Stats Boxes (directly under buttons on phone ONLY) */}
+              <div className="mt-3 block sm:hidden grid grid-cols-2 gap-2.5">
+                {stats.map((s, i) => (
+                  <TiltCard key={s.label} intensity={8} className="h-full">
+                    <div className="glass-panel h-full rounded-2xl p-3.5 relative overflow-hidden flex flex-col justify-between group">
+                      <span className="absolute -right-2 -bottom-2 font-display text-4xl font-bold opacity-[0.04] text-accent">
+                        0{i + 1}
+                      </span>
+                      <div>
+                        <p className="font-display text-2xl font-bold text-accent">
+                          {s.value}
+                        </p>
+                        <p className="mt-1 text-[9px] tracking-wider text-muted-foreground uppercase font-semibold leading-tight">
+                          {s.label}
+                        </p>
+                      </div>
+                    </div>
+                  </TiltCard>
+                ))}
               </div>
             </Reveal>
           </div>
@@ -129,21 +152,21 @@ function About() {
         </div>
       </section>
 
-      {/* STATS SECTION — Interactive Glass Cards */}
-      <section className="px-4 pt-0 pb-10 sm:py-16">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+      {/* STATS SECTION — Original Desktop Version */}
+      <section className="hidden sm:block px-4 py-16">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={0.06 * i}>
               <TiltCard intensity={8} className="h-full">
-                <div className="glass-panel h-full rounded-2xl sm:rounded-3xl p-5 sm:p-7 relative overflow-hidden flex flex-col justify-between group hover:border-accent/40 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(235,165,182,0.12)]">
-                  <span className="absolute -right-2 -bottom-2 font-display text-5xl sm:text-7xl font-bold opacity-[0.04] text-accent group-hover:scale-110 group-hover:opacity-[0.08] transition-all duration-500">
+                <div className="glass-panel h-full rounded-3xl p-7 relative overflow-hidden flex flex-col justify-between group hover:border-accent/40 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(235,165,182,0.12)]">
+                  <span className="absolute -right-2 -bottom-2 font-display text-7xl font-bold opacity-[0.04] text-accent group-hover:scale-110 group-hover:opacity-[0.08] transition-all duration-500">
                     0{i + 1}
                   </span>
                   <div>
-                    <p className="font-display text-3xl sm:text-5xl font-bold text-accent group-hover:scale-105 transition-transform origin-left">
+                    <p className="font-display text-5xl font-bold text-accent group-hover:scale-105 transition-transform origin-left">
                       {s.value}
                     </p>
-                    <p className="mt-1.5 sm:mt-3 text-[10px] sm:text-xs tracking-wider text-muted-foreground uppercase font-semibold leading-tight">
+                    <p className="mt-3 text-xs tracking-wider text-muted-foreground uppercase font-semibold leading-tight">
                       {s.label}
                     </p>
                   </div>
@@ -155,17 +178,17 @@ function About() {
       </section>
 
       {/* HER STORY / JOURNEY SECTION */}
-      <section className="px-4 pb-16">
+      <section className="px-4 pt-0 pb-1 sm:pb-16">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <div className="glass-panel relative overflow-hidden rounded-[2.5rem] p-8 sm:p-12 border border-border/80 shadow-2xl">
+            <div className="glass-panel relative overflow-hidden rounded-2xl sm:rounded-[2.5rem] p-4 sm:p-12 border border-border/80 shadow-2xl">
               <span className="text-[11px] tracking-[0.28em] text-accent uppercase font-bold">
                 Her Journey & Passion
               </span>
-              <h2 className="mt-3 font-display text-[clamp(1.8rem,4vw,3rem)] leading-tight text-gradient italic">
+              <h2 className="mt-2 sm:mt-3 font-display text-[clamp(1.8rem,4vw,3rem)] leading-tight text-gradient italic">
                 The Story Behind the Craft
               </h2>
-              <div className="mt-6 grid gap-6 md:grid-cols-2 text-muted-foreground leading-relaxed text-sm sm:text-base">
+              <div className="mt-3 sm:mt-6 grid gap-3.5 md:gap-6 md:grid-cols-2 text-muted-foreground leading-relaxed text-sm sm:text-base">
                 <p>
                   Heer was just 16 when she thought she wanted to start her career doing hair and makeup, started as a young artist and is continuing the practice very deliberately and affectionately.
                 </p>
@@ -185,7 +208,7 @@ function About() {
       </section>
 
       {/* VALUES SECTION — Special Glass Panels with Unique Layout */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pt-1 sm:pt-0 pb-12 sm:pb-24">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <Parallax distance={30}>
             <TiltCard intensity={6}>

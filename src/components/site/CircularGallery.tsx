@@ -466,10 +466,10 @@ class Media {
       }
     }
     this.scale = this.screen.height / 1500;
-    this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height;
-    this.plane.scale.x = (this.viewport.width * (700 * this.scale)) / this.screen.width;
+    this.plane.scale.y = (this.viewport.height * (820 * this.scale)) / this.screen.height;
+    this.plane.scale.x = (this.viewport.width * (555 * this.scale)) / this.screen.width;
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
-    this.padding = 2;
+    this.padding = 1.9;
     this.width = this.plane.scale.x + this.padding;
     this.widthTotal = this.width * this.length;
     this.x = this.width * this.index;
@@ -536,7 +536,7 @@ class App {
       font = "bold 30px Figtree",
       scrollSpeed = 2,
       scrollEase = 0.05,
-      autoScroll = true,
+      autoScroll = false,
       autoScrollSpeed = 0.025,
     }: AppConfig,
   ) {
@@ -776,7 +776,7 @@ class App {
     this.nudge();
     this.nudgeTimeout = window.setTimeout(() => {
       this.startNudgeLoop();
-    }, 3500);
+    }, 2000);
   }
 
   nudge() {
@@ -787,7 +787,7 @@ class App {
     setTimeout(() => {
       if (this.hasInteracted) return;
       this.scroll.target = 0;
-    }, 900);
+    }, 800);
   }
 
   destroy() {
@@ -838,7 +838,7 @@ export default function CircularGallery({
   fontUrl,
   scrollSpeed = 2,
   scrollEase = 0.05,
-  autoScroll = true,
+  autoScroll = false,
   autoScrollSpeed = 0.005,
 }: CircularGalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -849,35 +849,35 @@ export default function CircularGallery({
     resolveFont(font, fontUrl)
       .catch(() => font)
       .then((resolvedFont) => {
-      if (!isMounted || !containerRef.current) return;
-      app = new App(containerRef.current, {
-        items,
-        bend,
-        textColor,
-        borderRadius,
-        font: resolvedFont,
-        scrollSpeed,
-        scrollEase,
-        autoScroll,
-        autoScrollSpeed,
-      });
+        if (!isMounted || !containerRef.current) return;
+        app = new App(containerRef.current, {
+          items,
+          bend,
+          textColor,
+          borderRadius,
+          font: resolvedFont,
+          scrollSpeed,
+          scrollEase,
+          autoScroll,
+          autoScrollSpeed,
+        });
 
-      // Set up IntersectionObserver to trigger nudge loop when it enters viewport
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              app?.startNudgeLoop();
-              observer.disconnect();
-            }
-          });
-        },
-        { threshold: 0.15 },
-      );
-      if (containerRef.current) {
-        observer.observe(containerRef.current);
-      }
-    });
+        // Set up IntersectionObserver to trigger nudge loop when it enters viewport
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                app?.startNudgeLoop();
+                observer.disconnect();
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+        if (containerRef.current) {
+          observer.observe(containerRef.current);
+        }
+      });
     return () => {
       isMounted = false;
       if (app) app.destroy();

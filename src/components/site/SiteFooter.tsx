@@ -101,14 +101,21 @@ export function Footer() {
       <div className="pointer-events-none absolute -bottom-24 left-1/2 -translate-x-1/2 size-96 rounded-full bg-accent/5 blur-3xl" />
 
       {/* Main Footer Links & Info */}
-      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
         {/* Brand Column */}
         <div className="space-y-4 md:col-span-2">
           <Link
             to="/"
-            className="flex items-center gap-2.5 font-display text-3xl uppercase tracking-[0.22em] font-bold text-foreground hover:text-accent transition-colors"
+            className="-ml-1 flex items-center gap-2.5 sm:gap-3.5 hover:opacity-90 transition-opacity"
           >
-            Heer Dagha
+            <img
+              src="/Logo.png"
+              alt="Heer Dagha"
+              className="h-12 sm:h-16 w-auto object-contain"
+            />
+            <span className="font-display text-2xl sm:text-3xl uppercase tracking-[0.22em] font-bold text-foreground">
+              Heer Dagha
+            </span>
           </Link>
           <p className="text-sm leading-relaxed text-muted-foreground max-w-md">
             Premier Hair Artist &amp; Makeup Specialist based in Mumbai, India. Crafting bespoke bridal, cocktail, sangeet, haldi, reception looks &amp; draping services for both women and men.
@@ -190,13 +197,13 @@ export function Footer() {
       </div>
 
       {/* Social Strip at Bottom */}
-      <div className="border-t border-border py-6 px-6 lg:px-8 bg-card/40">
+      <div className="border-t border-border py-4 sm:py-6 px-4 sm:px-6 lg:px-8 bg-card/40">
         <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-semibold text-muted-foreground">
             <span>Connect &amp; Follow</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             {socialLinks.map(({ name, href, Icon, colorClass, label }) => (
               <a
                 key={name}
@@ -205,11 +212,11 @@ export function Footer() {
                 rel="noreferrer"
                 aria-label={`${name} — ${label}`}
                 title={label}
-                className={`group flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-xs text-muted-foreground shadow-sm transition-all duration-300 ${colorClass} hover:bg-accent/10 hover:-translate-y-0.5`}
+                className={`group flex items-center justify-center gap-2 rounded-full border border-border bg-background p-2.5 sm:px-4 sm:py-2 text-xs text-muted-foreground shadow-sm transition-all duration-300 ${colorClass} hover:bg-accent/10 hover:-translate-y-0.5`}
               >
                 <Icon />
-                <span className="font-medium tracking-wide">{name}</span>
-                <ArrowUpRight className="size-3 opacity-50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+                <span className="hidden sm:inline font-medium tracking-wide">{name}</span>
+                <ArrowUpRight className="hidden sm:block size-3 opacity-50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
               </a>
             ))}
           </div>
