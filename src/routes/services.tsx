@@ -27,7 +27,7 @@ export const Route = createFileRoute("/services")({
 function Services() {
   return (
     <div className="overflow-x-hidden">
-      <section className="grain px-4 pt-36 pb-14">
+      <section className="grain px-4 pt-28 sm:pt-36 pb-6 sm:pb-14">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="text-[11px] tracking-[0.3em] text-accent uppercase">Services</p>
@@ -54,12 +54,12 @@ function Services() {
       />
 
       {/* HAIRSTYLES */}
-      <section className="px-4 py-20">
+      <section className="px-4 py-6 sm:py-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Hairstyles</h2>
+            <h2 className="font-display text-[clamp(1.4rem,4.5vw,3rem)] whitespace-nowrap">Hairstyles</h2>
           </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+          <div className="mt-3 sm:mt-10 grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-6">
             {hairstylesList.map((s, i) => {
               let colSpan = "lg:col-span-2 md:col-span-1";
               if (i >= 3) {
@@ -107,13 +107,13 @@ function Services() {
       </section>
 
       {/* GROOM STYLING & DESTINATION WEDDINGS */}
-      <section className="px-4 pb-20">
-        <div className="mx-auto grid gap-8 md:grid-cols-2 max-w-6xl">
+      <section className="px-4 pb-6 sm:pb-20">
+        <div className="mx-auto grid gap-6 md:gap-8 md:grid-cols-2 max-w-6xl">
           <div>
             <Reveal>
-              <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Groom styling</h2>
+              <h2 className="font-display text-[clamp(1.4rem,4.5vw,3rem)] whitespace-nowrap">Groom styling</h2>
             </Reveal>
-            <div className="mt-10">
+            <div className="mt-3 sm:mt-10">
               {groomStylingList.map((s) => (
                 <Reveal key={s.title}>
                   <Link
@@ -155,9 +155,9 @@ function Services() {
 
           <div>
             <Reveal>
-              <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Destination Weddings</h2>
+              <h2 className="font-display text-[clamp(1.4rem,4.5vw,3rem)] whitespace-nowrap">Destination Weddings</h2>
             </Reveal>
-            <div className="mt-10">
+            <div className="mt-3 sm:mt-10">
               {destinationList.map((s) => (
                 <Reveal key={s.title}>
                   <Link
@@ -200,12 +200,12 @@ function Services() {
       </section>
 
       {/* MAKEUP ARTISTRY */}
-      <section className="px-4 pb-20">
+      <section className="px-4 pb-6 sm:pb-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)]">Makeup artistry</h2>
+            <h2 className="font-display text-[clamp(1.4rem,4.5vw,3rem)] whitespace-nowrap">Makeup artistry</h2>
           </Reveal>
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+          <div className="mt-3 sm:mt-10 grid gap-4 sm:gap-5 sm:grid-cols-3">
             {makeupList.map((s, i) => (
               <Reveal key={s.title} delay={0.05 * i}>
                 <Link
@@ -246,7 +246,7 @@ function Services() {
         </div>
       </section>
 
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12 sm:pb-24">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <div className="reviews-cta glass-panel flex flex-wrap items-center justify-between gap-6 rounded-[2rem] p-8 md:p-12">
