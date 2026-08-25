@@ -28,8 +28,6 @@ import img7668 from "@/assets/IMG_7668.JPG";
 import img7672 from "@/assets/IMG_7672.JPG";
 import img7701 from "@/assets/IMG_7701.JPG.jpeg";
 import img7704 from "@/assets/IMG_7704.JPG.jpeg";
-import img7750 from "@/assets/IMG_7750.JPG";
-import img7957 from "@/assets/IMG_7957.JPG";
 import img7960 from "@/assets/IMG_7960.JPG";
 import img8024 from "@/assets/IMG_8024.JPG";
 import img8045 from "@/assets/IMG_8045.JPG";
@@ -42,8 +40,14 @@ import mehendiHair from "@/assets/Mehendi_hair.jpeg";
 import noMakeupSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
 import sangeetLook from "@/assets/Sangeet_look.jpeg";
 import weddingHair from "@/assets/Wedding_hair.jpeg";
-import heerAbout from "@/assets/heer_about.jpeg";
-import heerHome from "@/assets/heer_home.jpeg";
+import receptionHair from "@/assets/reception_hair.JPG";
+import engagementHair from "@/assets/engagement_hair.PNG";
+import allOccasions from "@/assets/all_occasions.JPG";
+import img0757 from "@/assets/IMG_0757.JPG.jpeg";
+import img2618 from "@/assets/IMG_2618.jpg";
+import img2907 from "@/assets/IMG_2907.jpg";
+import img3136 from "@/assets/IMG_3136.jpg";
+import img8531 from "@/assets/IMG_8531.PNG";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -66,7 +70,9 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const galleryImages = [
-  { src: heerHome, alt: "Editorial bridal portrait", objectPosition: "50% 15%" },
+  { src: receptionHair, alt: "Reception statement hair", objectPosition: "50% 35%" },
+  { src: engagementHair, alt: "Engagement half-up hair", objectPosition: "50% 25%" },
+  { src: allOccasions, alt: "Special occasion styling", objectPosition: "50% 10%" },
   { src: bridalWeddingHair, alt: "Wedding hair artistry", objectPosition: "50% 20%" },
   { src: bridalHair, alt: "Bridal waves & texture", objectPosition: "50% 15%" },
   { src: sangeetLook, alt: "Sangeet glam waves", objectPosition: "50% 20%" },
@@ -81,7 +87,11 @@ const galleryImages = [
   { src: event1, alt: "Grand wedding styling", objectPosition: "50% 20%" },
   { src: event2, alt: "Reception couture look", objectPosition: "50% 20%" },
   { src: eventJpg, alt: "Celebration hair glam", objectPosition: "50% 15%" },
-  { src: heerAbout, alt: "Heer Dagha artistry", objectPosition: "50% 10%" },
+  { src: img0757, alt: "Bridal hair detailing", objectPosition: "50% 15%" },
+  { src: img2618, alt: "Client hair glam", objectPosition: "50% 15%" },
+  { src: img2907, alt: "Signature hair waves", objectPosition: "50% 15%" },
+  { src: img3136, alt: "Bridal client portrait", objectPosition: "50% 15%" },
+  { src: img8531, alt: "Soft glam hairstyle", objectPosition: "50% 15%" },
   { src: img6898, alt: "Textured sangeet curls" },
   { src: img6901, alt: "Glowy soft glam makeup" },
   { src: img6925, alt: "Sleek cocktail style" },
@@ -98,8 +108,6 @@ const galleryImages = [
   { src: img7524, alt: "Haldi ceremony style" },
   { src: img7668, alt: "Cocktail glam waves" },
   { src: img7672, alt: "Intimate function style" },
-  { src: img7750, alt: "Glamour hair finish" },
-  { src: img7957, alt: "Fresh bridal glow" },
   { src: img7960, alt: "Couture wedding hair" },
   { src: img8024, alt: "Signature hair artistry" },
   { src: img8045, alt: "Soft texture waves" },

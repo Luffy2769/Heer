@@ -6,7 +6,11 @@ import cocktail from "@/assets/Cocktail.jpeg";
 import cocktail1 from "@/assets/Cocktail1.jpeg";
 import matureLook from "@/assets/Mature_look.jpeg";
 import noMakeupSoftGlam from "@/assets/No_makeup_soft_glam.jpeg";
-const lookGroom = matureLook;
+import receptionHair from "@/assets/reception_hair.JPG";
+import engagementHair from "@/assets/engagement_hair.PNG";
+import allOccasions from "@/assets/all_occasions.JPG";
+
+const lookGroom = allOccasions;
 const heroBride = bridalWeddingHair;
 
 export const site = {
@@ -42,7 +46,7 @@ export const hairstylesList = [
     title: "Sangeet / Cocktail Hair",
     blurb:
       "Glossy blowouts, deep side waves and sleek high pony drama built for choreography and long dance sets.",
-    image: sangeetLook,
+    image: cocktail1,
     objectPosition: "50% 25%",
   },
   {
@@ -54,14 +58,14 @@ export const hairstylesList = [
   {
     title: "Engagement Hair",
     blurb: "Elegant half-ups, classic waves and sophisticated styling for your ring ceremony look.",
-    image: bridalHair,
+    image: engagementHair,
     objectPosition: "50% 25%",
   },
   {
     title: "Reception Hair",
     blurb:
       "The statement finale — high-shine finishes, couture silhouettes and camera-ready polish.",
-    image: cocktail1,
+    image: receptionHair,
     objectPosition: "50% 35%",
   },
 ];
@@ -71,7 +75,7 @@ export const groomStylingList = [
     title: "For All Occasions",
     blurb:
       "Sharp styles, clean textures and professional product placement for grooms on their big days.",
-    image: lookGroom,
+    image: allOccasions,
     objectPosition: "50% 5%",
   },
 ];
