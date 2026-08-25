@@ -366,7 +366,7 @@ function Home() {
             />
           </Reveal>
 
-          {/* Mobile Circular Gallery */}
+          {/* Mobile Circular 3D Gallery */}
           <Reveal className="mt-10 sm:hidden">
             <div
               style={{ height: "440px", position: "relative" }}
@@ -381,9 +381,10 @@ function Home() {
                 bend={1.0}
                 textColor="var(--color-heading)"
                 borderRadius={0.05}
-                scrollEase={0.12}
-                font="bold 20px Manrope"
-                scrollSpeed={3.5}
+                scrollEase={0.15}
+                scrollSpeed={4.5}
+                autoScroll
+                autoScrollSpeed={0.035}
               />
             </div>
           </Reveal>

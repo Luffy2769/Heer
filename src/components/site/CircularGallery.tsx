@@ -79,33 +79,29 @@ async function loadCustomFont(fontUrl: string): Promise<string> {
 }
 
 async function resolveFont(font: string, fontUrl?: string): Promise<string> {
-  const effectiveUrl = fontUrl || (font === DEFAULT_FONT ? DEFAULT_FONT_URL : null);
-  if (!effectiveUrl) {
-    if (document.fonts && document.fonts.load) {
-      try {
-        await document.fonts.load(font);
-        await document.fonts.ready;
-      } catch {
-        // Ignore
-      }
-    }
-    return font;
-  }
   try {
-    const family = await loadCustomFont(effectiveUrl);
+    const effectiveUrl = fontUrl || (font === DEFAULT_FONT ? DEFAULT_FONT_URL : null);
+    if (!effectiveUrl) {
+      if (typeof document !== "undefined" && document.fonts && document.fonts.load) {
+        try {
+          await Promise.race([
+            document.fonts.load(font),
+            new Promise((res) => setTimeout(res, 400)),
+          ]);
+        } catch {
+          // Ignore
+        }
+      }
+      return font;
+    }
+    const family = await Promise.race([
+      loadCustomFont(effectiveUrl),
+      new Promise<string>((_, rej) => setTimeout(() => rej(new Error("Timeout")), 800)),
+    ]);
     const sizeMatch = font.match(/^\s*(.*?\d+px)/);
     const prefix = sizeMatch ? sizeMatch[1].trim() : "bold 30px";
-    const resolved = `${prefix} "${family}"`;
-    if (document.fonts && document.fonts.load) {
-      try {
-        await document.fonts.load(resolved);
-      } catch {
-        // Ignore
-      }
-    }
-    return resolved;
-  } catch (error) {
-    console.error("CircularGallery: unable to load font from", fontUrl, error);
+    return `${prefix} "${family}"`;
+  } catch {
     return font;
   }
 }
@@ -541,7 +537,7 @@ class App {
       scrollSpeed = 2,
       scrollEase = 0.05,
       autoScroll = true,
-      autoScrollSpeed = 0.005,
+      autoScrollSpeed = 0.025,
     }: AppConfig,
   ) {
     document.documentElement.classList.remove("no-js");
@@ -717,7 +713,7 @@ class App {
   update() {
     if (this.autoScroll) {
       const now = performance.now();
-      const isIdle = !this.isDown && (now - this.lastInteractionTime > 2000);
+      const isIdle = !this.isDown && (now - this.lastInteractionTime > 1000);
       if (isIdle) {
         this.scroll.target += this.autoScrollSpeed;
       }
@@ -850,7 +846,9 @@ export default function CircularGallery({
     if (!containerRef.current) return;
     let app: App | undefined;
     let isMounted = true;
-    resolveFont(font, fontUrl).then((resolvedFont) => {
+    resolveFont(font, fontUrl)
+      .catch(() => font)
+      .then((resolvedFont) => {
       if (!isMounted || !containerRef.current) return;
       app = new App(containerRef.current, {
         items,
