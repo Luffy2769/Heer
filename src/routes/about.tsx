@@ -154,6 +154,36 @@ function About() {
         </div>
       </section>
 
+      {/* HER STORY / JOURNEY SECTION */}
+      <section className="px-4 pb-16">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <div className="glass-panel relative overflow-hidden rounded-[2.5rem] p-8 sm:p-12 border border-border/80 shadow-2xl">
+              <span className="text-[11px] tracking-[0.28em] text-accent uppercase font-bold">
+                Her Journey & Passion
+              </span>
+              <h2 className="mt-3 font-display text-[clamp(1.8rem,4vw,3rem)] leading-tight text-gradient italic">
+                The Story Behind the Craft
+              </h2>
+              <div className="mt-6 grid gap-6 md:grid-cols-2 text-muted-foreground leading-relaxed text-sm sm:text-base">
+                <p>
+                  Heer was just 16 when she thought she wanted to start her career doing hair and makeup, started as a young artist and is continuing the practice very deliberately and affectionately.
+                </p>
+                <p>
+                  She recognised her Art of perception can lead to way more changes and progress in this field, carrying immense gratitude and blessings from the clients she holds currently.
+                </p>
+                <p>
+                  Makeup has always been an emotion more over a career. One needs to understand passion and career, and merging into the same path takes a lot of efforts, which Heer is willing to put.
+                </p>
+                <p>
+                  She faced a lot of challenges in growing her business. But overlooking to it and handling the same with a systematic approach makes her unique.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* VALUES SECTION — Special Glass Panels with Unique Layout */}
       <section className="px-4 pb-24">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
