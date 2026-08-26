@@ -10,6 +10,7 @@ import {
 } from "@/lib/site-data";
 import { Reveal, TiltCard } from "@/components/site/motion-bits";
 import { submitInquiry } from "@/lib/supabase";
+import { sendFormspreeNotification } from "@/lib/formspree";
 import heroBride from "@/assets/Bridal_wedding_hair.webp";
 
 export const Route = createFileRoute("/inquiry")({
@@ -119,27 +120,19 @@ function Inquiry() {
         status: "new",
       });
 
-      try {
-        await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
-            subject: `New Inquiry from ${form.name.trim()}`,
-            from_name: "Heer Portfolio Website",
-            to_email: site.email,
-            name: form.name.trim(),
-            phone: form.phone.trim(),
-            email: form.email.trim() || "Not provided",
-            event_date: form.date || "Not specified",
-            city: form.city.trim() || "Not specified",
-            services: form.services.join(", ") || "None selected",
-            notes: form.notes.trim() || "No additional notes",
-          }),
-        }).catch(() => {});
-      } catch {
-        // Ignore background email errors
-      }
+      // Also send Formspree email notification to the form owner
+      await sendFormspreeNotification({
+        _subject: `New Wedding Inquiry from ${form.name.trim()}`,
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim() || "Not provided",
+        _replyto: form.email.trim() || undefined,
+        event_date: form.date || "Not specified",
+        city: form.city.trim() || "Not specified",
+        services: form.services.join(", ") || "None selected",
+        notes: form.notes.trim() || "No additional notes",
+        submitted_at: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+      });
 
       setIsSubmitted(true);
     } catch (err) {
