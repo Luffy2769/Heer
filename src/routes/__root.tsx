@@ -79,23 +79,41 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Heer Dagha — Hair Stylist & Makeup Artist, Mumbai" },
+      {
+        title:
+          "Heer Dagha — Best Hair Artist & Makeup Artist in Mumbai | Andheri, Bandra, Churchgate",
+      },
       {
         name: "description",
         content:
-          "Bridal and editorial hair styling, draping and makeup by Heer Dagha in Mumbai, India.",
+          "Heer Dagha is Mumbai's leading hair artist & bridal makeup stylist. Specializing in flawless hair styling & soft glam makeup for weddings, sangeet, cocktail parties, birthday functions & club nights in Andheri, Bandra, Churchgate & destination weddings.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Heer Dagha, Heer daga, her dagha, her daga, heer daha, heee dagha, heee daga, hair by heer dagha, Makeup artists, Hair artist, Best hair artist in Andheri, Best hair artist in Bandra, Best hair artist in mumbai, Best hair artist in churchgate, Best hair artist in India, bridal makeup artist Mumbai, sangeet hair stylist, cocktail party makeup, birthday party makeup artist, club night hair styling Mumbai",
       },
       { name: "author", content: "Heer Dagha" },
-      { property: "og:title", content: "Heer Dagha — Hair Stylist & Makeup Artist, Mumbai" },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+      { property: "og:site_name", content: "Heer Dagha Hair & Makeup Artistry" },
+      { property: "og:title", content: "Heer Dagha — Premier Hair Artist & Makeup Stylist in Mumbai" },
       {
         property: "og:description",
         content:
-          "Bridal and editorial hair styling, draping and makeup by Heer Dagha in Mumbai, India.",
+          "Flawless bridal hair, soft glam makeup, sangeet blowouts & cocktail styling across Andheri, Bandra, Churchgate, Mumbai & destination weddings across India.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://heerdagha.com" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Heer Dagha — Best Hair Artist & Makeup Artist in Mumbai" },
+      {
+        name: "twitter:description",
+        content:
+          "1500+ happy faces. Expert hair styling & makeup for weddings, sangeets, cocktail nights & birthday parties in Mumbai.",
+      },
     ],
     links: [
+      { rel: "canonical", href: "https://heerdagha.com" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -118,10 +136,104 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": ["BeautySalon", "LocalBusiness", "Person"],
+    name: "Heer Dagha Hair & Makeup Artistry",
+    alternateName: [
+      "Heer Dagha",
+      "Heer daga",
+      "her dagha",
+      "her daga",
+      "heer daha",
+      "heee dagha",
+      "heee daga",
+      "Hair by Heer Dagha",
+    ],
+    image: "https://heerdagha.com/Logo_Site.png",
+    "@id": "https://heerdagha.com",
+    url: "https://heerdagha.com",
+    telephone: "+919372040434",
+    email: "daghaheer02@gmail.com",
+    priceRange: "₹₹₹",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Mumbai",
+      addressRegion: "Maharashtra",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 19.1197,
+      longitude: 72.8464,
+    },
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Andheri, Mumbai" },
+      { "@type": "AdministrativeArea", name: "Bandra, Mumbai" },
+      { "@type": "AdministrativeArea", name: "Churchgate, Mumbai" },
+      { "@type": "AdministrativeArea", name: "Juhu, Mumbai" },
+      { "@type": "AdministrativeArea", name: "South Mumbai" },
+      { "@type": "AdministrativeArea", name: "Mumbai Suburban" },
+      { "@type": "AdministrativeArea", name: "Navi Mumbai" },
+      { "@type": "AdministrativeArea", name: "Goa" },
+      { "@type": "AdministrativeArea", name: "Udaipur" },
+      { "@type": "AdministrativeArea", name: "Jaipur" },
+      { "@type": "Country", name: "India" },
+    ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "08:00",
+      closes: "21:00",
+    },
+    sameAs: [
+      "https://instagram.com/hairbyheerdagha",
+      "https://threads.net/@hairbyheerdagha",
+      "https://pinterest.com/hairbyheerdagha",
+    ],
+    knowsAbout: [
+      "Bridal Hair Styling",
+      "Soft Glam Makeup",
+      "3D and HD Makeup",
+      "Sangeet & Cocktail Hairstyles",
+      "Haldi & Mehendi Styling",
+      "Birthday Party Makeup",
+      "Club Night Styling",
+      "Destination Wedding Styling",
+    ],
+  };
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        {/* Google Analytics 4 (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-QVQ61GWBV6"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-QVQ61GWBV6');
+            `,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        />
       </head>
       <body>
         {children}

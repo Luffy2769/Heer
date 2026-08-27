@@ -16,20 +16,35 @@ import lookMature from "@/assets/Mature_look.webp";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Heer Dagha — Bridal Hair Stylist & Makeup Artist, Mumbai" },
+      {
+        title:
+          "Heer Dagha — Best Hair Artist & Makeup Artist in Mumbai | Andheri, Bandra, Churchgate",
+      },
       {
         name: "description",
         content:
-          "Heer Dagha is a Mumbai-based hair stylist and makeup artist crafting wedding, sangeet, cocktail and reception looks for women and men. 4+ years, 1500+ happy faces.",
+          "Looking for the best hair artist and makeup artist in Mumbai? Heer Dagha delivers flawless bridal buns, sangeet waves, HD makeup, birthday party looks & club night styling across Andheri, Bandra, Churchgate & destination weddings.",
       },
-      { property: "og:title", content: "Heer Dagha — Bridal Hair Stylist & Makeup Artist, Mumbai" },
+      {
+        name: "keywords",
+        content:
+          "Heer Dagha, Heer daga, her dagha, her daga, heer daha, heee dagha, heee daga, hair by heer dagha, Makeup artists, Hair artist, Best hair artist in Andheri, Best hair artist in Bandra, Best hair artist in mumbai, Best hair artist in churchgate, Best hair artist in India, bridal makeup artist Mumbai, sangeet hair artist, cocktail party hair stylist, birthday party makeup artist, club night hair stylist",
+      },
+      { property: "og:title", content: "Heer Dagha — Best Hair Artist & Makeup Artist in Mumbai" },
       {
         property: "og:description",
         content:
-          "Wedding, sangeet, haldi, cocktail and reception hair styling plus soft glam, HD and 3D makeup. Mumbai based, available for destination weddings.",
+          "1500+ happy faces. Expert hair styling & makeup for weddings, sangeet, cocktail parties, birthday functions & club events in Mumbai (Andheri, Bandra, Churchgate).",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://heerdagha.com/" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Heer Dagha — Best Hair Artist & Makeup Artist in Mumbai" },
+      {
+        name: "twitter:description",
+        content:
+          "Top bridal hair stylist and makeup artist in Mumbai. Serving Andheri, Bandra, Churchgate, Juhu & destination weddings across India.",
+      },
     ],
   }),
   component: Home,

@@ -4,11 +4,18 @@ import { Reveal } from "@/components/site/motion-bits";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Heer Dagha" },
+      { title: "Privacy Policy — Heer Dagha Hair & Makeup Artistry" },
       {
         name: "description",
-        content: "Privacy Policy for Heer Dagha Hair Stylist & Makeup Artist",
+        content: "Privacy Policy for Heer Dagha Hair & Makeup Artistry in Mumbai, India.",
       },
+      {
+        name: "keywords",
+        content: "Heer Dagha, Heer daga, her dagha, privacy policy",
+      },
+      { property: "og:title", content: "Privacy Policy — Heer Dagha" },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://heerdagha.com/privacy" },
     ],
   }),
   component: Privacy,

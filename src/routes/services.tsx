@@ -5,19 +5,31 @@ import { Reveal, TiltCard, Marquee } from "@/components/site/motion-bits";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Bridal Hair & Makeup by Heer Dagha, Mumbai" },
+      {
+        title:
+          "Hair & Makeup Services — Heer Dagha | Best Hair Artist in Andheri, Bandra, Churchgate & Mumbai",
+      },
       {
         name: "description",
         content:
-          "Wedding, cocktail, sangeet, haldi/mehendi, engagement, reception and destination hair styling and makeup for women and men.",
+          "Explore professional hair styling & makeup services by Heer Dagha in Mumbai (Andheri, Bandra, Churchgate). From bridal buns to sangeet waves, HD/3D makeup, birthday party looks & club night styling.",
       },
-      { property: "og:title", content: "Services — Bridal Hair & Makeup by Heer Dagha" },
+      {
+        name: "keywords",
+        content:
+          "Makeup artists, Hair artist, Best hair artist in Andheri, Best hair artist in Bandra, Best hair artist in mumbai, Best hair artist in churchgate, Best hair artist in India, Heer Dagha, Heer daga, her dagha, her daga, heer daha, heee dagha, heee daga, bridal hair service Mumbai, sangeet blowout, cocktail waves, HD makeup, 3D makeup Mumbai",
+      },
+      {
+        property: "og:title",
+        content: "Hair & Makeup Services — Heer Dagha, Best Hair Artist in Mumbai",
+      },
       {
         property: "og:description",
         content:
-          "Hairstyles, groom styling, destination wedding styling and makeup artistry in Mumbai and beyond.",
+          "Hairstyles, groom styling, destination wedding styling & makeup artistry for weddings, cocktails, birthday parties & club events in Mumbai.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://heerdagha.com/services" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

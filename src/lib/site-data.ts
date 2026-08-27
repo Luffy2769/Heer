@@ -123,125 +123,146 @@ export const reviews = [
     role: "Bride · Udaipur",
     quote:
       "Three ceremonies, three completely different looks, and not a single pin moved. Heer read my outfit better than I did.",
+    rating: 5,
   },
   {
     name: "Sanya Kapoor",
     role: "Sangeet · Mumbai",
     quote:
       "I danced for four straight hours and my braid looked untouched in every reel. She is genuinely magic with texture.",
+    rating: 5,
   },
   {
     name: "Rohan Shetty",
     role: "Groom · Goa",
     quote:
       "Didn't think grooms needed styling. The HD base and hair shape made my reception photos look like a magazine spread.",
+    rating: 5,
   },
   {
     name: "Ishita Rane",
     role: "Reception · Mumbai",
     quote: "The 3D look was unreal on camera. My photographer asked who did my face — twice.",
+    rating: 5,
   },
   {
     name: "Devika Nair",
     role: "Destination Bride · Alibaug",
     quote:
       "Sea humidity, an outdoor mandap, and my hair still had that glossy finish at midnight. Worth every rupee.",
+    rating: 5,
   },
   {
     name: "Meher Sethi",
     role: "Mehendi · Pune",
     quote:
       "Calmest person in the room on my most chaotic morning. Also, the florals were stunning.",
+    rating: 4,
   },
   {
     name: "Kritika Sen",
     role: "Sangeet · Delhi",
     quote:
       "Heer completely understood my vision of soft Hollywood waves. They survived all the dance choreography perfectly.",
+    rating: 5,
   },
   {
     name: "Anjali Sharma",
     role: "Bride · Jaipur",
     quote:
       "The makeup was flawless and looked completely natural. Received countless compliments on my big day.",
+    rating: 5,
   },
   {
     name: "Prisha Patel",
     role: "Cocktail · Mumbai",
     quote:
       "Absolutely loved my high ponytail look. Sleek, modern, and stayed put the entire night.",
+    rating: 4,
   },
   {
     name: "Rhea Kapoor",
     role: "Mehendi · Goa",
     quote:
       "Beautiful braid styling with fresh flowers. Heer was so patient and calm despite the rush.",
+    rating: 5,
   },
   {
     name: "Tanya Gill",
     role: "Reception · Chandigarh",
     quote:
       "Stunning editorial look with deep side waves. Heer has amazing attention to detail.",
+    rating: 5,
   },
   {
     name: "Nisha Nair",
     role: "Haldi · Alibaug",
     quote:
       "Textured plait with marigold flowers. It was light, breezy, and matched the vibe perfectly.",
+    rating: 4,
   },
   {
     name: "Vikram Malhotra",
     role: "Groom · Udaipur",
     quote:
       "Very subtle grooming. Didn't feel heavy, and looked sharp in all wedding videos.",
+    rating: 5,
   },
   {
     name: "Ritu Varma",
     role: "Bride · Pune",
     quote:
       "Excellent hair engineering. The bun held my heavy dupatta without any pain or pulling.",
+    rating: 5,
   },
   {
     name: "Sneha Reddy",
     role: "Reception · Hyderabad",
     quote:
       "The HD base stood up perfectly to the high-temperature lighting. It looked like a second skin.",
+    rating: 3,
   },
   {
     name: "Aditi Roy",
     role: "Sangeet · Kolkata",
     quote:
       "A glossy blowout that kept its bounce all night long. Highly recommend Heer!",
+    rating: 5,
   },
   {
     name: "Meera Shah",
     role: "Bride · Lonavala",
     quote:
       "Heer is a magician. She managed to style both me and my mother in record time.",
+    rating: 5,
   },
   {
     name: "Kabir Das",
     role: "Groom · Mumbai",
     quote:
       "Groom hair styling was exactly what I wanted. Natural volume that stayed neat all day.",
+    rating: 4,
   },
   {
     name: "Pooja Hegde",
     role: "Engagement · Bangalore",
     quote:
       "Half-up styling with delicate braids. It was romantic, soft, and photographed beautifully.",
+    rating: 5,
   },
   {
     name: "Siddharth Jain",
     role: "Groom · Jaipur",
     quote:
       "Clean texture, no sticky product build-up. Highly professional team.",
+    rating: 3,
   },
   {
     name: "Divya Rao",
     role: "Bride · Chennai",
     quote:
       "She placed my traditional hair jewelry beautifully. It felt safe and snug through all the long rituals.",
+    rating: 5,
   },
 ];
 

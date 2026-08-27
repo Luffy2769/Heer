@@ -42,18 +42,32 @@ import img8531 from "@/assets/IMG_8531.webp";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Lookbook Gallery — Heer Dagha, Mumbai" },
+      {
+        title:
+          "Lookbook Gallery — Heer Dagha | Best Hair Artist in Andheri, Bandra, Churchgate & Mumbai",
+      },
       {
         name: "description",
         content:
-          "Explore the 3D lookbook of client hairstyles, cuts, groom styling, and makeup looks curated by Heer Dagha.",
+          "View the signature hair styling & makeup portfolio by Heer Dagha. Featuring stunning bridal buns, glam cocktail waves, birthday party styles & ceremony looks across Andheri, Bandra, Churchgate & Mumbai.",
       },
-      { property: "og:title", content: "Lookbook Gallery — Heer Dagha" },
+      {
+        name: "keywords",
+        content:
+          "Heer Dagha, Heer daga, her dagha, her daga, heer daha, heee dagha, heee daga, Makeup artists, Hair artist, Best hair artist in Andheri, Best hair artist in Bandra, Best hair artist in mumbai, Best hair artist in churchgate, Best hair artist in India, bridal hair portfolio, sangeet lookbook, cocktail hairstyle photos Mumbai",
+      },
+      {
+        property: "og:title",
+        content: "Lookbook Gallery — Heer Dagha, Premier Hair Artist in Mumbai",
+      },
       {
         property: "og:description",
         content:
-          "Browse the interactive 3D lookbook of custom hairstyles and bridal makeup looks by Heer Dagha.",
+          "Browse the interactive lookbook of custom hairstyles, soft glam & HD makeup looks by Heer Dagha in Mumbai.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://heerdagha.com/gallery" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: GalleryPage,

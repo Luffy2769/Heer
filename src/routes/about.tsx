@@ -8,19 +8,28 @@ import lookHaldi from "@/assets/Haldi_mehendi.webp";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Heer Dagha — Hair Stylist & Makeup Artist in Mumbai" },
+      {
+        title:
+          "About Heer Dagha — Premier Hair Artist & Makeup Stylist in Mumbai | Andheri, Bandra, Churchgate",
+      },
       {
         name: "description",
         content:
-          "Meet Heer Dagha: 4+ years of bridal hair artistry and makeup in Mumbai, styling 1500+ happy faces across weddings, sangeets and destination celebrations.",
+          "Discover why brides & clients across Andheri, Bandra, Churchgate & Mumbai choose Heer Dagha for their dream hair styling & makeup for weddings, cocktail nights, birthday parties & grand events. 4+ years, 1500+ happy faces.",
       },
-      { property: "og:title", content: "About Heer Dagha — Hair Stylist & Makeup Artist" },
+      {
+        name: "keywords",
+        content:
+          "Heer Dagha, Heer daga, her dagha, her daga, heer daha, heee dagha, heee daga, hair by heer dagha, Makeup artists, Hair artist, Best hair artist in Andheri, Best hair artist in Bandra, Best hair artist in mumbai, Best hair artist in churchgate, Best hair artist in India, top bridal stylist Mumbai",
+      },
+      { property: "og:title", content: "About Heer Dagha — Hair Artist & Makeup Stylist, Mumbai" },
       {
         property: "og:description",
         content:
-          "4+ years, 1500+ happy faces, Mumbai based and travelling for destination weddings.",
+          "4+ years, 1500+ happy faces. Premier hair artist and makeup stylist in Mumbai (Andheri, Bandra, Churchgate).",
       },
       { property: "og:type", content: "profile" },
+      { property: "og:url", content: "https://heerdagha.com/about" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

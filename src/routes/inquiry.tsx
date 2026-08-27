@@ -19,18 +19,31 @@ export const Route = createFileRoute("/inquiry")({
   }),
   head: () => ({
     meta: [
-      { title: "Inquiry — Book Heer Dagha for Your Wedding, Mumbai" },
+      {
+        title:
+          "Book Heer Dagha — Best Hair Artist & Makeup Stylist in Mumbai | Check Availability",
+      },
       {
         name: "description",
         content:
-          "Check availability and book Heer Dagha for bridal hair, groom styling and makeup in Mumbai or at your destination wedding. Reply within 24 hours.",
+          "Book Heer Dagha for your upcoming wedding, sangeet, cocktail party, birthday function or club event in Andheri, Bandra, Churchgate, Mumbai or destination cities. Instant date inquiry & prompt reply.",
       },
-      { property: "og:title", content: "Inquiry — Book Heer Dagha for Your Wedding" },
+      {
+        name: "keywords",
+        content:
+          "Book Heer Dagha, Heer daga, her dagha, her daga, heer daha, heee dagha, heee daga, Makeup artists, Hair artist, Best hair artist in Andheri, Best hair artist in Bandra, Best hair artist in mumbai, Best hair artist in churchgate, Best hair artist in India, bridal booking Mumbai, wedding hair availability",
+      },
+      {
+        property: "og:title",
+        content: "Book Heer Dagha — Best Hair Artist & Makeup Stylist in Mumbai",
+      },
       {
         property: "og:description",
-        content: "Share your dates, city and ceremonies — availability confirmed within 24 hours.",
+        content:
+          "Share your event dates, city & ceremonies — availability confirmed within 24 hours.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://heerdagha.com/inquiry" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

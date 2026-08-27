@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Star, Quote, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
+import { Star, Quote, ChevronLeft, ChevronRight, Trash2, Filter, RotateCcw } from "lucide-react";
 import { reviews, stats } from "@/lib/site-data";
 import { Reveal, TiltCard } from "@/components/site/motion-bits";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
@@ -16,18 +16,31 @@ import {
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Reviews — What Brides & Grooms Say | Heer Dagha" },
+      {
+        title:
+          "Client Reviews — Heer Dagha | Top Rated Hair Artist & Makeup Stylist in Mumbai",
+      },
       {
         name: "description",
         content:
-          "Real words from brides, grooms and guests styled by Heer Dagha across Mumbai, Goa, Udaipur and destination weddings.",
+          "Read 5-star reviews from brides, grooms & clients styled by Heer Dagha across Andheri, Bandra, Churchgate, Mumbai & destination weddings. Rated 4.9/5 for long-lasting hairstyles & flawless makeup.",
       },
-      { property: "og:title", content: "Reviews — What Brides & Grooms Say | Heer Dagha" },
+      {
+        name: "keywords",
+        content:
+          "Heer Dagha reviews, Heer daga, her dagha, her daga, heer daha, heee dagha, heee daga, Best hair artist in mumbai, Best hair artist in Bandra, Best hair artist in Andheri, Best hair artist in churchgate, Best hair artist in India, Makeup artists reviews Mumbai, client feedback Heer Dagha",
+      },
+      {
+        property: "og:title",
+        content: "Client Reviews — Heer Dagha | Top Rated Hair Artist in Mumbai",
+      },
       {
         property: "og:description",
-        content: "1500+ happy faces and counting. Read the reviews from Heer Dagha's clients.",
+        content:
+          "1500+ happy faces and counting. Read real reviews from Heer Dagha's clients across Mumbai and destination events.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://heerdagha.com/reviews" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
@@ -44,6 +57,8 @@ function Reviews() {
   >([]);
   const [loading, setLoading] = useState(isSupabaseConfigured);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [selectedStarFilter, setSelectedStarFilter] = useState<number | null>(null);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -127,6 +142,7 @@ function Reviews() {
     setRole("");
     setQuote("");
     setRating(5);
+    setSelectedStarFilter(null);
     setIsOpen(false);
   };
 
@@ -157,8 +173,57 @@ function Reviews() {
   };
 
   const mergedReviews = isSupabaseConfigured
-    ? dbReviews.map((r) => ({ id: r.id, rating: 5, ...r }))
-    : localReviews.map((r) => ({ id: undefined, rating: 5, ...r }));
+    ? [
+        ...dbReviews.map((r) => ({
+          id: r.id,
+          name: r.name,
+          role: r.role,
+          quote: r.quote,
+          rating: r.rating ?? 5,
+        })),
+        ...reviews.map((r) => ({
+          id: undefined,
+          name: r.name,
+          role: r.role,
+          quote: r.quote,
+          rating: r.rating ?? 5,
+        })),
+      ]
+    : [
+        ...localReviews.map((r) => ({
+          id: undefined,
+          name: r.name,
+          role: r.role,
+          quote: r.quote,
+          rating: r.rating ?? 5,
+        })),
+        ...reviews.map((r) => ({
+          id: undefined,
+          name: r.name,
+          role: r.role,
+          quote: r.quote,
+          rating: r.rating ?? 5,
+        })),
+      ];
+
+  const totalCount = mergedReviews.length;
+  const averageRating =
+    totalCount > 0
+      ? (mergedReviews.reduce((sum, r) => sum + (r.rating ?? 5), 0) / totalCount).toFixed(1)
+      : "5.0";
+
+  const starCounts: Record<number, number> = {
+    5: mergedReviews.filter((r) => (r.rating ?? 5) === 5).length,
+    4: mergedReviews.filter((r) => (r.rating ?? 5) === 4).length,
+    3: mergedReviews.filter((r) => (r.rating ?? 5) === 3).length,
+    2: mergedReviews.filter((r) => (r.rating ?? 5) === 2).length,
+    1: mergedReviews.filter((r) => (r.rating ?? 5) === 1).length,
+  };
+
+  const filteredReviews =
+    selectedStarFilter !== null
+      ? mergedReviews.filter((r) => (r.rating ?? 5) === selectedStarFilter)
+      : mergedReviews;
 
   const [currentPage, setCurrentPage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -166,20 +231,22 @@ function Reviews() {
   const reviewsPerPage = 15;
   const initialVisibleReviews = 6;
 
-  const totalPages = Math.ceil(mergedReviews.length / reviewsPerPage);
-  const currentPageReviews = mergedReviews.slice(
+  const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
+  const currentPageReviews = filteredReviews.slice(
     currentPage * reviewsPerPage,
     (currentPage + 1) * reviewsPerPage,
   );
-  const visibleReviews = isExpanded
-    ? currentPageReviews
-    : currentPageReviews.slice(0, initialVisibleReviews);
+  const visibleReviews =
+    isExpanded || currentPage > 0
+      ? currentPageReviews
+      : currentPageReviews.slice(0, initialVisibleReviews);
 
-  const showReadMore = !isExpanded && currentPageReviews.length > initialVisibleReviews;
+  const showReadMore =
+    !isExpanded && currentPage === 0 && currentPageReviews.length > initialVisibleReviews;
 
   const handlePageChange = (pageIdx: number) => {
     setCurrentPage(pageIdx);
-    setIsExpanded(false);
+    setIsExpanded(true);
     const gridSection = document.getElementById("reviews-grid-section");
     if (gridSection) {
       gridSection.scrollIntoView({ behavior: "smooth" });
@@ -316,18 +383,283 @@ function Reviews() {
               </Reveal>
             ))}
           </div>
+
+          {/* Google Maps Style Rating Overview & Breakdown */}
+          <Reveal delay={0.15}>
+            <div className="glass-panel mt-6 sm:mt-12 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-border bg-card/40 backdrop-blur-md relative">
+              <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 lg:items-center lg:justify-between">
+                {/* Overall Score Box */}
+                <div className="flex flex-row lg:flex-col items-start lg:items-start justify-between lg:justify-start min-w-0 lg:min-w-[210px] border-b lg:border-b-0 lg:border-r border-border pb-3 sm:pb-6 lg:pb-0 lg:pr-8">
+                  <div className="flex items-baseline gap-1.5 sm:gap-2">
+                    <span className="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-gradient leading-none">
+                      {averageRating}
+                    </span>
+                    <span className="text-sm sm:text-xl text-muted-foreground font-display">/ 5.0</span>
+                  </div>
+
+                  <div className="flex flex-col items-end lg:items-start">
+                    {/* Stars display */}
+                    <div className="flex items-center gap-0.5 sm:gap-1 my-0.5 sm:my-3 text-accent">
+                      {Array.from({ length: 5 }).map((_, idx) => {
+                        const score = parseFloat(averageRating);
+                        const isFull = idx + 1 <= Math.floor(score);
+                        const isHalf = !isFull && idx < Math.ceil(score) && score % 1 >= 0.25;
+                        return (
+                          <div key={idx} className="relative">
+                            <Star
+                              className={`h-4 w-4 sm:h-6 sm:w-6 ${isFull ? "fill-current" : "text-muted-foreground/30"}`}
+                            />
+                            {isHalf && (
+                              <div className="absolute inset-0 overflow-hidden w-1/2">
+                                <Star className="h-4 w-4 sm:h-6 sm:w-6 fill-current text-accent" />
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <p className="text-[10px] sm:text-xs text-muted-foreground font-medium">
+                      Based on {totalCount} reviews
+                    </p>
+
+                    {selectedStarFilter !== null && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedStarFilter(null);
+                          setCurrentPage(0);
+                        }}
+                        className="mt-1 sm:mt-3 inline-flex items-center gap-1 text-[10px] sm:text-xs text-accent hover:underline cursor-pointer font-semibold"
+                      >
+                        <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        Show all ({totalCount})
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Mobile-only Filter Button on Top Right Corner */}
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileFilterOpen(true)}
+                    className="sm:hidden flex items-center gap-1.5 accent-gradient px-3 py-1.5 rounded-full text-xs font-semibold text-accent-foreground shadow-md cursor-pointer hover:scale-105 transition-transform"
+                  >
+                    <Filter className="h-3.5 w-3.5" />
+                    <span>{selectedStarFilter ? `${selectedStarFilter}★` : "Filter"}</span>
+                  </button>
+                </div>
+
+                {/* Rating Distribution Bars */}
+                <div className="flex-1 space-y-1 sm:space-y-2.5 max-w-xl">
+                  {[5, 4, 3, 2, 1].map((star) => {
+                    const count = starCounts[star] || 0;
+                    const percentage = totalCount > 0 ? Math.round((count / totalCount) * 100) : 0;
+                    const isSelected = selectedStarFilter === star;
+
+                    return (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => {
+                          setSelectedStarFilter(isSelected ? null : star);
+                          setCurrentPage(0);
+                          setIsExpanded(false);
+                        }}
+                        className={`w-full flex items-center gap-2 sm:gap-3 px-2 py-1 sm:p-2 rounded-lg sm:rounded-xl transition-all cursor-pointer text-left group ${
+                          isSelected
+                            ? "bg-accent/15 ring-1 ring-accent"
+                            : "hover:bg-card/60"
+                        }`}
+                        title={`Filter by ${star} star reviews`}
+                      >
+                        <div className="flex items-center gap-1 w-10 sm:w-16 shrink-0 text-[11px] sm:text-xs font-semibold text-foreground">
+                          <span>{star}</span>
+                          <Star className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent fill-current" />
+                        </div>
+
+                        <div className="flex-1 h-2 sm:h-3 rounded-full bg-muted/60 overflow-hidden relative">
+                          <div
+                            className="h-full accent-gradient rounded-full transition-all duration-500"
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+
+                        <div className="w-14 sm:w-20 text-right shrink-0 text-[10px] sm:text-xs text-muted-foreground font-medium group-hover:text-foreground">
+                          {count} <span className="text-[9px] sm:text-[10px] opacity-75">({percentage}%)</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Filter Pills / Tabs — Hidden on mobile (sm:hidden), visible on desktop (hidden sm:flex) */}
+              <div className="hidden sm:flex mt-8 pt-6 border-t border-border flex-wrap items-center gap-2">
+                <span className="text-xs font-medium text-muted-foreground mr-1 flex items-center gap-1">
+                  <Filter className="h-3.5 w-3.5 text-accent" /> Filter:
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedStarFilter(null);
+                    setCurrentPage(0);
+                    setIsExpanded(false);
+                  }}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    selectedStarFilter === null
+                      ? "accent-gradient text-accent-foreground shadow-sm font-semibold scale-105"
+                      : "bg-card/40 border border-border text-muted-foreground hover:border-accent hover:text-foreground"
+                  }`}
+                >
+                  All ({totalCount})
+                </button>
+
+                {[5, 4, 3, 2, 1].map((star) => {
+                  const count = starCounts[star] || 0;
+                  const isSelected = selectedStarFilter === star;
+                  return (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => {
+                        setSelectedStarFilter(isSelected ? null : star);
+                        setCurrentPage(0);
+                        setIsExpanded(false);
+                      }}
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer flex items-center gap-1 ${
+                        isSelected
+                          ? "accent-gradient text-accent-foreground shadow-sm font-semibold scale-105"
+                          : "bg-card/40 border border-border text-muted-foreground hover:border-accent hover:text-foreground"
+                      }`}
+                    >
+                      <span>{star} Star</span>
+                      <Star
+                        className={`h-3 w-3 ${isSelected ? "fill-current text-accent-foreground" : "text-accent fill-current"}`}
+                      />
+                      <span className="text-[11px] opacity-80">({count})</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Mobile Filter Popup Dialog */}
+          <Dialog open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
+            <DialogContent className="glass-panel text-foreground border-border max-w-xs p-6 rounded-3xl">
+              <DialogHeader>
+                <DialogTitle className="font-display text-xl text-gradient flex items-center gap-2">
+                  <Filter className="h-4 w-4 text-accent" /> Filter Reviews
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground text-xs mt-1">
+                  Choose a star rating to filter client reviews:
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-2 mt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedStarFilter(null);
+                    setCurrentPage(0);
+                    setIsExpanded(false);
+                    setIsMobileFilterOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between p-3 rounded-2xl border text-xs font-semibold transition-all cursor-pointer ${
+                    selectedStarFilter === null
+                      ? "accent-gradient border-transparent text-accent-foreground shadow-md"
+                      : "border-border bg-card/40 text-foreground hover:border-accent"
+                  }`}
+                >
+                  <span>All Reviews</span>
+                  <span className="text-xs opacity-80">({totalCount})</span>
+                </button>
+
+                {[5, 4, 3, 2, 1].map((star) => {
+                  const count = starCounts[star] || 0;
+                  const isSelected = selectedStarFilter === star;
+                  return (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => {
+                        setSelectedStarFilter(star);
+                        setCurrentPage(0);
+                        setIsExpanded(false);
+                        setIsMobileFilterOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between p-3 rounded-2xl border text-xs font-semibold transition-all cursor-pointer ${
+                        isSelected
+                          ? "accent-gradient border-transparent text-accent-foreground shadow-md"
+                          : "border-border bg-card/40 text-foreground hover:border-accent"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span>{star} Stars</span>
+                        <div className="flex text-accent gap-0.5">
+                          {Array.from({ length: star }).map((_, j) => (
+                            <Star
+                              key={j}
+                              className={`h-3 w-3 ${isSelected ? "fill-current text-accent-foreground" : "fill-current text-accent"}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <span className="text-xs opacity-80">({count})</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
 
-      <section id="reviews-grid-section" className="px-4 py-16 scroll-mt-24">
+      <section id="reviews-grid-section" className="px-4 py-12 scroll-mt-24">
         <div className="mx-auto max-w-6xl">
+          {selectedStarFilter !== null && (
+            <div className="mb-6 flex items-center justify-between bg-card/30 border border-border p-4 rounded-2xl">
+              <p className="text-xs font-medium text-muted-foreground">
+                Showing <span className="text-foreground font-semibold">{filteredReviews.length}</span> {selectedStarFilter}-star review{filteredReviews.length !== 1 ? "s" : ""}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedStarFilter(null);
+                  setCurrentPage(0);
+                }}
+                className="text-xs text-accent font-semibold flex items-center gap-1 hover:underline cursor-pointer"
+              >
+                <RotateCcw className="h-3 w-3" /> Clear filter
+              </button>
+            </div>
+          )}
+
           {visibleReviews.length === 0 ? (
             <Reveal>
               <div className="glass-panel text-center py-16 px-6 rounded-3xl border border-border">
-                <p className="text-xl font-display text-muted-foreground">No client reviews submitted yet</p>
-                <p className="text-xs text-muted-foreground/70 mt-2">
-                  Be the first to share your experience by clicking "Add a review" above.
+                <p className="text-xl font-display text-muted-foreground">
+                  No {selectedStarFilter ? `${selectedStarFilter}-star` : ""} client reviews found
                 </p>
+                <p className="text-xs text-muted-foreground/70 mt-2">
+                  {selectedStarFilter
+                    ? `There are currently no ${selectedStarFilter}-star reviews in our database.`
+                    : "Be the first to share your experience by clicking \"Add a review\" above."}
+                </p>
+                {selectedStarFilter !== null && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedStarFilter(null);
+                      setCurrentPage(0);
+                    }}
+                    className="mt-6 inline-flex items-center gap-2 rounded-full accent-gradient px-6 py-2.5 text-xs font-semibold text-accent-foreground hover:scale-[1.02] transition-transform cursor-pointer"
+                  >
+                    <RotateCcw className="h-4 w-4" />
+                    View All Reviews ({totalCount})
+                  </button>
+                )}
               </div>
             </Reveal>
           ) : (
@@ -362,14 +694,19 @@ function Reviews() {
                             <p className="font-display text-lg">{r.name}</p>
                             <p className="text-xs text-muted-foreground">{r.role}</p>
                           </div>
-                          <span className="flex gap-0.5 text-accent">
-                            {Array.from({ length: 5 }).map((_, j) => (
-                              <Star
-                                key={j}
-                                className={`h-3 w-3 ${j < (r.rating ?? 5) ? "fill-current" : "text-muted-foreground/30"}`}
-                              />
-                            ))}
-                          </span>
+                          <div className="flex flex-col items-end gap-1">
+                            <span className="flex gap-0.5 text-accent">
+                              {Array.from({ length: 5 }).map((_, j) => (
+                                <Star
+                                  key={j}
+                                  className={`h-3 w-3 ${j < (r.rating ?? 5) ? "fill-current" : "text-muted-foreground/30"}`}
+                                />
+                              ))}
+                            </span>
+                            <span className="text-[10px] text-muted-foreground font-semibold">
+                              {(r.rating ?? 5).toFixed(1)} ★
+                            </span>
+                          </div>
                         </div>
                       </article>
                     </TiltCard>
@@ -391,40 +728,54 @@ function Reviews() {
             </div>
           )}
 
-          {totalPages > 1 && isExpanded && (
-            <div className="mt-14 flex items-center justify-center gap-2">
-              <button
-                type="button"
-                disabled={currentPage === 0}
-                onClick={() => handlePageChange(currentPage - 1)}
-                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-card/25 text-muted-foreground transition-all hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-30"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-
-              {Array.from({ length: totalPages }).map((_, idx) => (
+          {totalPages > 1 && (
+            <div className="mt-14 flex flex-col items-center gap-4">
+              <div className="flex items-center justify-center gap-2">
                 <button
-                  key={idx}
                   type="button"
-                  onClick={() => handlePageChange(idx)}
-                  className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border text-xs font-semibold transition-all duration-200 ${
-                    currentPage === idx
-                      ? "accent-gradient border-transparent text-accent-foreground shadow-md scale-105"
-                      : "border-border bg-card/25 text-muted-foreground hover:border-accent hover:text-foreground"
-                  }`}
+                  disabled={currentPage === 0}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-card/25 text-muted-foreground transition-all hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-30"
+                  title="Previous page"
                 >
-                  {idx + 1}
+                  <ChevronLeft className="h-5 w-5" />
                 </button>
-              ))}
 
-              <button
-                type="button"
-                disabled={currentPage === totalPages - 1}
-                onClick={() => handlePageChange(currentPage + 1)}
-                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-card/25 text-muted-foreground transition-all hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-30"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
+                {Array.from({ length: totalPages }).map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handlePageChange(idx)}
+                    className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border text-xs font-semibold transition-all duration-200 ${
+                      currentPage === idx
+                        ? "accent-gradient border-transparent text-accent-foreground shadow-md scale-105"
+                        : "border-border bg-card/25 text-muted-foreground hover:border-accent hover:text-foreground"
+                    }`}
+                  >
+                    {idx + 1}
+                  </button>
+                ))}
+
+                <button
+                  type="button"
+                  disabled={currentPage === totalPages - 1}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-card/25 text-muted-foreground transition-all hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-30"
+                  title="Next page"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+
+              {currentPage > 0 && (
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(0)}
+                  className="text-xs text-accent font-semibold hover:underline flex items-center gap-1 cursor-pointer transition-colors"
+                >
+                  <ChevronLeft className="h-3.5 w-3.5" /> Back to page 1
+                </button>
+              )}
             </div>
           )}
         </div>
