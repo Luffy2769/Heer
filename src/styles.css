@@ -156,7 +156,9 @@
 
 @utility text-gradient {
   background-image: var(--gradient-heading);
+  -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 

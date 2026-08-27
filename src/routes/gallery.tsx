@@ -11,26 +11,17 @@ import cocktail2 from "@/assets/Cocktail2.webp";
 import haldiMehendi from "@/assets/Haldi_mehendi.webp";
 import img4384 from "@/assets/IMG_4384.webp";
 import img6049 from "@/assets/IMG_6049.webp";
-import img6059 from "@/assets/IMG_6059.webp";
 import img6318 from "@/assets/IMG_6318.webp";
-import img6319 from "@/assets/IMG_6319.webp";
-import img6324 from "@/assets/IMG_6324.webp";
 import img6898 from "@/assets/IMG_6898.JPG.webp";
-import img6901 from "@/assets/IMG_6901.JPG.webp";
-import img6925 from "@/assets/IMG_6925.JPG.webp";
-import img6926 from "@/assets/IMG_6926.JPG.webp";
+import img6925 from "@/assets/IMG_6925.webp";
 import img7197 from "@/assets/IMG_7197.webp";
 import img7376 from "@/assets/IMG_7376.JPG.webp";
 import img7524 from "@/assets/IMG_7524.webp";
 import img7668 from "@/assets/IMG_7668.webp";
-import img7672 from "@/assets/IMG_7672.webp";
 import img7701 from "@/assets/IMG_7701.JPG.webp";
-import img7704 from "@/assets/IMG_7704.JPG.webp";
 import img7960 from "@/assets/IMG_7960.webp";
 import img8024 from "@/assets/IMG_8024.webp";
 import img8045 from "@/assets/IMG_8045.webp";
-import img8282 from "@/assets/IMG_8282.webp";
-import img8284 from "@/assets/IMG_8284.webp";
 import img9658 from "@/assets/IMG_9658.webp";
 import img9729 from "@/assets/IMG_9729.webp";
 import matureLook from "@/assets/Mature_look.webp";
@@ -91,26 +82,17 @@ const galleryImages = [
   { src: img3136, alt: "Bridal client portrait", objectPosition: "50% 15%" },
   { src: img8531, alt: "Soft glam hairstyle", objectPosition: "50% 15%" },
   { src: img6898, alt: "Textured sangeet curls" },
-  { src: img6901, alt: "Glowy soft glam makeup" },
   { src: img6925, alt: "Sleek cocktail style" },
-  { src: img6926, alt: "Traditional bridal bun" },
   { src: img7701, alt: "Engagement hair styling" },
-  { src: img7704, alt: "Daytime haldi look" },
   { src: img4384, alt: "Royal bridal look" },
   { src: img6049, alt: "Elegant detailed braid" },
-  { src: img6059, alt: "Textured updo design" },
   { src: img6318, alt: "Sangeet hairstyle" },
-  { src: img6319, alt: "Bridal glam detail" },
-  { src: img6324, alt: "Statement hair waves" },
   { src: img7197, alt: "Contemporary bridal look" },
   { src: img7524, alt: "Haldi ceremony style" },
   { src: img7668, alt: "Cocktail glam waves" },
-  { src: img7672, alt: "Intimate function style" },
   { src: img7960, alt: "Couture wedding hair" },
   { src: img8024, alt: "Signature hair artistry" },
   { src: img8045, alt: "Soft texture waves" },
-  { src: img8282, alt: "Reception glow" },
-  { src: img8284, alt: "Breezy daytime waves" },
   { src: img9658, alt: "Bridal hair design" },
   { src: img9729, alt: "Flawless HD glam" },
 ];

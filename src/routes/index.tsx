@@ -7,7 +7,7 @@ import { Reveal, TiltCard, Marquee, Parallax } from "@/components/site/motion-bi
 import AccordionGallery from "@/components/site/AccordionGallery";
 import CircularGallery from "@/components/site/CircularGallery";
 import { AwardsSection } from "@/components/site/AwardsSection";
-import heroBride from "@/assets/heer_home.webp";
+import heroBride from "@/assets/Heer_home.webp";
 import lookSoftGlam from "@/assets/No_makeup_soft_glam.webp";
 import lookCocktail from "@/assets/Cocktail1.webp";
 import lookHaldi from "@/assets/Haldi_mehendi.webp";
@@ -166,14 +166,14 @@ function Home() {
             </motion.p>
 
             <h1 className="mt-6 font-brand text-[clamp(2.5rem,8.5vw,4.8rem)] font-light leading-[1.05] tracking-wide uppercase whitespace-nowrap order-2 lg:order-none">
-              <span className="text-gradient">
+              <span className="inline-block text-gradient">
                 {"HEER DAGHA".split("").map((c, i) => (
                   <motion.span
                     key={`a${i}`}
                     className="inline-block"
-                    initial={{ opacity: 0, y: 40, rotateX: -70 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{ delay: 0.04 * i, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.04 * i, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   >
                     {c === " " ? "\u00A0" : c}
                   </motion.span>
