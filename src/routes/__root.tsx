@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -219,17 +220,17 @@ function RootShell({ children }: { children: ReactNode }) {
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-QVQ61GWBV6"
-        />
+        ></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
+              function gtag(){window.dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-QVQ61GWBV6');
             `,
           }}
-        />
+        ></script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
@@ -245,6 +246,22 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      try {
+        const pagePath = window.location.pathname + window.location.search;
+        (window as any).gtag("config", "G-QVQ61GWBV6", {
+          page_path: pagePath,
+          page_location: window.location.href,
+          page_title: document.title,
+        });
+      } catch (err) {
+        console.error("GA4 pageview tracking error:", err);
+      }
+    }
+  }, [location.pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
