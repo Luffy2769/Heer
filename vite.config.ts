@@ -2,7 +2,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { fileURLToPath } from "node:url";
 
 const isProd = process.env.NODE_ENV === "production";
-const base = isProd ? "/Heer/" : "/";
+const base = isProd ? "/" : "/";
 
 export default defineConfig({
   vite: {
