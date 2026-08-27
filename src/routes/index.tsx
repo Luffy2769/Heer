@@ -202,7 +202,7 @@ function Home() {
               transition={{ delay: 0.5, duration: 0.7 }}
               className="mt-6 max-w-lg text-base text-muted-foreground order-3 lg:order-none"
             >
-              Bespoke Bridal and Editorial Artistry, Makeup and Draping Professional — Made to carry
+              Bespoke Bridal Hairstylist and Editorial Artistry, Makeup and Draping Professional — Made to carry
               your Vision into reality with a Touch of Art for all the Occasions and Ceremonies
             </motion.p>
 
